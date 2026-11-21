@@ -17,6 +17,7 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 | 5 | 1,000 Balls, One Bell Curve (a Galton board builds the binomial curve, and every bin plays a note) | Probability | 35.2 s, 9:16 | Ready to post | [prod-ready/galton-board/](prod-ready/galton-board/) |
 | 6 | How Fast Can a Heart Beat (whale to shrew, 241 × M^-1/4; the shrew's 19.5 Hz heart becomes the drop note) | How Life Works | 32 s, 9:16 | Ready to post | [prod-ready/heart-rate/](prod-ready/heart-rate/) |
 | 7 | Which Note Breaks This Glass? (a speaker finds a wine glass's own note; the glass shatters on the drop) | Every Wave | 38.4 s, 9:16 | Ready to post | [prod-ready/glass-resonance/](prod-ready/glass-resonance/) |
+| 8 | What Does Mach 1 Sound Like? (the engine heard ahead climbs the harmonic series to the sonic boom; every kick in the drop is a boom hitting a tower) | Every Wave | 32 s, 9:16 | Ready to post | [prod-ready/mach-one/](prod-ready/mach-one/) |
 
 The full bank of ideas is in [docs/ideas.md](docs/ideas.md).
 

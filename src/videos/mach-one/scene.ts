@@ -17,7 +17,7 @@ function tex(size: number, paint: (g: CanvasRenderingContext2D) => void, rx = 1,
 }
 
 export const MAX_RINGS = 24;
-export const MAX_TOWERS = 24;
+export const MAX_TOWERS = 40;
 export const GROUND_TILE = 8; // world units per ground texture repeat (adjusted to the loop in the video)
 
 export type MachScene = {
@@ -38,6 +38,7 @@ export type MachScene = {
   coneLines: THREE.LineSegments;
   towers: { group: THREE.Group; beacon: THREE.Mesh; beaconMat: THREE.MeshBasicMaterial; wave: THREE.Mesh; waveMat: THREE.MeshBasicMaterial }[];
   burnerLight: THREE.PointLight;
+  person: THREE.Group;
 };
 
 function box(w: number, h: number, d: number, color: string, x: number, y: number, z: number) {
@@ -172,5 +173,18 @@ export function buildScene(width: number, height: number, alt: number): MachScen
     towers.push({ group, beacon, beaconMat, wave, waveMat });
   }
 
-  return { renderer, scene, camera, jet, burner, burnerMat, vapor, vaporMat, ground, clouds, rings, ringMats, cone, coneMat, coneLines, towers, burnerLight };
+  // the listener: a person on a lookout platform (placed on her tower in the video); not to scale, like the jet
+  const person = new THREE.Group();
+  const pm = (c: string) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.8, flatShading: true });
+  const part = (w: number, h: number, d: number, c: string, x: number, y: number) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), pm(c)); m.position.set(x, y, 0); m.castShadow = true; person.add(m); };
+  part(0.5, 0.04, 0.5, C["5a6988"], 0, 0.02); // platform
+  part(0.05, 0.12, 0.06, C["262b44"], -0.035, 0.1); part(0.05, 0.12, 0.06, C["262b44"], 0.035, 0.1); // legs
+  part(0.13, 0.13, 0.08, C["b55088"], 0, 0.22); // jacket
+  part(0.035, 0.11, 0.05, C["b55088"], -0.085, 0.22); part(0.035, 0.11, 0.05, C["b55088"], 0.085, 0.22);
+  part(0.09, 0.09, 0.09, C["e8b796"], 0, 0.33); // head
+  part(0.1, 0.035, 0.1, C["3e2731"], 0, 0.385); // hair
+  person.visible = false;
+  scene.add(person);
+
+  return { renderer, scene, camera, jet, burner, burnerMat, vapor, vaporMat, ground, clouds, rings, ringMats, cone, coneMat, coneLines, towers, burnerLight, person };
 }

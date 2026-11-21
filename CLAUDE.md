@@ -20,12 +20,13 @@ Before shipping, watch the render as that stranger and write two sentences in `p
 
 ## Music direction
 
-Each video keeps its own music: genre, tempo and melody follow the video (chiptune pop, hard techno, whatever fits). What every track shares is the foundation, and the rule that everything agrees:
+**Target sound: the channel owner's reference**, thel.ab67 "How a zombie outbreak starts" (music by LABORATOR), measured in `docs/music-reference.md`. This is the house sound for every new video: hard techno around 145-150 BPM, a dark minor key, four-on-the-floor "dem" kick, a distorted reese wall in the low end, clap on 2 and 4, 16th hats, offbeat open hat, dense and level from the first frame. Drum and bass or EDM only when the content clearly asks for it, and then just as dark and dense.
+What makes the reference work, and what every video copies: **each thing on screen is an instrument.** In the reference the ECG is the kick, the heart monitor is the melody, the oxygen reading is the bass, the fever curve is the riser. So every visible element gets its own sound, the viewer can point at what they hear, and the music and the content are the same thing.
+What every track shares is the foundation, and the rule that everything agrees:
 - **The kick is the "dem".** A deep, long, distorted kick (kick_909, decay 2.0, heavy distortion, long notes so it rings ~300 ms), built with `music/_shared/dem.py`. Each hit is tuned to the root of the chord it sits under (`dem_tracks`), so the kick is the bass note and never fights the harmony. It comes with a "top" layer (same hits, bright, driven, highpassed at 150 Hz) because phone speakers cannot play the 43-65 Hz body; without it the kick vanishes on a phone. Keep the dem's drive low (4): its distortion sits after the gain, so a hard-driven dem stays loud whatever the gain and buries the melody.
 - **The bass locks to the kick.** The bass line plays the same roots an octave above the kick, on the kick's rhythm. No separate sub under it.
 - **Everything is selaras (in agreement).** One key, one chord progression that the bass, pads, leads and physics notes all follow; physics notes are tones of the current chord. One grid: every layer, physics included, lands on the same 8th/16th grid, and there is never a second, competing drum pattern. Choose the simulation's time scale so its events fall on the grid.
 - **Mix for a phone at low volume.** Most people hear these on a phone speaker, which plays almost nothing below ~200 Hz. In the 200 Hz-5 kHz band, the lead melody, the kick's top, the bass and the physics sounds should sit within a few dB of each other; no single layer (e.g. the clacks) should stand alone on top.
-- Hard techno (`docs/music-reference.md`, Jupiter's Moons) is one style, not the house style.
 - Check every new track: `uv run --locked python scripts/analyze_audio.py public/<slug>/track.wav` (all bands report the same tempo), `python3 scripts/analyze_kick.py public/<slug>/track.wav <bpm> <start> <end> 0` per bar (kick body on the chord root, ringing ~300 ms), and `python3 scripts/analyze_bass.py` (bass notes = the chord roots).
 
 ## Loops

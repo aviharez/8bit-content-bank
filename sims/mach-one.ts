@@ -5,7 +5,7 @@
 // every front arrives at once, the sonic boom. Past Mach 1 the fronts trail in a cone of half-angle asin(1/M); nothing
 // is heard ahead, and each place hears one boom when the cone sweeps over it.
 //
-// Clock: drum and bass at 180 BPM, 30 fps = 10 frames per beat. 24 bars = 32 s. Real time, no warp.
+// Clock: hard techno at 150 BPM, 30 fps = 12 frames per beat. 24 bars = 38.4 s. Real time, no warp.
 // The pilot throttles up in steps (a quarter-beat ramp each) so that the pitch heard ahead sits on a harmonic
 // (2x, 3x, 4x, 6x, 8x ... D and A only, the notes of a D power chord) and each new harmonic starts on the grid.
 // Engine tone: D1 (36.7 Hz); 2x = D2, 3x = A2, 4x = D3 ...
@@ -16,12 +16,12 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 
 export const FPS = 30;
-export const BPM = 180;
+export const BPM = 150;
 const SPB = 60 / BPM;
-const FPB = SPB * FPS; // 10
+const FPB = SPB * FPS; // 12
 export const BARS = 24;
 const BEATS = BARS * 4;
-export const TOTAL_FRAMES = BEATS * FPB; // 960
+export const TOTAL_FRAMES = BEATS * FPB; // 1152
 export const DROP_BAR = 12, OUTRO_BAR = 20;
 const C = 3.43; // units / s (343 m/s)
 const ALT = 1.0; // flight altitude, units (100 m)
@@ -78,12 +78,12 @@ for (const [at, k] of UP) heard.push({ beat: at, k, midi: 26 + Math.round(12 * M
 for (const [at, k] of DOWN) heard.push({ beat: at, k, midi: 26 + Math.round(12 * Math.log2(k)) });
 
 // ---------------------------------------------------------------- the towers: one boom per kick in the drop
+// four on the floor (one beat of air before Mach 1), clap on 2 and 4
 const kicks: number[] = [], snares: number[] = [];
 for (let b = 0; b < BARS; b++) {
   const t = b * 4;
-  kicks.push(t);
-  if (b !== DROP_BAR - 1) { kicks.push(t + 2.5); snares.push(t + 1, t + 3); } else snares.push(t + 1);
-  if (b >= DROP_BAR && b < OUTRO_BAR && b % 2 === 1) kicks.push(t + 3.75);
+  for (let q = 0; q < 4; q++) if (!(b === DROP_BAR - 1 && q === 3)) kicks.push(t + q);
+  snares.push(t + 1, t + 3);
 }
 /** When the boom reaches the point (s, y): the earliest arrival of any front emitted since Mach 1 (the cone). Sound from
  * the subsonic part of the flight may have reached it earlier (quietly); the boom is this one. */
@@ -107,10 +107,15 @@ kicks.filter((k) => k > DROP_BAR * 4 && k < OUTRO_BAR * 4).forEach((kb, i) => {
   towers.push({ beat: kb, s, y, arrival: firstArrival(s, y, tb) / SPB });
 });
 
+// the listener: she stands on one of the lookout towers; she hears the squeezed engine note while the jet is far away and
+// slower than sound, nothing once it is faster, and then her boom, on the kick of beat 66 (bar 16, beat 3)
+const LISTENER_BEAT = 66;
+const listener = towers.findIndex((tw) => Math.abs(tw.beat - LISTENER_BEAT) < 1e-6);
+
 mkdirSync("public/mach-one", { recursive: true });
 writeFileSync("public/mach-one/timeline.json", JSON.stringify({
   fps: FPS, bpm: BPM, framesPerBeat: FPB, bars: BARS, totalFrames: TOTAL_FRAMES, dropBar: DROP_BAR, outroBar: OUTRO_BAR,
-  c: C, alt: ALT, ringLife: RING_LIFE, loopDist: LOOP_DIST, frames, rings, heard, kicks, snares, towers,
+  c: C, alt: ALT, ringLife: RING_LIFE, loopDist: LOOP_DIST, frames, rings, heard, kicks, snares, towers, listener,
 }));
 
 console.log(`distance flown in the loop: ${(LOOP_DIST * 0.1).toFixed(1)} km; Mach at beats 0/16/30/40/47.9/48/64/80/88/96:`,

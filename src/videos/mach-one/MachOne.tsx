@@ -13,16 +13,18 @@ import timeline from "../../../public/mach-one/timeline.json";
 const W = 360, H = 640, SCALE = 3, M = 28;
 type TL = { fps: number; framesPerBeat: number; totalFrames: number; dropBar: number; outroBar: number; c: number; alt: number; ringLife: number; loopDist: number;
   frames: { s: number; mach: number }[]; rings: { t: number; s: number }[]; heard: { beat: number; k: number; midi: number }[];
-  towers: { beat: number; s: number; y: number }[] };
+  towers: { beat: number; s: number; y: number }[]; listener: number };
 const T = timeline as unknown as TL;
 const FPS = T.fps, FPB = T.framesPerBeat, BAR = 4 * FPB, DURATION = T.totalFrames, LOOP_S = DURATION / FPS;
 const DROP_F = T.dropBar * BAR, OUTRO_F = T.outroBar * BAR;
 const ease = Easing.inOut(Easing.cubic);
-const NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-const noteName = (m: number) => `${NAMES[m % 12]}${Math.floor(m / 12) - 1}`;
 // ground and clouds repeat a whole number of times over the loop, so the last frame matches the first
 const TILE = T.loopDist / Math.round(T.loopDist / GROUND_TILE);
 const CLOUD_SPAN = TILE * 6;
+const HER = T.towers[T.listener];
+const HER_F = HER.beat * FPB;
+// the camera visits her: it leaves the jet a bar before her boom and comes back a bar and a half after
+const VISIT = [HER_F - 50, HER_F - 26, HER_F + 34, HER_F + 60];
 
 let S: MachScene | null = null;
 
@@ -37,7 +39,7 @@ function heardAt(f: number) {
 
 function render3D(f: number) {
   S ??= buildScene(W, H, T.alt);
-  const { renderer, scene, camera, jet, burner, burnerMat, burnerLight, vaporMat, ground, clouds, rings, ringMats, cone, coneMat, coneLines, towers } = S;
+  const { renderer, scene, camera, jet, burner, burnerMat, burnerLight, vaporMat, ground, clouds, rings, ringMats, cone, coneMat, coneLines, towers, person } = S;
   const t = f / FPS, { s, mach } = T.frames[f];
 
   // the world moves past the jet (the jet stays at the origin, heading -z)
@@ -102,6 +104,12 @@ function render3D(f: number) {
     } else { o.beaconMat.color.set(C["3a4466"]); o.beacon.scale.setScalar(1); o.waveMat.opacity = 0; }
   });
   for (let i = T.towers.length; i < towers.length; i++) towers[i].group.visible = false;
+  // she stands on her tower; the boom makes her jump
+  const herZ = -(HER.s - s);
+  person.visible = towers[T.listener].group.visible;
+  const sinceHer = f - HER_F;
+  person.position.set(HER.y, T.alt + 0.1 + (sinceHer >= 0 && sinceHer < 6 ? 0.12 * Math.sin((Math.PI * sinceHer) / 6) : 0), herZ);
+  person.rotation.y = Math.PI * 0.15 * Math.sign(HER.y);
 
   // camera: above and behind; it climbs and pulls back as the cone opens behind the jet, and returns for the loop
   const pull = interpolate(f, [0, DROP_F - 2 * BAR, DROP_F, OUTRO_F, DURATION - 1], [0, 0.15, 0.55, 0.55, 0],
@@ -111,7 +119,17 @@ function render3D(f: number) {
   camera.position.set(Math.sin(orbit) * d * 0.6, T.alt + 6.8 + 3.5 * pull, Math.cos(orbit) * d);
   const hit = f >= DROP_F && f < DROP_F + 8 ? 0.15 * Math.exp(-(f - DROP_F) / 2) : 0; // Mach 1: the one camera hit
   camera.position.x += Math.sin(f * 12.9) * hit; camera.position.y += Math.cos(f * 7.3) * hit;
-  camera.lookAt(0, T.alt, -0.7 + 3.6 * pull); // ahead of the jet while subsonic (the pile-up), behind it in the drop (the cone)
+  const chaseLook = new THREE.Vector3(0, T.alt, -0.7 + 3.6 * pull); // ahead of the jet while subsonic (the pile-up), behind it in the drop (the cone)
+  // her camera: beside her, a little ahead, looking back up the path at the jet coming
+  const w = interpolate(f, VISIT, [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  if (w > 0) {
+    const side = Math.sign(HER.y);
+    const herPos = new THREE.Vector3(HER.y + side * 1.4, T.alt + 0.7, herZ - 2.1);
+    const herLook = new THREE.Vector3(HER.y * 0.5, T.alt + 0.1, herZ + 2.6);
+    camera.position.lerp(herPos, w);
+    chaseLook.lerp(herLook, w);
+  }
+  camera.lookAt(chaseLook);
   camera.updateMatrixWorld();
   renderer.render(scene, camera);
   return { mach };
@@ -120,18 +138,31 @@ function render3D(f: number) {
 function captionAt(f: number): [string, string] | "code" {
   const bar = Math.floor(f / BAR);
   if (bar < 2) return ["EACH RING IS", "THE JET'S SOUND"];
-  if (bar < 4) return ["IT SPREADS AT", "343 M/S, NO FASTER"];
-  if (bar < 6) return ["FASTER JET:", "RINGS PILE UP AHEAD"];
-  if (bar < 8) return ["AHEAD, YOU HEAR", "A HIGHER NOTE"];
-  if (bar < 10) return ["2x 3x 4x 6x 8x", "THE HARMONIC SERIES"];
-  if (bar < 12) return ["AT MACH 1", "THEY ALL ARRIVE AT ONCE"];
-  if (bar < 16) return ["SONIC BOOM", "EVERY KICK HITS A TOWER"];
-  if (bar < 20) return ["AHEAD OF THE CONE:", "SILENCE"];
+  if (bar < 4) return ["SOUND TRAVELS AT", "1,235 KM/H. ALWAYS."];
+  if (bar < 6) return ["THE JET SPEEDS UP", "AND CHASES ITS SOUND"];
+  if (bar < 8) return ["RINGS SQUEEZE", "IN FRONT OF THE JET"];
+  if (bar < 10) return ["HIGHER NOTE AHEAD", "LIKE AN AMBULANCE SIREN"];
+  if (bar < 12) return ["SPEED OF SOUND:", "THE RINGS STACK UP"];
+  if (bar < 14) return ["ONE BIG WALL", "THAT'S THE BOOM"];
+  if (bar < 16) return ["FASTER THAN SOUND", "THE WALL TRAILS BEHIND"];
+  if (bar < 18) return ["SHE HEARS NOTHING", "UNTIL THE WALL HITS"];
+  if (bar < 20) return ["EVERY TOWER", "GETS ITS OWN BOOM"];
   if (bar < 22) return "code";
-  return ["SLOWER THAN SOUND", "THE NOTE COMES BACK"];
+  return ["SLOWER THAN SOUND", "THE NOTE IS BACK"];
+}
+
+/** What the listener ahead hears, in plain words, and how squeezed the wave is (wave period in pixels; 0 = silence). */
+function hearsAt(f: number): { who: string; what: string; period: number; boom: boolean } {
+  const who = f < HER_F + 3 * FPB ? "SHE HEARS" : "NEXT TOWER HEARS";
+  if (f >= HER_F && f < HER_F + 3 * FPB) return { who, what: "BOOM!", period: 0, boom: true };
+  const h = heardAt(f);
+  if (!h) return { who, what: "NOTHING", period: 0, boom: false };
+  const what = h.k <= 2 ? "A LOW HUM" : h.k <= 4 ? "HIGHER" : h.k <= 12 ? "HIGHER STILL" : "A SCREAM";
+  return { who, what, period: Math.max(2, 36 / h.k), boom: false };
 }
 
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+const kmh = (mach: number) => Math.round((mach * 343 * 3.6) / 5) * 5;
 
 function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, f: number, cover = false) {
   const { mach } = render3D(f);
@@ -143,38 +174,55 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
   const { rect, text, measure, panel } = pixelKit(ov);
   const ty = cover ? 86 : 34;
   panel(M, ty, W - 2 * M, 70, C["c0cbdc"]);
-  text("WHAT DOES MACH 1", W / 2, ty + 10, "p16", C["c0cbdc"], "c");
-  text("SOUND LIKE?", W / 2, ty + 32, "p24", C["fee761"], "c", C["be4a2f"]);
+  text("WHY DO JETS", W / 2, ty + 10, "p16", C["c0cbdc"], "c");
+  text("GO BOOM?", W / 2, ty + 32, "p32", C["fee761"], "c", C["be4a2f"]);
 
   if (cover) {
     panel(M + 20, 452, W - 2 * M - 40, 52, C["c0cbdc"]);
-    text("THE NOTE AHEAD", W / 2, 462, "p16", C["ffffff"], "c");
-    text("CLIMBS... THEN BOOM", W / 2, 482, "s16", C["fee761"], "c");
+    text("FASTER THAN SOUND", W / 2, 462, "p16", C["ffffff"], "c");
+    text("WATCH THE RINGS", W / 2, 482, "s16", C["fee761"], "c");
     text("@squarewavelab", W / 2, 586, "s16", C["c0cbdc"], "c", C["181425"]);
   } else {
-    panel(M, 110, W - 2 * M, 62);
-    text("SPEED", M + 10, 116, "s16", C["8b9bb4"]);
-    text(`MACH ${mach.toFixed(2)}`, M + 10, 134, "p16", mach >= 1 ? C["fee761"] : C["ffffff"]);
-    text(`${Math.round(mach * 343)} m/s`, M + 10, 152, "p16", C["8b9bb4"]);
-    const h = heardAt(f);
-    text(h ? "HEARD AHEAD" : "MACH CONE", W - M - 10, 116, "s16", C["8b9bb4"], "r");
-    if (h) {
-      const nn = noteName(h.midi), kk = `x${h.k}`;
-      text(kk, W - M - 10, 140, "p24", C["2ce8f5"], "r");
-      text(nn, W - M - 10 - measure(kk, "p24") - 8, 146, "p16", C["ffffff"], "r");
-    } else {
-      const deg = Math.round((Math.asin(1 / Math.max(1, mach)) * 180) / Math.PI);
-      text(`${deg} DEG`, W - M - 10, 140, "p16", C["fee761"], "r");
+    // speedometer: the jet's speed against the speed of sound
+    panel(M, 110, W - 2 * M, 44);
+    text("JET SPEED", M + 10, 116, "s16", C["8b9bb4"]);
+    text(`${kmh(mach).toLocaleString("en-US")} km/h`, W - M - 10, 114, "p16", mach >= 1 ? C["fee761"] : C["ffffff"], "r");
+    const bx = M + 10, bw = W - 2 * M - 20, by = 136, sx = bx + bw / 2; // the bar runs to twice the speed of sound
+    rect(bx, by, bw, 8, C["262b44"]);
+    rect(bx, by, Math.min(bw, (bw * mach) / 2), 8, mach >= 1 ? C["fee761"] : C["2ce8f5"]);
+    rect(sx - 1, by - 4, 2, 16, C["ff0044"]);
+    text("SOUND", sx + 4, by - 6, "s16", C["ff0044"]);
+
+    // what the listener ahead hears: a wave that squeezes as the note climbs
+    const h = hearsAt(f);
+    panel(M, 160, W - 2 * M, 44, h.boom ? C["ffffff"] : C["5a6988"]);
+    text(h.who, M + 10, 166, "s16", C["8b9bb4"]);
+    text(h.what, W - M - 10, 166, "s16", h.boom ? C["ffffff"] : h.period ? C["2ce8f5"] : C["ff0044"], "r");
+    const wx = M + 10, ww = W - 2 * M - 20, wy = 192;
+    for (let x = 0; x < ww; x++) {
+      let y = 0;
+      if (h.boom) y = Math.abs(x - ww / 2) < 6 ? -9 * (1 - Math.abs(x - ww / 2) / 6) * (f % 2 ? 1 : -1) : 0;
+      else if (h.period) y = 6 * Math.sin(((x + f * 3) / h.period) * Math.PI * 2);
+      rect(wx + x, wy + Math.round(y), 1, 1, h.boom ? C["ffffff"] : C["2ce8f5"]);
     }
-    const note = f < DROP_F ? "REAL TIME. A RING EVERY 8TH NOTE" : f < OUTRO_F ? "TOWERS PLACED: A BOOM PER KICK" : "JET NOT TO SCALE";
-    text(note, W / 2, 178, "s16", C["8b9bb4"], "c", C["181425"]);
+
+    // point her out while she is on screen
+    const herV = new THREE.Vector3(HER.y, T.alt + 0.55, -(HER.s - T.frames[f].s)).project(S!.camera);
+    const hx = ((herV.x + 1) / 2) * W, hy = ((1 - herV.y) / 2) * H;
+    if (herV.z < 1 && hx > M && hx < W - M && hy > 214 && hy < 440 && f > DROP_F) {
+      text("HER", hx, hy - 20, "s16", C["ffffff"], "c", C["181425"]);
+      rect(hx - 1, hy - 4, 3, 3, C["ffffff"]);
+    }
+
+    const note = f < DROP_F ? "REAL TIME. JET NOT TO SCALE" : f < OUTRO_F ? "EACH TOWER'S BOOM IS A KICK" : "";
+    if (note) text(note, W / 2, 210, "s16", C["8b9bb4"], "c", C["181425"]);
 
     const cap = captionAt(f);
     if (cap === "code") {
       panel(M, 444, W - 2 * M, 58, C["5a6988"]);
       rect(M, 444, 3, 58, C["63c74d"]);
-      text("ahead: f' = f/(1-M)", M + 12, 452, "p16", C["ffffff"]);
-      text("cone: sin(a) = 1/M", M + 12, 476, "p16", C["63c74d"]);
+      text("ahead f'=f/(1-M)", M + 12, 452, "p16", C["ffffff"]);
+      text("cone sin(a)=1/M", M + 12, 476, "p16", C["63c74d"]);
     } else {
       const w = Math.max(measure(cap[0], "p16"), measure(cap[1], "s16")) + 28;
       panel(W / 2 - w / 2, 450, w, 52, C["c0cbdc"]);
@@ -233,7 +281,7 @@ export const MachOne = () => (
   <Composition id="MachOne" component={MachOneVideo} durationInFrames={DURATION} fps={FPS} width={W * SCALE} height={H * SCALE} />
 );
 
-/** Reel cover (9:16): the fronts piled up at the nose just before Mach 1. The profile grid shows its centre 3:4 crop. */
+/** Reel cover (9:16): the fronts piled up at the nose just before the speed of sound. The profile grid shows its centre 3:4 crop. */
 export const MachOneCover = () => (
   <Still id="MachOneCover" component={MachOneVideo} width={W * SCALE} height={H * SCALE} defaultProps={{ coverFrame: DROP_F - 8 }} />
 );

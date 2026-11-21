@@ -1,16 +1,15 @@
-"""What does Mach 1 sound like? Soundtrack, composed with Audio as Code.
+"""Why do jets go BOOM? Soundtrack, composed with Audio as Code.
 
-Drum and bass, 180 BPM, D minor (Dm, Bb, F, C; bars 8-11 hold Dm under the climb), 24 bars (32 s). One groove, one grid.
-
-Physics:
-- The engine as heard straight ahead of the jet (timeline.json "heard"): the engine tone D1 times the Doppler factor
-  1 / (1 - M). The pilot throttles up so it steps through the harmonics 2x, 3x, 4x, 6x, 8x ... (D and A only), each
-  step on the grid, faster and faster: that climb IS the riser. At Mach 1 it goes to infinity: the drop.
-- Supersonic (bars 12-19): nothing is heard ahead, so the engine voice is silent. Every kick is the boom reaching one
-  tower (the towers are placed so it does), with an extra boom layer on each.
-- Outro: back below Mach 1, the engine voice comes back from the top and steps down the harmonics to 2x, the opening note.
-Groove (not physics): the tuned "dem" kick in a two-step, snare on 2 and 4, ghosts, 16th hats, rolling reese on the chord
-roots, pad, 16th arp, lead hook in the drop, snare roll into the drop, impact and crash on Mach 1.
+Hard techno, 150 BPM, D minor (Dm, Bb, Gm, A; bars 8-11 hold Dm under the climb), 24 bars (38.4 s). One groove, one grid.
+The house sound (docs/music-reference.md): four-on-the-floor dem, distorted reese wall, clap on 2 and 4, 16th hats,
+offbeat open hat, dense from the first frame. Every thing on screen is an instrument:
+- the rings (the jet's sound, one every 8th note) are the hats: a hat on every ring, an open hat on the offbeat ones;
+- the engine as heard ahead of the jet (timeline.json "heard") is the lead: D1 times the Doppler factor 1 / (1 - M),
+  stepping up the harmonics 2x, 3x, 4x, 6x, 8x ... (D and A only), faster and faster: the climb is the riser. At Mach 1
+  it goes to infinity: the drop. Silent while supersonic (nothing is heard ahead). In the outro it steps back down.
+- the towers are the kicks of the drop: each kick is the boom reaching one tower (they are placed so it does), with a
+  boom layer on top; the listener's tower (beat 66) gets an impact and a crash.
+- the jet's speed is the reese wall: it gets louder as the jet speeds up.
 
 Run from the repo root:  uv run --locked python music/mach-one/compose.py
 """
@@ -37,6 +36,7 @@ BPM = tl["bpm"]
 BARS = tl["bars"]
 BEATS = BARS * 4
 SPB = 60 / BPM
+FPB = tl["framesPerBeat"]
 DROP, OUTRO = tl["dropBar"], tl["outroBar"]
 INTRO, GROOVE, BUILD, DROPS, OUTROS = range(0, 4), range(4, 8), range(8, DROP), range(DROP, OUTRO), range(OUTRO, BARS)
 
@@ -45,12 +45,11 @@ def n(pitch, start, dur, vel=0.8):
     return Note(pitch=int(pitch), start=round(float(start), 6), duration=round(float(dur), 6), velocity=float(min(1.0, max(0.01, vel))))
 
 
-CHORDS = {"Dm": [2, 5, 9], "Bb": [10, 2, 5], "F": [5, 9, 0], "C": [0, 4, 7]}
-ROOT_PC = {"Dm": 2, "Bb": 10, "F": 5, "C": 0}
-CYCLE = ["Dm", "Bb", "F", "C"]
+CHORDS = {"Dm": [2, 5, 9], "Bb": [10, 2, 5], "Gm": [7, 10, 2], "A": [9, 1, 4]}
+CYCLE = ["Dm", "Bb", "Gm", "A"]
 chord_name = lambda b: "Dm" if b in BUILD else CYCLE[b % 4]  # noqa: E731
 bar_of = lambda beat: int(beat // 4)  # noqa: E731
-KICK_ROOT = {"Dm": 38, "Bb": 34, "F": 29, "C": 36}  # D2, Bb1, F1, C2: dem body 44-73 Hz
+KICK_ROOT = {"Dm": 38, "Bb": 34, "Gm": 31, "A": 33}  # D2, Bb1, G1, A1: dem body 49-73 Hz
 
 
 def tones_from(register, pcs, count=3):
@@ -62,117 +61,113 @@ def tones_from(register, pcs, count=3):
     return out
 
 
-# ---------------------------------------------------------------- drums (kicks from the timeline: in the drop they are the booms)
+# ---------------------------------------------------------------- drums
 kicks = sorted(tl["kicks"])
-kick_notes = []
-for i, k in enumerate(kicks):
-    nxt = kicks[i + 1] if i + 1 < len(kicks) else BEATS
-    kick_notes.append((k, KICK_ROOT[chord_name(bar_of(k))], min(0.95, nxt - k), 1.0))
+kick_notes = [(k, KICK_ROOT[chord_name(bar_of(k))], 0.9, 1.0) for k in kicks]
 tower_beats = [tw["beat"] for tw in tl["towers"]]
+her = tl["towers"][tl["listener"]]["beat"]
 
-snare, clap, hats, hat_open, ghost, roll, crash, impact, boom = [], [], [], [], [], [], [], [], []
+clap, hats, hat_open, rumble, roll, crash, impact, boom = [], [], [], [], [], [], [], []
 for s in tl["snares"]:
-    snare.append(n(38, s, 0.3, 0.95))
-    if bar_of(s) in DROPS:
-        clap.append(n(39, s, 0.25, 0.7))
-for b in range(BARS):
-    t = b * 4
+    if bar_of(s) != DROP - 1 or s < (DROP - 1) * 4 + 2:
+        clap.append(n(39, s, 0.25, 0.9))
+for k in kicks:
+    rumble.append(n(33, k, 0.9, 0.85))
+# the rings are the hats: one hat per ring (every 8th note), the offbeat ones open
+for i, r in enumerate(tl["rings"]):
+    beat = r["t"] / SPB
+    if bar_of(beat) == DROP - 1 and beat % 4 >= 3:
+        continue
+    if i % 2:
+        hat_open.append(n(46, beat, 0.22, 0.55 if bar_of(beat) in DROPS else 0.45))
+    else:
+        hats.append(n(42, beat, 0.06, 0.5))
+for b in range(BARS):  # 16th ticks between the rings, quieter
     if b == DROP - 1:
         continue
-    hats += [n(42, t + s / 4, 0.06, (0.32, 0.5, 0.38, 0.58)[s % 4]) for s in range(16)]
-    hat_open += [n(46, t + 1.5, 0.3, 0.42), n(46, t + 3.5, 0.3, 0.42)]
-    ghost += [n(38, t + 1.75, 0.1, 0.3), n(38, t + 2.75, 0.1, 0.22), n(38, t + 3.25, 0.1, 0.26)]
-    if b % 4 == 3:
-        ghost += [n(38, t + 3.5, 0.08, 0.5), n(38, t + 3.75, 0.08, 0.65)]
+    hats += [n(42, b * 4 + s / 4, 0.05, 0.28) for s in range(16) if s % 2]
+hats.sort(key=lambda x: x.start)
 rb = (DROP - 1) * 4
-roll += [n(38, rb + e / 2, 0.1, 0.3 + 0.05 * e) for e in range(4)]
-roll += [n(38, rb + 2 + s / 4, 0.08, 0.5 + 0.5 * (s / 7)) for s in range(8)]
-crash += [n(51, 0, 4, 0.7), n(51, 16, 3, 0.5), n(51, DROP * 4, 4, 1.0), n(51, (DROP + 4) * 4, 3, 0.6), n(51, OUTRO * 4, 3, 0.5)]
-impact += [n(33, DROP * 4, 2.5, 1.0)]  # Mach 1
-boom += [n(33, b, 0.6, 0.75) for b in tower_beats]  # each tower's boom, on its kick
+roll += [n(38, rb + s / 4, 0.08, 0.3 + 0.65 * (s / 11) ** 2) for s in range(12)]
+crash += [n(51, 0, 3, 0.7), n(51, 16, 3, 0.5), n(51, DROP * 4, 4, 1.0), n(51, her, 3, 0.8), n(51, OUTRO * 4, 3, 0.5)]
+impact += [n(33, DROP * 4, 2.5, 1.0), n(33, her, 2.0, 0.9)]
+boom += [n(33, b, 0.5, 0.7) for b in tower_beats]
 
-# ---------------------------------------------------------------- bass, pad, arp, hook
-bass = []
-for k, root, dur, _ in kick_notes:
-    bass.append(n(root + 12, k, max(0.4, min(dur, 1.4) - 0.05), 1.0))
+# ---------------------------------------------------------------- the low end: a reese wall on the roots, legato 16ths
+grit = []
 for b in range(BARS):
-    if b == DROP - 1:
-        continue
-    root = KICK_ROOT[chord_name(b)] + 12
-    bass += [n(root + 12, b * 4 + 1.5, 0.4, 0.7), n(root, b * 4 + 2.0, 0.4, 0.6), n(root + 12, b * 4 + 3.5, 0.4, 0.75)]
-PAD = {"Dm": [50, 53, 57, 62], "Bb": [50, 53, 58, 62], "F": [48, 53, 57, 60], "C": [48, 52, 55, 60]}
-pad = [n(p, b * 4, 3.95, 0.5) for b in range(BARS) for p in PAD[chord_name(b)]]
-arp = []
-for b in list(INTRO) + list(GROOVE) + list(OUTROS):
-    ts = tones_from(62, CHORDS[chord_name(b)], 4)
-    order = [0, 1, 2, 3, 2, 1, 2, 3]
-    arp += [n(ts[order[s % 8]], b * 4 + s / 4, 0.22, 0.55 if s % 4 == 0 else 0.4) for s in range(16)]
-HOOK = {
-    "Dm": [(0, 74, 0.5), (0.5, 77, 0.5), (1, 81, 0.75), (2, 79, 0.5), (2.5, 77, 0.5), (3, 74, 0.5), (3.5, 77, 0.5)],
-    "Bb": [(0, 74, 0.5), (0.5, 77, 0.5), (1, 82, 0.75), (2, 81, 0.5), (2.5, 77, 0.5), (3, 74, 1)],
-    "F": [(0, 72, 0.5), (0.5, 77, 0.5), (1, 81, 0.75), (2, 79, 0.5), (2.5, 77, 0.5), (3, 72, 0.5), (3.5, 77, 0.5)],
-    "C": [(0, 72, 0.5), (0.5, 76, 0.5), (1, 79, 0.75), (2, 81, 0.5), (2.5, 79, 0.5), (3, 76, 0.5), (3.5, 74, 0.5)],
-}
-hook, hook_hi = [], []
-for b in DROPS:
-    for off, p, d in HOOK[chord_name(b)]:
-        hook.append(n(p, b * 4 + off, d, 0.9 if off == 0 else 0.75))
-        hook_hi.append(n(p + 12, b * 4 + off, d, 0.55))
+    root = KICK_ROOT[chord_name(b)]
+    for q in range(4):
+        if b == DROP - 1 and q == 3:
+            continue
+        for s16 in range(4):
+            grit.append(n(root + 12, b * 4 + q + s16 / 4, 0.24, (0.62, 0.8, 1.0, 0.82)[s16]))
+# the jet's speed drives the wall: quieter at Mach 0.5, full at Mach 1 and above
+speed_pts = []
+for f in range(0, len(tl["frames"]), FPB):
+    m = tl["frames"][f]["mach"]
+    speed_pts.append(AutomationPoint(beat=round(f / FPB, 4), value=round(min(1.0, 0.55 + 0.45 * min(1.0, m)), 4)))
 
-# ---------------------------------------------------------------- the engine, heard straight ahead
+PAD = {"Dm": [50, 53, 57, 62], "Bb": [50, 53, 58, 62], "Gm": [50, 55, 58, 62], "A": [49, 52, 57, 61]}
+pad = [n(p, b * 4, 3.95, 0.45) for b in range(BARS) for p in PAD[chord_name(b)]]
+
+# drop riff: a dark 8th/16th riff on the chord tones (the cone's lead)
+RIFF = [(0, 0, 0.5), (0.75, 2, 0.25), (1, 1, 0.5), (1.5, 0, 0.5), (2.25, 2, 0.25), (2.5, 1, 0.5), (3, 2, 0.5), (3.5, 1, 0.5)]
+riff, riff_hi = [], []
+for b in DROPS:
+    ts = tones_from(62, CHORDS[chord_name(b)], 3)
+    for off, i, d in RIFF:
+        riff.append(n(ts[i], b * 4 + off, d, 0.9 if off == 0 else 0.75))
+        riff_hi.append(n(ts[i] + 12, b * 4 + off, d, 0.5))
+
+# ---------------------------------------------------------------- the engine, heard straight ahead (the lead before Mach 1)
 heard = tl["heard"]
 engine, engine_top = [], []
 for i, h in enumerate(heard):
     start = h["beat"]
-    end = heard[i + 1]["beat"] if i + 1 < len(heard) and heard[i + 1]["beat"] > start else None
-    if end is None or (start < DROP * 4 <= end):
-        end = DROP * 4 if start < DROP * 4 else BEATS
-    if start < DROP * 4 and end > DROP * 4:
-        end = DROP * 4
-    m = h["midi"]
-    # long notes are re-struck every bar so the voice stays present
+    nxt = heard[i + 1]["beat"] if i + 1 < len(heard) else BEATS
+    end = min(nxt, DROP * 4) if start < DROP * 4 else nxt
     t = start
     while t < end - 1e-6:
         seg = min(end, (int(t // 4) + 1) * 4) - t
-        engine.append(n(m, t, seg, 0.9))
-        top = m + 24 if m < 50 else m + 12 if m < 62 else m
+        engine.append(n(h["midi"], t, seg, 0.9))
+        top = h["midi"] + 24 if h["midi"] < 50 else h["midi"] + 12 if h["midi"] < 62 else h["midi"]
         engine_top.append(n(top, t, seg, 0.75))
         t += seg
 
 # ---------------------------------------------------------------- song
-side = Ducker(trigger_beats=tuple(k for k, *_ in kick_notes), depth=0.4, attack_seconds=0.002, release_seconds=0.14)
-bass_duck = Ducker(trigger_beats=side.trigger_beats, depth=0.6, attack_seconds=0.002, release_seconds=0.15)
-space = Reverb(decay_seconds=1.6, mix=0.22)
+side = Ducker(trigger_beats=tuple(k for k, *_ in kick_notes), depth=0.3, attack_seconds=0.002, release_seconds=0.15)
+space = Reverb(decay_seconds=1.8, mix=0.22)
 big_space = Reverb(decay_seconds=3.5, mix=0.35)
 echo = Delay(time_seconds=0.75 * SPB, feedback=0.35, repeats=4, mix=0.22)
 
 tracks = [
     *dem_tracks(kick_notes),
+    Track(name="Rumble", instrument="kick_909", gain=0.15, tone=Tone(decay_seconds=0.6, tuning_semitones=-2, brightness=0.4), notes=tuple(rumble),
+          effects=(Reverb(decay_seconds=1.4, mix=1.0), Distortion(drive=6.0, mix=0.8), Filter(mode="lowpass", cutoff_hz=170), side)),
     Track(name="Impact", instrument="kick_808", gain=0.6, tone=Tone(decay_seconds=2.0, tuning_semitones=-5, brightness=0.6), notes=tuple(impact),
           effects=(Distortion(drive=3.0, mix=0.5), big_space)),
-    Track(name="Boom", instrument="kick_808", gain=0.35, tone=Tone(decay_seconds=0.9, tuning_semitones=-3, brightness=0.7), notes=tuple(boom),
-          effects=(Distortion(drive=4.0, mix=0.6), Reverb(decay_seconds=1.5, mix=0.3))),
-    Track(name="Snare", instrument="electronic_snare", gain=0.66, tone=Tone(brightness=0.8), notes=tuple(snare), effects=(Reverb(decay_seconds=0.9, mix=0.18),)),
-    Track(name="Clap", instrument="clap", gain=0.4, notes=tuple(clap), effects=(Reverb(decay_seconds=1.0, mix=0.25),)),
-    Track(name="Ghost snare", instrument="electronic_snare", gain=0.38, tone=Tone(brightness=0.65), notes=tuple(ghost)),
-    Track(name="Hats", instrument="metal_hat", gain=0.24, pan=0.2, tone=Tone(brightness=0.8, decay_seconds=0.1), notes=tuple(hats)),
-    Track(name="Hat open", instrument="open_hat", gain=0.22, pan=-0.15, tone=Tone(brightness=0.7), notes=tuple(hat_open)),
-    Track(name="Snare roll", instrument="electronic_snare", gain=0.55, tone=Tone(brightness=0.7), notes=tuple(roll), effects=(space,)),
-    Track(name="Crash", instrument="electronic_ride", gain=0.26, tone=Tone(brightness=0.85, decay_seconds=2.5), notes=tuple(crash), effects=(space,)),
-    Track(name="Reese", instrument="reese_bass", gain=0.55, tone=Tone(brightness=0.75, cutoff_hz=1900, resonance=0.4, detune_cents=22),
-          notes=tuple(bass), effects=(Distortion(drive=9.0, mix=0.75), Filter(mode="highpass", cutoff_hz=90), bass_duck)),
-    Track(name="Pad", instrument="wavetable_pad", gain=0.2, tone=Tone(brightness=0.45, cutoff_hz=2400, detune_cents=14), notes=tuple(pad), release_seconds=0.5, effects=(space, side)),
-    Track(name="Arp", instrument="trance_pluck", gain=0.32, pan=-0.1, tone=Tone(brightness=0.6, cutoff_hz=1600, resonance=0.35, decay_seconds=0.4), notes=tuple(arp), effects=(echo, side)),
-    Track(name="Hook", instrument="sync_lead", gain=0.5, tone=Tone(brightness=0.65, cutoff_hz=4200), notes=tuple(hook),
-          effects=(Distortion(drive=2.5, mix=0.35), echo, space, Ducker(trigger_beats=side.trigger_beats, depth=0.3, release_seconds=0.12))),
-    Track(name="Hook octave", instrument="supersaw", gain=0.3, pan=0.1, tone=Tone(brightness=0.6, cutoff_hz=5000, detune_cents=20), notes=tuple(hook_hi), effects=(echo, space)),
-    # the engine as heard ahead of the jet
-    Track(name="Engine (heard ahead)", instrument="hoover", gain=0.45, tone=Tone(brightness=0.6, cutoff_hz=3500, detune_cents=18), notes=tuple(engine),
+    Track(name="Boom", instrument="kick_808", gain=0.3, tone=Tone(decay_seconds=0.7, tuning_semitones=-3, brightness=0.7), notes=tuple(boom),
+          effects=(Distortion(drive=4.0, mix=0.6), Reverb(decay_seconds=1.2, mix=0.3))),
+    Track(name="Clap", instrument="clap", gain=0.62, notes=tuple(clap), effects=(Reverb(decay_seconds=1.1, mix=0.3),)),
+    Track(name="Hats (rings)", instrument="metal_hat", gain=0.28, pan=0.2, tone=Tone(brightness=0.75, decay_seconds=0.1), notes=tuple(hats)),
+    Track(name="Open hat (rings)", instrument="open_hat", gain=0.3, pan=-0.15, tone=Tone(brightness=0.7), notes=tuple(hat_open)),
+    Track(name="Snare roll", instrument="electronic_snare", gain=0.5, tone=Tone(brightness=0.6), notes=tuple(roll), effects=(space,)),
+    Track(name="Crash", instrument="electronic_ride", gain=0.25, tone=Tone(brightness=0.85, decay_seconds=2.5), notes=tuple(crash), effects=(space,)),
+    Track(name="Grit bass", instrument="reese_bass", gain=0.85, tone=Tone(brightness=0.7, cutoff_hz=1800, resonance=0.4, detune_cents=22),
+          notes=tuple(grit), effects=(Distortion(drive=10.0, mix=0.85), Filter(mode="highpass", cutoff_hz=110), side),
+          automation=(Automation(parameter="gain", points=tuple(speed_pts)),)),
+    Track(name="Pad", instrument="wavetable_pad", gain=0.22, tone=Tone(brightness=0.5, cutoff_hz=2600, detune_cents=14), notes=tuple(pad), release_seconds=0.6, effects=(space, side)),
+    Track(name="Cone riff", instrument="sync_lead", gain=0.7, tone=Tone(brightness=0.6, cutoff_hz=4500), notes=tuple(riff),
+          effects=(Distortion(drive=3.0, mix=0.4), echo, space, Ducker(trigger_beats=side.trigger_beats, depth=0.35, release_seconds=0.12))),
+    Track(name="Cone riff body", instrument="hoover", gain=0.3, pan=-0.1, tone=Tone(brightness=0.6, cutoff_hz=4000, detune_cents=12), notes=tuple(riff_hi),
+          effects=(Filter(mode="highpass", cutoff_hz=250), echo)),
+    Track(name="Engine (heard ahead)", instrument="hoover", gain=0.5, tone=Tone(brightness=0.6, cutoff_hz=3500, detune_cents=18), notes=tuple(engine),
           effects=(Distortion(drive=3.0, mix=0.4), side)),
-    Track(name="Engine top", instrument="supersaw", gain=0.3, tone=Tone(brightness=0.65, cutoff_hz=5000, detune_cents=22), notes=tuple(engine_top), effects=(space, side)),
+    Track(name="Engine top", instrument="sync_lead", gain=0.38, tone=Tone(brightness=0.65, cutoff_hz=5000), notes=tuple(engine_top), effects=(space, side)),
 ]
 
-song = Song(title="What Does Mach 1 Sound Like", bpm=float(BPM), beats=float(BEATS), seed=343, master_gain=0.8, tracks=tuple(tracks))
+song = Song(title="Why Do Jets Go Boom", bpm=float(BPM), beats=float(BEATS), seed=343, master_gain=0.8, tracks=tuple(tracks))
 
 
 def main() -> None:

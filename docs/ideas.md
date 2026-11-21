@@ -25,7 +25,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 19 | WHY HOT METAL GLOWS | Black-body radiation, red to white | Pitch rises with temperature | Light | |
 | 20 | 8 BITS COUNT TO 255 | Transistors, logic gates, a binary adder | One note per bit; binary numbers become arpeggios | How Computers Work | |
 | 21 | HOW A PIXEL MAKES COLOR | RGB subpixels and colour perception | Three colour channels = three synth channels | How Computers Work | |
-| 22 | WHAT DOES MACH 1 SOUND LIKE? | Doppler ahead of a jet, 1/(1-M), and the Mach cone, asin(1/M) (343 m/s) | The engine heard ahead climbs the harmonics 2x, 3x, 4x ... to infinity at Mach 1 (the drop); towers placed so every kick is a boom. Drum and bass 180 BPM | Every Wave | Done ([render](../renders/mach-one.mp4)) |
+| 22 | WHY DO JETS GO BOOM? | Doppler ahead of a jet, 1/(1-M), and the Mach cone, asin(1/M) (343 m/s) | Rings are the hats; the engine she hears climbs the harmonics to infinity at Mach 1 (the drop); towers placed so every kick is a boom. Hard techno 150 BPM | Every Wave | Done ([render](../renders/mach-one.mp4)) |
 | 23 | ESCAPE: 11.2 KM/S | Earth's escape velocity | Tempo follows speed | Orbits | |
 | 24 | DROP 1,000 NEEDLES, FIND PI | Buffon's needle | Every needle that crosses a line clicks | The Sound of Pi | |
 | 25 | 1,000 BALLS, ONE BELL CURVE | Galton board and the binomial distribution | Each ball entering bin k plays the k-th chord tone; hops are one 16th, so every landing is on the grid | Probability | Done ([render](../renders/galton-board.mp4)) |

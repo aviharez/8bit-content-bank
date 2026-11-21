@@ -14,7 +14,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 8 | DRAW WITH CIRCLES | Fourier series (epicycles) drawing a shape | One voice per circle; their sum is the timbre | The Sound of Pi | |
 | 9 | 27 TAKES 111 STEPS | Collatz sequence from 27 (peak 9,232) | Odd steps rise, even steps fall | Unsolved Math | |
 | 10 | TWO PENDULUMS, ONE DIFFERENCE | Chaos in a double pendulum | Two identical melodies that slowly drift into dissonance | Chaos | |
-| 11 | THE BALL THAT DRUMROLLS | A bouncing ball with a coefficient of restitution | Gaps shrink geometrically into a drum roll | Gravity | |
+| 11 | THE BALL THAT DRUMROLLS | A bouncing ball with bounciness e = 1/2: infinite bounces in 4 s (Zeno) | Each flight is half the last, so the hits fall on bar, half, quarter, 8th...: a roll into the drop | Gravity | Done ([render](../renders/bouncing-ball.mp4)) |
 | 12 | GAME OF LIFE SEQUENCER | Conway's cellular automaton | The grid is a step sequencer; a birth is a note | Chaos | Dropped: built once, too abstract to follow without explanation (needs the rules shown visually first) |
 | 13 | ZOOM 10^12x | The Mandelbrot set | Iteration count sets the pitch | Chaos | |
 | 14 | HOW A SPEAKER WORKS | Coil and magnet move a cone | The cone on screen moves with the video's own soundtrack | Every Wave | |

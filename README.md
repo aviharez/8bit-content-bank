@@ -15,7 +15,6 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 | 3 | Jupiter's Moons 1:2:4 (the Laplace resonance writes a hard-techno riff) | Orbits | 38 s, 9:16 | Ready to post | [prod-ready/jupiter-moons/](prod-ready/jupiter-moons/) |
 | 4 | 15 Pendulums, 1 Cycle (a pendulum wave lines up again after exactly 32 s, real time) | Every Wave | 32 s, 9:16 | Ready to post | [prod-ready/pendulum-wave/](prod-ready/pendulum-wave/) |
 | 5 | 1,000 Balls, One Bell Curve (a Galton board builds the binomial curve, and every bin plays a note) | Probability | 35.2 s, 9:16 | Ready to post | [prod-ready/galton-board/](prod-ready/galton-board/) |
-| 6 | Game of Life Sequencer (a glider and oscillators play the board; it repeats after exactly 64 generations) | Chaos | 32 s, 9:16 | Ready to post | [prod-ready/game-of-life/](prod-ready/game-of-life/) |
 
 The full bank of 30 ideas is in [docs/ideas.md](docs/ideas.md).
 

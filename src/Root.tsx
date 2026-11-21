@@ -4,7 +4,6 @@ import { QuartzWatch, QuartzWatchCover } from "./videos/quartz-watch/QuartzWatch
 import { JupiterMoons, JupiterMoonsCover } from "./videos/jupiter-moons/JupiterMoons";
 import { PendulumWave, PendulumWaveCover } from "./videos/pendulum-wave/PendulumWave";
 import { GaltonBoard, GaltonBoardCover } from "./videos/galton-board/GaltonBoard";
-import { GameOfLife, GameOfLifeCover } from "./videos/game-of-life/GameOfLife";
 
 // One folder per series; one registration per video.
 export const RemotionRoot: React.FC = () => {
@@ -29,10 +28,6 @@ export const RemotionRoot: React.FC = () => {
       <Folder name="probability">
         <GaltonBoard />
         <GaltonBoardCover />
-      </Folder>
-      <Folder name="chaos">
-        <GameOfLife />
-        <GameOfLifeCover />
       </Folder>
     </>
   );

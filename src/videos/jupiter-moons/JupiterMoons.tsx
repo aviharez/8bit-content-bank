@@ -10,12 +10,13 @@ import timeline from "../../../public/jupiter-moons/timeline.json";
 
 // Low-res frame 360x640, shown at exactly 3x -> 1080x1920.
 const W = 360, H = 640, SCALE = 3;
-const FPS = 30, DURATION = 960; // 24 bars at 180 BPM
-const BAR = 40; // frames per bar
+const FPS = 30, DURATION = 1152; // 24 bars at 150 BPM
+const BAR = 48; // frames per bar
+const BEAT = 12; // frames per beat
 
 type Pair = "IE" | "EG" | "IG";
 type TL = {
-  daysPerBar: number;
+  daysPerCycle: number;
   frames: { days: number; lon: Record<Moon, number> }[];
   events: { sec: number; pair: Pair; beat: number; lon: number }[];
 };
@@ -27,22 +28,23 @@ const sinceLast = (pair: Pair, f: number) => {
   for (const e of EV) if (e.pair === pair && e.frame <= f + 1e-6 && f - e.frame < best) { best = f - e.frame; lon = e.lon; }
   return { since: best, lon };
 };
+// Each kind of meeting plays one note of the riff; together they spell A minor.
 const PAIR_INFO: Record<Pair, { label: string; drum: string; color: string }> = {
-  EG: { label: "EU+GA", drum: "KICK", color: C["e43b44"] },
-  IE: { label: "IO+EU", drum: "SNARE", color: C["fee761"] },
-  IG: { label: "IO+GA", drum: "PERC", color: C["2ce8f5"] },
+  EG: { label: "EU+GA", drum: "NOTE A", color: C["e43b44"] },
+  IG: { label: "IO+GA", drum: "NOTE E", color: C["2ce8f5"] },
+  IE: { label: "IO+EU", drum: "NOTE C", color: C["fee761"] },
 };
 
 // ---- camera: a slow figure that starts and ends on the same shot ----
 type V3 = [number, number, number];
 const CAM: [number, V3, V3][] = [
   [0, [0, 28, 21], [0, -0.6, 0]],
-  [160, [3.5, 27, 20], [0, -0.6, 0]],
-  [320, [-3, 26, 21.5], [0, -0.6, 0]],
-  [480, [0, 27.5, 22], [0, -0.6, 0]],
-  [640, [2.5, 24, 19], [0, -0.4, 0]],
-  [800, [-2, 26, 20.5], [0, -0.6, 0]],
-  [959, [0, 28, 21], [0, -0.6, 0]],
+  [192, [3.5, 27, 20], [0, -0.6, 0]],
+  [384, [-3, 26, 21.5], [0, -0.6, 0]],
+  [576, [0, 27.5, 22], [0, -0.6, 0]],
+  [768, [2.5, 24, 19], [0, -0.4, 0]],
+  [960, [-2, 26, 20.5], [0, -0.6, 0]],
+  [1151, [0, 28, 21], [0, -0.6, 0]],
 ];
 function camAt(f: number): { pos: V3; look: V3 } {
   let i = 0;
@@ -55,11 +57,13 @@ function camAt(f: number): { pos: V3; look: V3 } {
 
 function captionAt(bar: number): [string, string] | "code" {
   if (bar < 2 || bar >= 22) return ["3 MOONS, 1:2:4", "WATCH THEM MEET"];
-  if (bar < 4) return ["EUROPA + GANYMEDE", "MEET ONCE A CYCLE = KICK"];
-  if (bar < 8) return ["IO + EUROPA", "MEET TWICE = SNARE ON 2 AND 4"];
-  if (bar < 12) return ["IO + GANYMEDE", "MEET 3 TIMES = 3 AGAINST 2"];
+  if (bar < 4) return ["EVERY MEETING", "PLAYS ONE NOTE"];
+  if (bar < 6) return ["EUROPA + GANYMEDE", "ONCE A CYCLE = A"];
+  if (bar < 8) return ["IO + GANYMEDE", "3 TIMES A CYCLE = E"];
+  if (bar < 10) return ["IO + EUROPA", "TWICE A CYCLE = C"];
+  if (bar < 12) return ["A, C, E", "THE MOONS PLAY A MINOR"];
   if (bar < 16) return ["ALL THREE", "NEVER LINE UP AT ONCE"];
-  if (bar < 20) return ["REAL ORBITS", "1 BAR = 7.05 DAYS"];
+  if (bar < 20) return ["REAL ORBITS", "6 BEATS = 7.05 DAYS"];
   return "code";
 }
 
@@ -94,8 +98,11 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
       const who: Moon[] = pair === "IE" ? ["io", "europa"] : pair === "EG" ? ["europa", "ganymede"] : ["io", "ganymede"];
       for (const m of who) moonMats[m].emissiveIntensity = Math.max(moonMats[m].emissiveIntensity, glow * 0.7);
     }
-    if (pair === "EG" && since < 4) kickShake = (bar >= 16 && bar < 20 ? 0.12 : 0.05) * (1 - since / 4);
   }
+  // the four-on-the-floor kick (groove) nudges the camera on every beat
+  const sinceBeat = f % BEAT;
+  const kickBars = !(bar >= 12 && bar < 14);
+  if (kickBars && sinceBeat < 3) kickShake = (bar >= 16 && bar < 20 ? 0.12 : 0.05) * (1 - sinceBeat / 3);
   const { pos, look } = camAt(f);
   camera.position.set(pos[0], pos[1] - kickShake, pos[2]);
   camera.lookAt(...look);
@@ -119,8 +126,8 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
     text("JUPITER'S MOONS", W / 2, 108, "p16", C["c0cbdc"], "c");
     text("1 : 2 : 4", W / 2, 132, "p32", C["fee761"], "c", C["be4a2f"]);
     panel(M + 16, 432, W - 2 * M - 32, 74, C["c0cbdc"]);
-    text("THEIR ORBITS ARE A", W / 2, 444, "s16", C["8b9bb4"], "c");
-    text("DRUM BEAT", W / 2, 466, "p24", C["ffffff"], "c", C["be4a2f"]);
+    text("THEIR ORBITS PLAY", W / 2, 444, "s16", C["8b9bb4"], "c");
+    text("A MINOR", W / 2, 466, "p24", C["ffffff"], "c", C["be4a2f"]);
     text("@squarewavelab", W / 2, 528, "s16", C["c0cbdc"], "c", C["181425"]);
   } else {
     panel(M, 34, W - 2 * M, 70, C["c0cbdc"]);
@@ -129,7 +136,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
 
     // data panel: day within the 7.05-day cycle (it repeats every bar, so the loop is exact), and the three meetings
     panel(M, 110, W - 2 * M, 84);
-    const day = st.days % T.daysPerBar;
+    const day = st.days % T.daysPerCycle;
     text("DAY", M + 10, 116, "s16", C["8b9bb4"]);
     text(day.toFixed(1), M + 10, 136, "p32", C["fee761"], "l", C["be4a2f"]);
     text("OF 7.05", M + 10, 172, "s16", C["8b9bb4"]);
@@ -171,7 +178,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
       panel(M, 436, W - 2 * M, 64, C["5a6988"]);
       rect(M, 436, 3, 64, C["63c74d"]);
       text("nI - 3nE + 2nG = 0", M + 12, 446, "p16", C["ffffff"]);
-      text("-> MEETINGS 2 : 1 : 3", M + 12, 472, "s16", C["63c74d"]);
+      text("-> 1 : 2 : 3 PER CYCLE", M + 12, 472, "s16", C["63c74d"]);
     } else {
       const w = Math.max(measure(cap[0], "p16"), measure(cap[1], "s16")) + 28;
       panel(W / 2 - w / 2, 450, w, 52, C["c0cbdc"]);
@@ -224,5 +231,5 @@ export const JupiterMoons = () => (
 
 /** Reel cover (9:16). The profile grid shows its centre 3:4 crop. */
 export const JupiterMoonsCover = () => (
-  <Still id="JupiterMoonsCover" component={JupiterMoonsVideo} width={W * SCALE} height={H * SCALE} defaultProps={{ coverFrame: 681 }} />
+  <Still id="JupiterMoonsCover" component={JupiterMoonsVideo} width={W * SCALE} height={H * SCALE} defaultProps={{ coverFrame: 794 }} />
 );

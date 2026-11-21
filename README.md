@@ -15,7 +15,7 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 | 3 | Jupiter's Moons 1:2:4 (the Laplace resonance writes a hard-techno riff) | Orbits | 38 s, 9:16 | Ready to post | [prod-ready/jupiter-moons/](prod-ready/jupiter-moons/) |
 | 4 | 15 Pendulums, 1 Cycle (a pendulum wave lines up again after exactly 32 s, real time) | Every Wave | 32 s, 9:16 | Ready to post | [prod-ready/pendulum-wave/](prod-ready/pendulum-wave/) |
 | 5 | 1,000 Balls, One Bell Curve (a Galton board builds the binomial curve, and every bin plays a note) | Probability | 35.2 s, 9:16 | Ready to post | [prod-ready/galton-board/](prod-ready/galton-board/) |
-| 6 | How Fast Can a Heart Beat (whale to shrew, 241 × M^-1/4; the shrew's 19.5 Hz heart becomes the drop note) | How Life Works | 32 s, 9:16 | Ready to post | [prod-ready/heart-rate/](prod-ready/heart-rate/) |
+| 6 | How Fast Can a Heart Beat (whale to shrew: smaller body, faster heart; the shrew's 19.5 beats a second become the drop note) | How Life Works | 38.4 s, 9:16 | Ready to post | [prod-ready/heart-rate/](prod-ready/heart-rate/) |
 | 7 | Which Note Breaks This Glass? (a speaker finds a wine glass's own note; the glass shatters on the drop) | Every Wave | 38.4 s, 9:16 | Ready to post | [prod-ready/glass-resonance/](prod-ready/glass-resonance/) |
 | 8 | Why Do Jets Go Boom? (a jet chases its own sound: the note ahead climbs, the rings stack into the boom, every kick in the drop hits a tower) | Every Wave | 38.4 s, 9:16 | Ready to post | [prod-ready/mach-one/](prod-ready/mach-one/) |
 

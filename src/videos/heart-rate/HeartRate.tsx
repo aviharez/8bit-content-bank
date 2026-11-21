@@ -37,7 +37,7 @@ const ease = Easing.inOut(Easing.cubic);
 // ---------------------------------------------------------------- scale: the rig shrinks with the animal, the room does not
 // Rig scale per animal (log-spaced between whale and shrew); the camera keeps the rig the same size on screen, so the
 // room grows around it: smaller body, bigger room.
-const RIG: Record<string, number> = { whale: 1, elephant: 0.62, human: 0.4, cat: 0.26, rabbit: 0.18, mouse: 0.11, shrew: 0.07 };
+const RIG: Record<string, number> = { whale: 1, elephant: 0.62, human: 0.4, cat: 0.26, rabbit: 0.18, hamster: 0.13, shrew: 0.07 };
 function rigScale(f: number) {
   if (f >= OUTRO_F) { // pull back out to the whale, so the last frame is the first
     const t = ease(Math.min(1, (f - OUTRO_F) / (DURATION - OUTRO_F - 1)));
@@ -95,13 +95,13 @@ function render3D(f: number) {
   heartMat.emissiveIntensity = shrew ? 0.9 + (f % 2) * 0.3 : 0.12 + 1.3 * glow;
   // lights are not scaled with the rig, so scale their reach and strength with it (inverse-square-ish falloff, decay 1.4)
   heartLight.distance = 14 * s;
-  heartLight.intensity = (shrew ? 10 + (f % 2) * 5 : 16 * glow) * s ** 1.4;
+  heartLight.intensity = (shrew ? 7 + (f % 2) * 4 : 10 * glow) * s ** 1.4;
   // the room only lights up when the heart beats; a heavier heart lights it harder
   const weight = who === "whale" ? 1 : who === "elephant" ? 0.75 : 0.45;
   rig.localToWorld(tmpV.set(0, HEART_Y, 2.5));
   roomLight.position.copy(tmpV);
   roomLight.distance = 60 * s;
-  roomLight.intensity = (shrew ? 14 + (f % 2) * 6 : 40 * weight * glow) * s ** 1.2;
+  roomLight.intensity = (shrew ? 10 + (f % 2) * 5 : 28 * weight * glow) * s ** 1.2;
 
   // blood: every beat pushes one pulse round the vessel loop in 2 s, so the gap between pulses is the gap between beats
   const TRAVEL = 2.0;
@@ -140,14 +140,14 @@ function render3D(f: number) {
 // ---------------------------------------------------------------- captions (bottom box, house style)
 function captionAt(f: number): [string, string] | null {
   const bar = Math.floor(f / BAR);
-  if (bar < 2) return ["HOW FAST CAN", "A HEART BEAT?"];
-  if (bar < 4) return ["BIGGER BODY", "SLOWER HEART"];
-  if (bar < 6) return ["EACH RED PULSE", "IS ONE HEARTBEAT"];
-  if (bar < 8) return ["CAT: 170 A MINUTE", "THIS SONG: 180"];
+  if (bar < 2) return ["EACH RED PULSE", "IS ONE HEARTBEAT"];
+  if (bar < 4) return ["BIG BODY", "ONE BEAT EVERY 2 SECONDS"];
+  if (bar < 6) return ["THAT'S YOU", "ABOUT 80 BEATS A MINUTE"];
+  if (bar < 8) return ["A CAT'S HEART", "TWICE AS FAST AS YOURS"];
   if (bar < 10) return ["SMALLER BODY", "FASTER HEART"];
-  if (bar < 12) return ["THE PULSES", "ALMOST TOUCH"];
-  if (bar < 16) return ["19.5 BEATS A SECOND", "NO GAPS LEFT"];
-  if (bar < 20) return ["SO IT'S A NOTE", "x16 = 312 Hz = D#"];
+  if (bar < 12) return ["HAMSTER", "7 BEATS EVERY SECOND"];
+  if (bar < 16) return ["TINIEST MAMMAL", "TOO FAST TO COUNT"];
+  if (bar < 20) return ["19.5 A SECOND", "THE BEEPS BECOME A NOTE"];
   return null;
 }
 
@@ -177,28 +177,22 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
     text("BEATS A MINUTE = ?", W / 2, 500, "s16", C["fee761"], "c");
     text("@squarewavelab", W / 2, 586, "s16", C["c0cbdc"], "c", C["181425"]);
   } else {
-    // title + number
+    // the question stays on screen
     panel(M, 34, W - 2 * M, 70, C["c0cbdc"]);
-    text("HEART RATE", W / 2, 44, "p16", C["c0cbdc"], "c");
-    let num: string, unit: string;
-    if (outro) { num = "241"; unit = " x M^-1/4"; }
-    else {
-      const i = T.animals.indexOf(a), prev = T.animals[Math.max(0, i - 1)];
-      const k = i === 0 ? 1 : Math.min(1, (f - a.fromBar * BAR) / 6); // the counter rolls to the new value
-      num = fmt(prev.bpm + (a.bpm - prev.bpm) * k); unit = " /min";
-    }
-    const wNum = measure(num, "p32"), wU = measure(unit, "p16");
-    text(num, W / 2 - (wNum + wU) / 2, 66, "p32", C["fee761"], "l", C["be4a2f"]);
-    text(unit, W / 2 - (wNum + wU) / 2 + wNum, 80, "p16", C["8b9bb4"]);
+    text("HOW FAST CAN A", W / 2, 44, "p16", C["c0cbdc"], "c");
+    text("HEART BEAT?", W / 2, 66, "p24", C["fee761"], "c", C["be4a2f"]);
 
     if (!outro) {
-      // animal + mass
-      panel(M, 110, W - 2 * M, 52);
+      // two readouts: the animal (and its mass), its heart rate
+      panel(M, 110, W - 2 * M, 62);
       text("ANIMAL", M + 10, 116, "s16", C["8b9bb4"]);
-      text(a.name, M + 10, 136, "s16", C["ffffff"]);
-      text("MASS", W - M - 10, 116, "s16", C["8b9bb4"], "r");
-      text(a.mass, W - M - 10, 136, "p16", C["fee761"], "r");
-      if (f < DROP_F) text(`BEATS SNAPPED TO 16THS (<${Math.ceil(T.maxSnapMs)} MS)`, W / 2, 168, "s16", C["8b9bb4"], "c", C["181425"]);
+      text(a.name.replace("ETRUSCAN ", ""), M + 10, 134, "s16", C["ffffff"]);
+      text(a.mass, M + 10, 152, "p16", C["8b9bb4"]);
+      const i = T.animals.indexOf(a), prev = T.animals[Math.max(0, i - 1)];
+      const k = i === 0 ? 1 : Math.min(1, (f - a.fromBar * BAR) / 6); // the counter rolls to the new value
+      text("BEATS A MINUTE", W - M - 10, 116, "s16", C["8b9bb4"], "r");
+      text(fmt(prev.bpm + (a.bpm - prev.bpm) * k), W - M - 10, 140, "p24", C["fee761"], "r", C["be4a2f"]);
+      if (f < DROP_F) text("BEEPS NUDGED ONTO THE BEAT", W / 2, 178, "s16", C["8b9bb4"], "c", C["181425"]);
       const cap = captionAt(f);
       if (cap) {
         const l2 = cap[1].includes("Hz") ? "p16" : "s16";

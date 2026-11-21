@@ -7,7 +7,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 1 | COUNT THE CLACKS: 314 | Two blocks collide; a mass ratio of 100^n gives the digits of pi | Every collision is a hit; the squeeze becomes a rising roll | The Sound of Pi | Done ([render](../renders/count-the-clacks.mp4)) |
 | 2 | 32,768 -> 1 TICK | A quartz watch crystal vibrates at 32,768 Hz (2^15) and is halved 15 times | Each halving drops one octave, from a high tone down to a 1 Hz tick | How Time Works | Done ([render](../renders/quartz-watch.mp4)) |
 | 3 | JUPITER'S MOONS PLAY 1:2:4 | Orbital resonance of Io, Europa and Ganymede | Each conjunction plays a riff note (A, E, C); one cycle = 6 beats puts every meeting on the 8th grid | Orbits | Done ([render](../renders/jupiter-moons.mp4)) |
-| 4 | 15 PENDULUMS, 1 MINUTE | Pendulum wave: different lengths realign after one cycle | Each pendulum plays a pentatonic note as it passes the centre | Every Wave | |
+| 4 | 15 PENDULUMS, 1 MINUTE | Pendulum wave: different lengths realign after one cycle | Each pendulum plays a tone of the current chord as it passes the centre (snapped to 16ths); 16-30 swings in 32 s, real time | Every Wave | Done ([render](../renders/pendulum-wave.mp4)) |
 | 5 | CHLADNI: SEE A SOUND | Sand forms patterns on a vibrating plate | The plate frequency is the note you hear; the pattern changes with each chord | Every Wave | |
 | 6 | DOPPLER: HEAR IT PASS | Doppler shift of a passing siren | The computed siren pitch, quantised to the key | Every Wave | |
 | 7 | WHY A STRING SINGS | Standing waves and the harmonic series | The melody is the harmonic series itself | Every Wave | |

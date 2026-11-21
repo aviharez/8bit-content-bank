@@ -138,13 +138,15 @@ function render3D(f: number) {
 
 function captionAt(f: number): [string, string] | "code" | null {
   const bar = Math.floor(f / BAR);
-  if (bar < 2) return ["WHICH NOTE", "BREAKS THIS GLASS?"];
-  if (bar < 4) return ["EVERY GLASS HAS", "ITS OWN NOTE"];
-  if (bar < 8) return ["WRONG NOTE:", "THE RIM BARELY MOVES"];
-  if (bar < 12) return ["ITS OWN NOTE:", "109x MORE MOTION"];
+  if (bar < 2) return ["EVERY GLASS HAS", "A NOTE OF ITS OWN"];
+  if (bar < 4) return ["TAP IT AND", "YOU HEAR THAT NOTE"];
+  if (bar < 6) return ["THE SPEAKER PLAYS", "A TUNE AT THE GLASS"];
+  if (bar < 8) return ["WRONG NOTE:", "THE GLASS BARELY MOVES"];
+  if (bar < 10) return ["RIGHT NOTE:", "IT SHAKES 100x MORE"];
+  if (bar < 12) return ["LIKE A SWING", "PUSHED AT THE RIGHT TIME"];
   if (bar < 14) return ["HOLD THAT NOTE", "AND TURN IT UP"];
-  if (bar < 16) return ["x4 LOUDER", "THE RIM CAN'T TAKE IT"];
-  if (bar < 20) return ["A5 = 880 Hz", "ONE NOTE. GONE."];
+  if (bar < 16) return ["4x LOUDER", "THE GLASS CAN'T TAKE IT"];
+  if (bar < 20) return ["THE NOTE: A", "880 SHAKES A SECOND"];
   if (bar < 22) return "code";
   return ["REWIND", "PLAY IT AGAIN?"];
 }
@@ -165,8 +167,8 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
   // title
   const ty = cover ? 86 : 34; // the cover keeps its title inside the centre 3:4 crop (y 80-560)
   panel(M, ty, W - 2 * M, 70, C["c0cbdc"]);
-  text("WHICH NOTE", W / 2, ty + 10, "p16", C["c0cbdc"], "c");
-  text("BREAKS IT?", W / 2, ty + 32, "p24", C["fee761"], "c", C["be4a2f"]);
+  text("CAN A SINGLE NOTE", W / 2, ty + 10, "p16", C["c0cbdc"], "c");
+  text("BREAK GLASS?", W / 2, ty + 32, "p24", C["fee761"], "c", C["be4a2f"]);
 
   if (cover) {
     panel(M + 20, 452, W - 2 * M - 40, 52, C["c0cbdc"]);
@@ -179,12 +181,11 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
     text("SPEAKER", M + 10, 116, "s16", C["8b9bb4"]);
     if (fr.midi !== null) {
       text(noteName(fr.midi), M + 10, 140, "p24", fr.midi === 81 ? C["ffffff"] : C["2ce8f5"]);
-      text(`${Math.round(hz(fr.midi))} Hz`, M + 10 + measure(noteName(fr.midi), "p24") + 6, 146, "p16", C["8b9bb4"]);
     } else text("--", M + 10, 136, "p24", C["5a6988"]);
-    text("RIM MOTION", W - M - 10, 116, "s16", C["8b9bb4"], "r");
+    text("GLASS SHAKES", W - M - 10, 116, "s16", C["8b9bb4"], "r");
     const broken = f >= DROP_F;
-    const val = broken ? (f < REWIND_F ? "BROKEN" : "--") : `x${Math.round(fr.amp)}`;
-    text(val, W - M - 10, broken ? 144 : 140, broken ? "p16" : "p24", broken ? C["ff0044"] : level > 0.7 && blink(2) ? C["ffffff"] : C["fee761"], "r", C["be4a2f"]);
+    const word = broken ? (f < REWIND_F ? "BROKEN" : "--") : level > 0.6 ? "HARD!" : level > 0.15 ? "A LOT" : level > 0.02 ? "A LITTLE" : "BARELY";
+    text(word, W - M - 10, 142, "p16", broken ? C["ff0044"] : level > 0.6 && blink(2) ? C["ffffff"] : C["fee761"], "r", C["be4a2f"]);
     // meter: rim motion on a log scale, with the breaking point marked
     const mx = M, mw = W - 2 * M, my = 178;
     rect(mx, my, mw, 8, C["262b44"]);
@@ -194,7 +195,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
       for (let c = 0; c < cells; c++) rect(mx + c * 6 + 1, my + 1, 5, 6, c * 6 > mw * 0.85 ? C["ff0044"] : c * 6 > mw * 0.6 ? C["feae34"] : C["63c74d"]);
     }
     rect(mx + mw - 2, my - 3, 2, 14, C["ff0044"]);
-    if (f < DROP_F) text("RIM MOTION EXAGGERATED", mx, my + 12, "s16", C["5a6988"]);
+    if (f < DROP_F) text("SHAKING SHOWN MUCH BIGGER", mx, my + 12, "s16", C["5a6988"]);
     else if (f < REWIND_F) text("SLOW MOTION x8", mx, my + 12, "s16", C["5a6988"]);
     else if (blink(6)) text("<< REWIND", mx, my + 12, "s16", C["fee761"]);
 

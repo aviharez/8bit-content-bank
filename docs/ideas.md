@@ -33,7 +33,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 27 | MONTY HALL x 1,000 | Monty Hall simulation | Win = major note, lose = minor note | Probability | |
 | 28 | PRIMES AS A RHYTHM | Sieve of Eratosthenes | Every prime is a kick | Unsolved Math | |
 | 29 | HOW A KEY OPENS A LOCK | Pin tumbler lock | Each pin that lifts plays a note | How Things Work | |
-| 30 | WHICH NOTE BREAKS IT? | Resonance of a wine glass (driven damped oscillator, f0 = 880 Hz, Q = 1,000) | The lead is the speaker; the glass's A5 swells with the simulated rim amplitude; it breaks on the drop; every shard landing is a note. EDM/techno 150 BPM | Every Wave | Done ([render](../renders/glass-resonance.mp4)) |
+| 30 | CAN A SINGLE NOTE BREAK GLASS? | Resonance of a wine glass (driven damped oscillator, f0 = 880 Hz, Q = 1,000) | The lead is the speaker; the glass's A5 swells with the simulated rim amplitude; it breaks on the drop; every shard landing is a note. Hard techno 150 BPM | Every Wave | Done ([render](../renders/glass-resonance.mp4)) |
 | 31 | HOW FAST CAN A HEART BEAT? | Heart rate scales as 241 x M^-1/4 (Stahl 1967), whale to Etruscan shrew | Every heartbeat is the heart monitor (bleep + stab) on the 16th grid and a red pulse round a 3D vessel loop; the shrew's 19.5 Hz is too fast for the grid and becomes the drop chord (x16 = D#4). Hard techno 150 BPM | How Life Works | Done ([render](../renders/heart-rate.mp4)) |
 
 Numbers here are common facts; check each against a source before it goes into a caption.

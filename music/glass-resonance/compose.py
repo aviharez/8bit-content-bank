@@ -1,6 +1,8 @@
 """Which note breaks this glass? Soundtrack, composed with Audio as Code.
 
-EDM / techno, 150 BPM, A minor (Am, F, C, G; one chord per bar), 24 bars (38.4 s). One groove, one grid.
+Hard techno, 150 BPM, A minor (Am, F, C, G; one chord per bar), 24 bars (38.4 s). One groove, one grid.
+The house sound (docs/music-reference.md): four-on-the-floor dem with rumble, distorted reese wall in legato 16ths,
+clap on 2 and 4, 16th hats, offbeat open hat, dense from the first frame.
 
 Physics:
 - The lead IS the speaker: the same notes that drive the glass in the simulation (timeline.json "probe").
@@ -8,8 +10,8 @@ Physics:
   it swells every time the melody lands on A5, climbs while the speaker holds A5 and gets louder (x4), and stops dead
   on the downbeat of bar 16, when the glass breaks.
 - Every shard landing (slow motion x8) is a high chord tone, snapped to the nearest 16th: the glass rain in the drop.
-Groove (not physics): the tuned "dem" kick four on the floor, clap on 2 and 4, 16th hats, offbeat open hat, reese bass on
-the chord roots, pad, supersaw chords and lead in the drop, riser, snare roll, impact, rewind sweep back into the loop.
+Groove (not physics): the tuned "dem" kick four on the floor with rumble, clap on 2 and 4, 16th hats, offbeat open hat,
+reese wall on the chord roots, pad, the hook again as a distorted lead in the drop, riser, snare roll, impact, rewind sweep.
 
 Run from the repo root:  uv run --locked python music/glass-resonance/compose.py
 """
@@ -80,22 +82,19 @@ riser = [n(p, (HOLD + 2) * 4, 7.9, 0.75) for p in (57, 64, 69)]
 rewind_sweep = [n(p, REWIND * 4, 7.8, 0.7) for p in (81, 76)]
 
 # ---------------------------------------------------------------- bass and harmony
-bass = []
-for k, root, dur, _ in kick:
-    bass.append(n(root + 12, k, 0.45, 0.9))
+grit, rumble = [], []
 for b in range(BARS):
     root = KICK_ROOT[chord(b)["root"]] + 12
-    bass += [n(root + 12, b * 4 + q + 0.5, 0.4, 0.75) for q in range(4)]  # offbeat octave: the techno roll, same grid
+    for q in range(4):
+        if b == DROP - 1 and q == 3:
+            continue
+        grit += [n(root, b * 4 + q + s / 4, 0.24, (0.62, 0.8, 1.0, 0.82)[s]) for s in range(4)]
+for k, *_ in kick:
+    rumble.append(n(33, k, 0.9, 0.85))
 PAD = {"Am": [57, 60, 64, 69], "F": [53, 57, 60, 65], "C": [55, 60, 64, 67], "G": [55, 59, 62, 67]}
 pad = []
 for b in range(BARS):
     pad += [n(p, b * 4, 3.95, 0.5) for p in PAD[chord(b)["name"]]]
-# drop: supersaw chord stabs on the offbeat 8ths, the EDM pump
-stabs = []
-for b in DROPS:
-    for q in range(4):
-        stabs += [n(p, b * 4 + q + 0.5, 0.35, 0.9) for p in tones_from(64, chord(b)["tones"], 3)]
-
 # ---------------------------------------------------------------- the speaker (the lead) and the glass
 lead = [n(p["midi"], p["beat"], p["dur"] * 0.95, 0.9) for p in tl["probe"]]
 # drive: x1 for the melody, rising to x4 while the speaker holds A5 (gain 0.25 -> 1.0 is exactly x4)
@@ -127,7 +126,7 @@ for ld in tl["landings"]:
 rain_notes = [n(p, beat, 0.4, v) for (beat, p), v in sorted(rain.items())]
 
 # ---------------------------------------------------------------- song
-side = Ducker(trigger_beats=tuple(k for k, *_ in kick), depth=0.45, attack_seconds=0.002, release_seconds=0.15)
+side = Ducker(trigger_beats=tuple(k for k, *_ in kick), depth=0.3, attack_seconds=0.002, release_seconds=0.15)
 space = Reverb(decay_seconds=1.8, mix=0.24)
 big_space = Reverb(decay_seconds=3.5, mix=0.35)
 echo = Delay(time_seconds=0.75 * SPB, feedback=0.35, repeats=4, mix=0.22)
@@ -146,15 +145,16 @@ tracks = [
           automation=(Automation(parameter="gain", points=(AutomationPoint(beat=(HOLD + 2) * 4.0, value=0.0), AutomationPoint(beat=DROP * 4 - 0.1, value=1.0), AutomationPoint(beat=DROP * 4.0, value=0.0))),)),
     Track(name="Rewind sweep", instrument="supersaw", gain=0.2, tone=Tone(brightness=0.6, glide_semitones=12, glide_seconds=2.0, detune_cents=25), notes=tuple(rewind_sweep),
           effects=(Filter(mode="highpass", cutoff_hz=500), space)),
-    Track(name="Reese", instrument="reese_bass", gain=0.55, tone=Tone(brightness=0.7, cutoff_hz=1700, resonance=0.35, detune_cents=20),
-          notes=tuple(bass), effects=(Distortion(drive=8.0, mix=0.7), Filter(mode="highpass", cutoff_hz=90), Ducker(trigger_beats=side.trigger_beats, depth=0.6, release_seconds=0.15))),
+    Track(name="Rumble", instrument="kick_909", gain=0.15, tone=Tone(decay_seconds=0.6, tuning_semitones=-2, brightness=0.4), notes=tuple(rumble),
+          effects=(Reverb(decay_seconds=1.4, mix=1.0), Distortion(drive=6.0, mix=0.8), Filter(mode="lowpass", cutoff_hz=170), side)),
+    Track(name="Grit bass", instrument="reese_bass", gain=0.85, tone=Tone(brightness=0.7, cutoff_hz=1800, resonance=0.4, detune_cents=22),
+          notes=tuple(grit), effects=(Distortion(drive=10.0, mix=0.85), Filter(mode="highpass", cutoff_hz=110), side)),
     Track(name="Pad", instrument="wavetable_pad", gain=0.2, tone=Tone(brightness=0.45, cutoff_hz=2400, detune_cents=14), notes=tuple(pad), release_seconds=0.5, effects=(space, side)),
-    Track(name="Stabs", instrument="supersaw", gain=0.38, tone=Tone(brightness=0.7, cutoff_hz=3600, detune_cents=24), notes=tuple(stabs), effects=(Distortion(drive=2.0, mix=0.3), space, side)),
     # the speaker
     Track(name="Speaker lead", instrument="sync_lead", gain=1.0, tone=Tone(brightness=0.6, cutoff_hz=4200), notes=tuple(lead),
           effects=(Distortion(drive=2.0, mix=0.3), echo, space), automation=(Automation(parameter="gain", points=tuple(lead_gain)),)),
-    Track(name="Drop lead", instrument="supersaw", gain=0.42, pan=0.05, tone=Tone(brightness=0.65, cutoff_hz=4800, detune_cents=20), notes=tuple(drop_lead),
-          effects=(Distortion(drive=2.0, mix=0.3), echo, space, side)),
+    Track(name="Drop lead", instrument="sync_lead", gain=0.6, pan=0.05, tone=Tone(brightness=0.6, cutoff_hz=4500), notes=tuple(drop_lead),
+          effects=(Distortion(drive=3.0, mix=0.4), echo, space, side)),
     # the glass
     Track(name="Glass A5", instrument="sine", gain=0.55, notes=tuple(glass), effects=(Reverb(decay_seconds=2.0, mix=0.2),), automation=(glass_gain,)),
     Track(name="Glass A6", instrument="triangle", gain=0.22, notes=tuple(glass_hi), automation=(glass_gain,)),

@@ -25,3 +25,7 @@ This repo makes pixel-art science explainers with 8-bit music, entirely in code,
 3. `music/<slug>/compose.py` reads the events and writes `public/<slug>/track.wav`.
 4. `src/videos/<slug>/` holds the scene and the composition; register it in `src/Root.tsx`.
 5. `scripts/build.sh <slug> <CompositionId>`, then add a row to the README table.
+
+## Captions
+
+Lint every caption with the Instagram skills from `Jakeschincariol/instagram-agent-skill` (`ig-caption/caption.py` and `ig-human/detect.py`) before it ships. House rules: the reel carries the hook, so line 1 is the one ask (comment a guess) plus the topic in searchable words; 300-500 characters; at most 3 hashtags at the bottom; sources in one line. Store the final text in `posts/<slug>/caption.txt`.

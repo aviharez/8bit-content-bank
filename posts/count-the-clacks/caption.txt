@@ -1,0 +1,9 @@
+Comment your guess: how many clacks in level 3? These blocks count the digits of pi.
+
+Make the big block 100 times heavier and the collisions give you one more digit: 3, then 31, then 314.
+
+Every hit you see is a note you hear. It's a real elastic collision simulation, with time stretched so the hits land on the beat.
+
+Based on Galperin's 2003 paper "Playing Pool with Pi".
+
+#physics #pi #pixelart

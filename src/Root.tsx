@@ -5,6 +5,7 @@ import { JupiterMoons, JupiterMoonsCover } from "./videos/jupiter-moons/JupiterM
 import { PendulumWave, PendulumWaveCover } from "./videos/pendulum-wave/PendulumWave";
 import { GaltonBoard, GaltonBoardCover } from "./videos/galton-board/GaltonBoard";
 import { HeartRate, HeartRateCover } from "./videos/heart-rate/HeartRate";
+import { GlassResonance, GlassResonanceCover } from "./videos/glass-resonance/GlassResonance";
 
 // One folder per series; one registration per video.
 export const RemotionRoot: React.FC = () => {
@@ -25,6 +26,8 @@ export const RemotionRoot: React.FC = () => {
       <Folder name="every-wave">
         <PendulumWave />
         <PendulumWaveCover />
+        <GlassResonance />
+        <GlassResonanceCover />
       </Folder>
       <Folder name="probability">
         <GaltonBoard />

@@ -11,28 +11,28 @@ import timeline from "../../../public/count-the-clacks/timeline.json";
 
 // Low-res frame 360x640, shown at exactly 3x -> 1080x1920.
 const W = 360, H = 640, SCALE = 3;
-const FPS = 30, BEAT = 12, BAR = 48, DURATION = 16 * BAR; // 16 bars at 150 BPM (768 frames)
+const FPS = 30, DURATION = 960; // 16 bars at 120 BPM
 
 type FS = { level: number; x1: number; x2: number; v1: number; v2: number; bigW: number; count: number; sinceHit: number; lastType: string };
 const frames = (timeline as { frames: (FS | null)[] }).frames;
 const REST: FS = { level: 0, x1: 3, x2: 7, v1: 0, v2: 0, bigW: 1, count: 0, sinceHit: 999, lastType: "" };
 
 const LEVELS = [
-  { id: 1, ratio: "1 : 1", label: "1 KG", n: 3, done: 3 * BAR + 2 * BEAT + 1, cap: ["LEVEL 1", "SAME MASS"] },
-  { id: 2, ratio: "1 : 100", label: "100 KG", n: 31, done: 7 * BAR + 1, cap: ["LEVEL 2", "100x HEAVIER"] },
-  { id: 3, ratio: "1:10,000", label: "10 TONNES", n: 314, done: 13 * BAR + 1, cap: ["LEVEL 3", "10,000x HEAVIER"] },
+  { id: 1, ratio: "1 : 1", label: "1 KG", n: 3, done: 211, cap: ["LEVEL 1", "SAME MASS"] },
+  { id: 2, ratio: "1 : 100", label: "100 KG", n: 31, done: 421, cap: ["LEVEL 2", "100x HEAVIER"] },
+  { id: 3, ratio: "1:10,000", label: "10 TONNES", n: 314, done: 781, cap: ["LEVEL 3", "10,000x HEAVIER"] },
 ];
 
 // ---- camera: diagonal shots so the track recedes into the tall frame ----
 type V3 = [number, number, number];
 const CAM: [number, V3, V3][] = [
-  [0, [12, 4.8, 10.5], [4.2, 1.0, 0]], [2 * BAR - 2, [10, 3.4, 8.2], [3.9, 0.9, 0]],
-  [2 * BAR, [9.6, 3.0, 7.6], [3.7, 0.8, 0]], [4 * BAR - 4, [9.0, 2.8, 7.0], [3.5, 0.8, 0]],
-  [4 * BAR, [11.2, 3.8, 9.0], [4.2, 1.0, 0]], [8 * BAR - 4, [10, 3.3, 7.8], [3.8, 0.9, 0]],
-  [8 * BAR, [16, 6.4, 13.5], [5.2, 1.6, 0]], [9 * BAR - 4, [13.5, 5.2, 11.2], [4.8, 1.4, 0]],
-  [9 * BAR + 6, [3.0, 2.0, 8.5], [1.4, 0.8, 0]], [13 * BAR - 4, [2.4, 1.5, 6.2], [1.1, 0.6, 0]],
-  [13 * BAR + 10, [12.5, 5, 11], [6, 1.5, 0]], [14 * BAR - 1, [18, 6.8, 14.5], [10, 1.5, 0]],
-  [14 * BAR, [6, 11, 9], [3, 0, -1]], [DURATION - 1, [12, 4.8, 10.5], [4.2, 1.0, 0]],
+  [0, [12, 4.8, 10.5], [4.2, 1.0, 0]], [118, [10, 3.4, 8.2], [3.9, 0.9, 0]],
+  [120, [9.6, 3.0, 7.6], [3.7, 0.8, 0]], [236, [9.0, 2.8, 7.0], [3.5, 0.8, 0]],
+  [240, [11.2, 3.8, 9.0], [4.2, 1.0, 0]], [476, [10, 3.3, 7.8], [3.8, 0.9, 0]],
+  [480, [16, 6.4, 13.5], [5.2, 1.6, 0]], [536, [13.5, 5.2, 11.2], [4.8, 1.4, 0]],
+  [546, [3.0, 2.0, 8.5], [1.4, 0.8, 0]], [776, [2.4, 1.5, 6.2], [1.1, 0.6, 0]],
+  [790, [12.5, 5, 11], [6, 1.5, 0]], [839, [18, 6.8, 14.5], [10, 1.5, 0]],
+  [840, [6, 11, 9], [3, 0, -1]], [959, [12, 4.8, 10.5], [4.2, 1.0, 0]],
 ];
 function camAt(f: number): { pos: V3; look: V3 } {
   let k = 0;
@@ -49,7 +49,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
   S ??= buildScene(W, H);
   const { renderer, scene, camera, small, big, hitLight, smallMat } = S;
   const s = frames[f] ?? REST;
-  const outro = f >= 14 * BAR;
+  const outro = f >= 840;
   const lvl = frames[f] ? LEVELS[s.level - 1] : outro ? LEVELS[2] : null;
 
   // ---------- 3D (pure function of the frame) ----------
@@ -65,7 +65,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
 
   const { pos, look } = camAt(f);
   let shake = 0;
-  if (s.level === 3 && f >= 9 * BAR && f < 13 * BAR + 10) shake = 0.01 + 0.03 * flash;
+  if (s.level === 3 && f >= 540 && f < 790) shake = 0.01 + 0.03 * flash;
   else if (flash > 0) shake = (s.level === 1 ? 0.05 : 0.025) * flash;
   camera.position.set(pos[0] + Math.sin(f * 12.9) * shake, pos[1] + Math.cos(f * 7.3) * shake, pos[2]);
   camera.lookAt(...look);
@@ -75,7 +75,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
   ctx.clearRect(0, 0, W, H);
   ctx.drawImage(renderer.domElement, 0, 0);
   if (outro) {
-    const a = interpolate(f, [14 * BAR, 14 * BAR + 10, DURATION - 16, DURATION - 1], [0, 0.75, 0.75, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    const a = interpolate(f, [840, 852, 940, 959], [0, 0.75, 0.75, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
     ctx.fillStyle = `rgba(24,20,37,${a})`;
     ctx.fillRect(0, 0, W, H);
   }
@@ -152,10 +152,10 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
 
     // caption: two lines, bottom of the safe area
     let cap: string[] = [];
-    if (f < 2 * BAR) cap = ["COUNT EVERY CLACK", ""];
-    else if (lvl?.id === 3 && f >= 13 * BAR) cap = ["314 CLACKS", "THAT'S PI"];
-    else if (lvl?.id === 3 && f >= 9 * BAR + 5) cap = ["TIME WARPED", "TO THE BEAT"];
-    else if (lvl?.id === 3 && f >= 8 * BAR + 20) cap = ["LEVEL 3", blink(8) ? "GUESS THE COUNT" : ""];
+    if (f < 120) cap = ["COUNT EVERY CLACK", ""];
+    else if (lvl?.id === 3 && f >= 780) cap = ["314 CLACKS", "THAT'S PI"];
+    else if (lvl?.id === 3 && f >= 545) cap = ["TIME WARPED", "TO THE BEAT"];
+    else if (lvl?.id === 3 && f >= 500) cap = ["LEVEL 3", blink(8) ? "GUESS THE COUNT" : ""];
     else if (lvl) cap = lvl.cap;
     if (cap.length) {
       const w = Math.max(measure(cap[0], "p16"), measure(cap[1], "s16")) + 28;
@@ -169,9 +169,9 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
       }
     }
   } else {
-    // outro: pi lands one digit per 8th note (6 frames), in sync with the melody
+    // outro: pi lands one digit per 8th note, in sync with the melody
     const PI_D = "3.141592653589793";
-    const k = Math.min(16, Math.floor((f - 14 * BAR) / (BEAT / 2)) + 1);
+    const k = Math.min(16, Math.floor((f - 840) / 7.5) + 1);
     const shown = PI_D.slice(0, k <= 1 ? 1 : k + 1);
     drawPi(ov, W / 2 - 76, 126, 8, C["f77622"]);
     text("=", W / 2 + 12, 146, "p32", C["ffffff"]);
@@ -243,6 +243,6 @@ export const CountTheClacksCover = () => (
     component={CountTheClacksVideo}
     width={W * SCALE}
     height={H * SCALE}
-    defaultProps={{ coverFrame: 9 * BAR + 8 }}
+    defaultProps={{ coverFrame: 548 }}
   />
 );

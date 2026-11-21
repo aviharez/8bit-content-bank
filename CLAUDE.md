@@ -9,11 +9,12 @@ This repo makes pixel-art science explainers with 8-bit music, entirely in code,
 
 ## Music direction
 
-The target is **hard techno** like the reference in `docs/music-reference.md` (about 144 BPM, A minor, dense, mid-heavy): a deep tuned four-on-the-floor kick, the "dem" (kick_909, tuning about -3.5 for ~43 Hz, decay 2.0, heavy distortion, 0.9-beat notes so it rings ~300 ms), with a distorted reese line above it (dark half-step line like F-E-D) and no separate sub; low end never below ~70% across a beat, clap on 2 and 4, 16th hats and offbeat open hat, a hypnotic riff, chiptune colour in the leads. At 30 fps use 150 BPM (12 frames per beat). The groove is shared code: build it with `music/_shared/hard_techno.py` (kick, bass wall, pad, hats, claps, roll, `groove_tracks`). Only when the physics fixes the tempo (the quartz watch runs in real time, so 2 Hz = 120 BPM) does a video use another BPM; say why in the composer and `post.md`.
-- **One grid.** Every layer, physics included, lands on the same 8th/16th grid. Choose the simulation's time scale so its events fall on the grid; never add a second, competing drum pattern.
-- **Physics plays the riff** (notes of one chord), or a single percussion voice on the grid; the groove is the kick, bass, clap and hats, named as groove in `post.md`.
-- **Dense and level:** loudness range 2-4 LU; the intro is the groove filtered, not silence.
-- Compare every new track with `uv run --locked python scripts/analyze_audio.py public/<slug>/track.wav` and `python3 scripts/analyze_bass.py public/<slug>/track.wav <bpm> <start> <end>` and `python3 scripts/analyze_kick.py public/<slug>/track.wav <bpm> <start> <end> 0` against the reference table; all bands should report the same tempo, low end >= 0.65, kick body ~43 Hz ringing ~300 ms.
+Each video keeps its own music: genre, tempo and melody follow the video (chiptune pop, hard techno, whatever fits). What every track shares is the foundation, and the rule that everything agrees:
+- **The kick is the "dem".** A deep, long, distorted kick (kick_909, decay 2.0, heavy distortion, long notes so it rings ~300 ms), built with `music/_shared/dem.py`. Each hit is tuned to the root of the chord it sits under (`dem_tracks`), so the kick is the bass note and never fights the harmony.
+- **The bass locks to the kick.** The bass line plays the same roots an octave above the kick, on the kick's rhythm. No separate sub under it.
+- **Everything is selaras (in agreement).** One key, one chord progression that the bass, pads, leads and physics notes all follow; physics notes are tones of the current chord. One grid: every layer, physics included, lands on the same 8th/16th grid, and there is never a second, competing drum pattern. Choose the simulation's time scale so its events fall on the grid.
+- Hard techno (`docs/music-reference.md`, Jupiter's Moons) is one style, not the house style.
+- Check every new track: `uv run --locked python scripts/analyze_audio.py public/<slug>/track.wav` (all bands report the same tempo), `python3 scripts/analyze_kick.py public/<slug>/track.wav <bpm> <start> <end> 0` per bar (kick body on the chord root, ringing ~300 ms), and `python3 scripts/analyze_bass.py` (bass notes = the chord roots).
 
 ## Loops
 

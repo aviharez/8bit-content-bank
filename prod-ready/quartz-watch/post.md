@@ -12,9 +12,7 @@ Series: How Time Works · Channel: Square Wave Lab (`@squarewavelab`)
 
 All captions passed `ig-caption` (READY: one ask, 3 hashtags, "quartz watch" and "one second" present) and `ig-human` (PASS). None of them names the note, because the ask is to guess it (the answer is on screen at 0:04: the crystal is a C11 in scientific pitch).
 
-**What's true in this video:** real time, no time warp. The whole soundtrack is tuned to scientific pitch (C4 = 256 Hz), so the tones for stages 2-10 are exactly 8,192 Hz down to 32 Hz (measured: 2048.0, 1024.0, 511.9, 256.0, 128.1, 64.0 Hz). Stages 11-15 (16, 8, 4, 2, 1 Hz) are the 32nd hats, 16th hats, offbeat open hat, kick and tick: every hit is a rising edge of the real stage output. In bars 10-13 the kit is stripped and rebuilt one stage at a time, as the camera walks down stages 11-14.
-
-**Music:** hard techno in C minor, the channel's groove (`music/_shared/hard_techno.py`), at 120 BPM rather than the house 150, because the physics sets the tempo: 2 Hz is one beat, the only tempo at which every slow stage lands on the grid. **Groove, not a stage:** the reese bass (Ab, G, F), clap on 2 and 4, pad, roll, riser, and the drop riff on the stages' own Cs. Kick ~42 Hz (the 43 Hz "dem" after the scientific-pitch retune); loudness range 3.1 LU. Loop check: PASS.
+**What's true in this video:** real time, no time warp. The whole soundtrack is tuned to scientific pitch (C4 = 256 Hz), so the tones for stages 2-10 are exactly 8,192 Hz down to 32 Hz (measured: 2048.0, 1024.0, 511.9, 256.0, 128.1, 64.0 Hz). Stages 11-15 (16, 8, 4, 2, 1 Hz) are the hi-hats, open hat, kick and tick, at their real rates. The snare and clap on beats 2 and 4 are groove, not a stage. The stage 14 kick is a deep tuned "dem" that follows the chords (C2, Ab1, F1, G1, in scientific pitch), with the bass on the same roots an octave up. Loop check: PASS.
 
 ---
 

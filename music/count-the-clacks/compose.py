@@ -1,145 +1,277 @@
-"""Count the Clacks: soundtrack, composed with Audio as Code.
+"""Count the Clacks — soundtrack, composed with Audio as Code.
 
-Hard techno, 150 BPM, A minor, 16 bars (25.6 s), 30 fps (12 frames per beat). One groove, one grid.
+One clock for sound and picture: 120 BPM, 16 bars (64 beats = 32 s), 30 fps.
+The clack layers are generated from the simulation's own collision events
+(public/count-the-clacks/timeline.json), so every hit you hear is a hit you see.
 
-Groove (not physics): the channel's hard-techno groove (music/_shared/hard_techno.py): the tuned "dem" kick,
-a distorted reese wall on F-E-D, clap on 2 and 4, 16th hats, offbeat open hat, dark pad, roll and riser.
+Low end: the kick is the "dem" (music/_shared/dem.py), tuned to the chord root under it (Am F C G -> A1 F1 C2 G1),
+with the triangle bass on the same root an octave up. No separate sub: kick, bass, chords and melody agree on every note.
 
-Physics: every clack is a hit you see, playing notes of one chord (A minor: A, C, E).
-  level 1 (1:1, 3 clacks)        -> on beats 1, 2, 3 of bar 4: A, E, C
-  level 2 (1:100, 31 clacks)     -> time-warped onto the 32nd grid; the notes climb the A minor chord
-  level 3 (1:10,000, 314 clacks) -> time-warped roll; clacks that fall in the same 32nd share one hit,
-                                    so the roll stays on the grid while it accelerates
-  outro                          -> the digits of pi as A minor chord tones, one per 8th
-The last 2 bars are the intro texture (soft groove + filtered riff), so the loop runs on.
-
-Run from the repo root:  uv run --locked python music/count-the-clacks/compose.py
+Run from the repo root:  uv run python music/count-the-clacks/compose.py
 """
 
 import json
-import sys
-from collections import defaultdict
+import wave
 from pathlib import Path
 
+import sys
+
+import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "_shared"))
+from dem import dem_tracks  # noqa: E402
+from audio_as_code import (
+    Chorus, Delay, Ducker, Filter, Note, Reverb, Song, Tone, Track, export_midi, render,
+)
+from audio_as_code import Automation, AutomationPoint, measure_loudness
+
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "music" / "_shared"))
-
-from audio_as_code import Delay, Distortion, Ducker, Filter, Reverb, Song, Tone, Track, export_midi, render  # noqa: E402
-from hard_techno import bass_wall, claps, groove_tracks, hats16, kick, n, open_hats, pad, roll  # noqa: E402
-from mastering import finish_loop  # noqa: E402
-
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "output"
 PUBLIC = ROOT / "public" / "count-the-clacks"
 
-BPM = 150
+BPM = 120
 BARS = 16
 BEATS = BARS * 4
-SPB = 60 / BPM
+SPB = 60 / BPM  # seconds per beat
 
 timeline = json.loads((PUBLIC / "timeline.json").read_text())
-assert timeline["bpm"] == BPM, "re-run sims/count-the-clacks.ts"
 events = timeline["audioEvents"]
 
-INTRO, L1, L2, BUILD, DROP, OUTRO = range(0, 2), range(2, 4), range(4, 8), range(8, 9), range(9, 14), range(14, 16)
-SOFT = set(INTRO) | set(OUTRO)
-SQUEEZE = range(9, 13)  # level 3's roll: the groove steps back so the clacks stay on top
 
-# ---------------------------------------------------------------- groove
-BASS_LINE = [29, 29, 28, 28, 29, 29, 26, 28]  # F, F, E, E, F, F, D, E (F1 = 29)
-root = lambda b: BASS_LINE[b % 8]  # noqa: E731
-PADS = {29: [53, 57, 60, 64], 28: [52, 55, 59, 64], 26: [50, 53, 57, 62]}  # Fmaj7, Em, Dm: all hold A, C or E
+def bar(b: int) -> float:
+    return b * 4.0
 
-kicks, clap, hat16, hat_open = [], [], [], []
+
+def n(pitch, start, dur, vel=0.8):
+    return Note(pitch=int(pitch), start=round(float(start), 6), duration=round(float(dur), 6), velocity=float(min(1.0, max(0.01, vel))))
+
+
+# ---------------------------------------------------------------- harmony
+# i - VI - III - VII in A minor (Am F C G), one chord per bar
+ROOTS = [45, 41, 48, 43]
+CHORDS = [[57, 60, 64], [53, 57, 60], [55, 60, 64], [55, 59, 62]]
+
+# sections (bar indices, 0-based)
+INTRO, L1, L2, BUILD, DROP, OUTRO = range(0, 2), range(2, 4), range(4, 8), [8], range(9, 14), range(14, 16)
+
+# ---------------------------------------------------------------- drums
+kick_beats, kicks, snares, claps, hats, open_hats, crashes = [], [], [], [], [], [], []
 for b in range(BARS):
-    for q in range(4):
-        if b == 8 and q == 3:
-            continue  # one beat of air before the drop
-        kicks.append(kick(b * 4 + q))
-    if b in L2 or b in BUILD or b in DROP:
-        clap += claps(b)
-    if b in L2 or b in DROP:
-        hat16 += hats16(b, 0.45 if b in SQUEEZE else 1.0)
-    hat_open += open_hats(b, 0.55 if b in L2 or b in DROP else 0.4)
-grit = bass_wall(root, range(BARS), soft_bars=SOFT)
-pads = pad(root, PADS, range(BARS))
-riser = [n(p, 8 * 4, 3.9, 0.7) for p in (45, 52, 57)]
-groove, side = groove_tracks(kicks=kicks, clap=clap, hat16=hat16, hat_open=hat_open, grit=grit, pads=pads,
-                             rolls=roll(8), crashes=[n(51, 4 * 4, 3, 0.6), n(51, 13 * 4, 4, 0.85)],
-                             riser=riser, riser_span=(32.0, 36.0), kick_gain=0.7, grit_gain=0.7)
+    t = bar(b)
+    if b in L1:
+        for q in (0, 2):
+            kick_beats.append(t + q)
+        hats += [n(42, t + 1, 0.1, 0.35), n(42, t + 3, 0.1, 0.35)]
+    if b in L2:
+        for q in (0, 2):
+            kick_beats.append(t + q)
+        if b in (5, 7):
+            kick_beats.append(t + 2.5)
+        snares += [n(38, t + 1, 0.25, 0.7), n(38, t + 3, 0.25, 0.75)]
+        hats += [n(42, t + e / 2, 0.1, 0.5 if e % 2 == 0 else 0.35) for e in range(8)]
+    if b in BUILD:
+        kick_beats.append(t)
+        snares += [n(38, t + s / 4, 0.12, 0.2 + 0.75 * (s / 15) ** 2) for s in range(16)]
+    if b in DROP:
+        for q in range(4):
+            kick_beats.append(t + q)
+        snares += [n(38, t + 1, 0.25, 0.8), n(38, t + 3, 0.25, 0.85)]
+        claps += [n(39, t + 1, 0.25, 0.7), n(39, t + 3, 0.25, 0.7)]
+        hats += [n(42, t + s / 4, 0.08, 0.45 if s % 2 == 0 else 0.28) for s in range(16) if s % 4 != 2]
+        open_hats += [n(46, t + q + 0.5, 0.3, 0.45) for q in range(4)]
+        if b == 13:
+            snares += [n(38, t + 3 + s / 4, 0.12, 0.55 + 0.1 * s) for s in range(4)]
+    if b == 9 or b == 14:
+        crashes.append(n(51, t, 3.5, 0.75))
+    if b == 14:
+        kick_beats.append(t)
+# the "dem": each kick is tuned to the root of the chord it sits under (A1, F1, C2, G1), so the kick IS the bass
+# note an octave under the triangle bass; it rings until the next kick (at most most of two beats)
+kick_beats = sorted(set(kick_beats))
+kick_hits = []
+for i, kb in enumerate(kick_beats):
+    gap = (kick_beats[i + 1] if i + 1 < len(kick_beats) else BEATS) - kb
+    kick_hits.append((kb, ROOTS[int(kb // 4) % 4] - 12, 0.9 * min(gap, 2.0), 1.0 if kb % 4 == 0 else 0.9))
+duck = Ducker(trigger_beats=tuple(sorted(set(kick_beats))), depth=0.6, attack_seconds=0.004, release_seconds=0.17)
 
-# ---------------------------------------------------------------- the clacks
-AM = [45, 48, 52, 57, 60, 64, 69, 72, 76, 81, 84, 88, 93]  # A minor chord tones, A2 to A6
-hits_wall, hits_block, bell, pluck_wall, pluck_block, roll_wall, roll_block = [], [], [], [], [], [], []
-l3_slots = defaultdict(list)
+# ---------------------------------------------------------------- pad, bass, arp
+pad, tri, arp_l, arp_r = [], [], [], []
+for b in range(BARS):
+    c = b % 4
+    t, root, ch = bar(b), ROOTS[c], CHORDS[c]
+    if b not in BUILD:
+        pad += [n(p, t, 3.9, 0.45 if b in DROP else 0.38) for p in ch]
+    if b in INTRO:
+        tri.append(n(root, t, 3.8, 0.55))
+    elif b in L1:
+        tri += [n(root, t + q, 0.85, 0.7) for q in range(4)]
+    elif b in L2:
+        tri += [n(root + (12 if e % 2 else 0), t + e / 2, 0.4, 0.7) for e in range(8)]
+    elif b in BUILD:
+        tri += [n(root, t + s / 4, 0.2, 0.4 + 0.4 * s / 15) for s in range(16)]
+    elif b in DROP:
+        steps = [0, 2, 3, 5, 6, 8, 10, 11, 13, 14]
+        offs = [0, 12, 0, 12, 0, 0, 12, 7, 12, 10]
+        tri += [n(root + o, t + s / 4, 0.38, 0.8) for s, o in zip(steps, offs)]
+    elif b in OUTRO:
+        tri.append(n(45 if b == 15 else root, t, 3.8, 0.5))
+    # arpeggio: chord tones in 16ths, alternating left/right
+    if b in L1 or b in L2 or b in DROP or b in OUTRO:
+        vel = 0.35 if b in L1 else 0.5
+        for s in range(16):
+            p = ch[s % 3] + 12 + (12 if s % 6 >= 3 else 0)
+            (arp_l if s % 2 == 0 else arp_r).append(n(p, t + s / 4, 0.18, vel * (1.0 if s % 4 == 0 else 0.8)))
+    if b in INTRO:
+        for e in range(8):
+            (arp_l if e % 2 == 0 else arp_r).append(n(ch[e % 3] + 12, t + e / 2, 0.4, 0.4))
+
+# ---------------------------------------------------------------- lead hook (the drop)
+HOOK = [
+    [(0, 81, 4), (4, 79, 2), (6, 76, 4), (10, 76, 2), (12, 79, 2), (14, 81, 2)],
+    [(0, 84, 4), (4, 81, 2), (6, 77, 4), (10, 77, 2), (12, 79, 2), (14, 81, 2)],
+    [(0, 79, 4), (4, 76, 2), (6, 72, 4), (10, 72, 2), (12, 74, 2), (14, 76, 2)],
+    [(0, 74, 3), (3, 76, 3), (6, 79, 4), (10, 83, 2), (12, 81, 2), (14, 79, 2)],
+]
+HOOK_END = [(0, 76, 3), (3, 79, 3), (6, 83, 4), (10, 86, 6)]
+lead, lead_low = [], []
+for b in DROP:
+    phrase = HOOK_END if b == 13 else HOOK[b % 4]
+    for p, pitch, ln in phrase:
+        lead.append(n(pitch, bar(b) + p / 4, ln / 4 * 0.92, 0.85 if p in (0, 6) else 0.72))
+        lead_low.append(n(pitch - 12, bar(b) + p / 4, ln / 4 * 0.92, 0.6))
+
+# outro: the digits of pi become the melody (digit -> A minor pentatonic, two octaves)
+PENT10 = [69, 72, 74, 76, 79, 81, 84, 86, 88, 91]
+pi_mel = [n(PENT10[int(d)], bar(14) + i / 2, 0.45, 0.8) for i, d in enumerate("3141592653589793")]
+
+# riser into the drop: a wide chord gliding up an octave over the build bar
+riser = [n(p, bar(8), 3.95, 0.7) for p in (57, 64, 69)]
+
+# ---------------------------------------------------------------- clacks from the simulation
+PENTA = [0, 3, 5, 7, 10]
+
+
+def pn(k: int, base: int) -> int:
+    return base + 12 * (k // 5) + PENTA[k % 5]
+
+
+hits_wall, hits_block, mel_l1, mel_wall, mel_block, roll_wall, roll_block = [], [], [], [], [], [], []
 for e in events:
     beat = e["sec"] / SPB
     wall = e["type"] == "wall"
+    hits = hits_wall if wall else hits_block
     if e["level"] == 1:
-        (hits_wall if wall else hits_block).append(n(84, beat, 0.25, 1.0))
-        bell.append(n([81, 76, 84][e["index"]], beat, 0.9, 0.9))
+        hits.append(n(84, beat, 0.25, 1.0))
+        mel_l1.append(n([81, 76, 84][e["index"]], beat, 0.9, 0.9))
     elif e["level"] == 2:
-        (hits_wall if wall else hits_block).append(n(84, beat, 0.2, 0.95))
-        k = 3 + round(e["index"] / 30 * 6)  # climbs A3 -> A5
-        (pluck_wall if wall else pluck_block).append(n(AM[k] - (12 if wall else 0), beat, 0.3, 0.95))
+        # every clack keeps its percussive hit at full strength, plus a pentatonic note
+        hits.append(n(84, beat, 0.2, 0.95))
+        k = e["index"] // 2
+        (mel_wall if wall else mel_block).append(n(pn(k, 57 if wall else 69), beat, 0.3, 0.95))
     else:
-        l3_slots[round(beat * 8) / 8].append(e)
-for beat, es in sorted(l3_slots.items()):
-    e = es[-1]
-    wall = e["type"] == "wall"
-    k = int(e["index"] / (e["total"] - 1) * 8)  # climbs two octaves over the roll
-    (hits_wall if wall else hits_block).append(n(84 + k, beat, 0.12, 0.8 + 0.2 * k / 8))
-    (roll_wall if wall else roll_block).append(n(AM[3 + k // 2] + (0 if wall else 12), beat, 0.12, 0.85 + 0.15 * k / 8))
+        # level 3: 314 hits in ~8 s. Each one is still a hit; the pitch climbs two octaves
+        k = int(e["index"] / (e["total"] - 1) * 10)
+        hits.append(n(84 + k, beat, 0.15, 0.75 + 0.25 * k / 10))
+        (roll_wall if wall else roll_block).append(n(pn(k, 69) - (12 if wall else 0), beat, 0.15, 0.8 + 0.2 * k / 10))
 
-# outro: pi's digits as A minor chord tones, one per 8th (the picture shows one digit per 8th)
-PI10 = AM[3:13]  # digit d -> the d-th chord tone from A3
-pi_mel = [n(PI10[int(d)], 14 * 4 + i / 2, 0.42, 0.85) for i, d in enumerate("3141592653589793")]
-# intro and outro: the same chord riff through a lowpass, so the end runs into the start
-RIFF = [57, 64, 60, 64, 69, 64, 60, 64]
-riff_dark = [n(p, b * 4 + i / 2, 0.4, 0.6) for b in (*INTRO, *OUTRO) for i, p in enumerate(RIFF)]
+# The clacks are the point of the video: the arrangement makes room for them.
+# During the squeeze (level 3, bars 10-13) hats and arp step back so the hits stay on top.
+SQUEEZE = (bar(9), bar(13) + 0.5)
+
+
+def thin(notes, factor):
+    return [n(x.pitch, x.start, x.duration, x.velocity * (factor if SQUEEZE[0] <= x.start < SQUEEZE[1] else 1.0)) for x in notes]
+
+
+hats, open_hats, arp_l, arp_r = thin(hats, 0.45), thin(open_hats, 0.4), thin(arp_l, 0.5), thin(arp_r, 0.5)
 
 # ---------------------------------------------------------------- song
-space = Reverb(decay_seconds=1.8, mix=0.22)
-short = Reverb(decay_seconds=0.9, mix=0.15)
-echo = Delay(time_seconds=0.75 * SPB, feedback=0.4, repeats=5, mix=0.25)
-pump = lambda: Ducker(trigger_beats=side.trigger_beats, depth=0.3, release_seconds=0.12)  # noqa: E731
+rev_short = Reverb(decay_seconds=1.2, mix=0.18)
+rev_long = Reverb(decay_seconds=2.6, mix=0.32)
+dotted8 = Delay(time_seconds=0.75 * SPB, feedback=0.35, repeats=5, mix=0.22)
 
-physics = [
-    Track(name="Clack wall", instrument="fm_percussion", gain=1.0, pan=-0.45, tone=Tone(brightness=0.75), notes=tuple(hits_wall),
-          effects=(Distortion(drive=4.0, mix=0.5), short)),
-    Track(name="Clack block", instrument="fm_percussion", gain=1.0, pan=0.45, tone=Tone(brightness=0.8), notes=tuple(hits_block),
-          effects=(Distortion(drive=4.0, mix=0.5), short)),
-    Track(name="Clack notes L1", instrument="sync_lead", gain=0.7, tone=Tone(brightness=0.6, cutoff_hz=4500), notes=tuple(bell),
-          effects=(Distortion(drive=3.0, mix=0.4), echo, space)),
-    Track(name="Clack notes wall", instrument="sync_lead", gain=0.65, pan=-0.35, tone=Tone(brightness=0.6, cutoff_hz=4500), notes=tuple(pluck_wall),
-          effects=(Distortion(drive=3.0, mix=0.4), echo, pump())),
-    Track(name="Clack notes block", instrument="hoover", gain=0.45, pan=0.35, tone=Tone(brightness=0.6, cutoff_hz=4000, detune_cents=12), notes=tuple(pluck_block),
-          effects=(Filter(mode="highpass", cutoff_hz=250), echo, pump())),
-    Track(name="Squeeze roll wall", instrument="sync_lead", gain=0.7, pan=-0.5, tone=Tone(brightness=0.65, cutoff_hz=5000), notes=tuple(roll_wall),
-          effects=(Filter(mode="highpass", cutoff_hz=200), short)),
-    Track(name="Squeeze roll block", instrument="sync_lead", gain=0.7, pan=0.5, tone=Tone(brightness=0.7, cutoff_hz=5000), notes=tuple(roll_block),
-          effects=(Filter(mode="highpass", cutoff_hz=200), short)),
-    Track(name="Pi melody", instrument="sync_lead", gain=0.75, tone=Tone(brightness=0.6, cutoff_hz=4500), notes=tuple(pi_mel),
-          effects=(Distortion(drive=3.0, mix=0.4), echo, space, pump())),
-    Track(name="Riff (filtered)", instrument="sync_lead", gain=0.5, tone=Tone(brightness=0.4, cutoff_hz=1400), notes=tuple(riff_dark), effects=(echo, space)),
+tracks = [
+    Track(name="Pad", instrument="wavetable_pad", gain=0.32, tone=Tone(brightness=0.45, cutoff_hz=2400, detune_cents=12),
+          notes=tuple(pad), release_seconds=0.6,
+          effects=(Filter(mode="lowpass", cutoff_hz=450, end_cutoff_hz=9000, sweep_seconds=4.0), Chorus(), rev_long, duck)),
+    Track(name="Bass (triangle)", instrument="triangle", gain=0.55, notes=tuple(tri), effects=(duck,)),
+    Track(name="Arp L", instrument="synthesizer", gain=0.22, pan=-0.45, tone=Tone(brightness=0.7, detune_cents=4),
+          notes=tuple(arp_l), effects=(dotted8, rev_short, duck)),
+    Track(name="Arp R", instrument="synthesizer", gain=0.22, pan=0.45, tone=Tone(brightness=0.7, detune_cents=4),
+          notes=tuple(arp_r), effects=(dotted8, rev_short, duck)),
+    Track(name="Lead (pulse)", instrument="hoover", gain=0.4, tone=Tone(brightness=0.62, cutoff_hz=5200, detune_cents=7),
+          notes=tuple(lead), effects=(Chorus(mix=0.3), dotted8, rev_short, Ducker(trigger_beats=duck.trigger_beats, depth=0.25, release_seconds=0.12))),
+    Track(name="Lead low", instrument="synthesizer", gain=0.16, tone=Tone(brightness=0.4), notes=tuple(lead_low), effects=(duck,)),
+    Track(name="Pi melody", instrument="hoover", gain=0.42, tone=Tone(brightness=0.6, cutoff_hz=4800, detune_cents=6),
+          notes=tuple(pi_mel), effects=(Chorus(mix=0.3), Delay(time_seconds=0.75 * SPB, feedback=0.4, repeats=6, mix=0.3), rev_long)),
+    Track(name="Riser", instrument="supersaw", gain=0.26, tone=Tone(brightness=0.6, glide_semitones=-12, glide_seconds=1.2, detune_cents=25),
+          notes=tuple(riser), effects=(Filter(mode="highpass", cutoff_hz=350), rev_long),
+          automation=(Automation(parameter="gain", points=(AutomationPoint(beat=bar(8), value=0.0), AutomationPoint(beat=bar(9) - 0.05, value=1.0), AutomationPoint(beat=bar(9), value=0.0))),)),
+    *dem_tracks(kick_hits, gain=0.8),
+    Track(name="Snare", instrument="electronic_snare", gain=0.5, tone=Tone(brightness=0.55), notes=tuple(snares), effects=(rev_short,)),
+    Track(name="Clap", instrument="clap", gain=0.4, notes=tuple(claps), effects=(Reverb(decay_seconds=1.0, mix=0.25),)),
+    Track(name="Hat", instrument="metal_hat", gain=0.26, pan=0.2, tone=Tone(brightness=0.6), notes=tuple(hats)),
+    Track(name="Open hat", instrument="open_hat", gain=0.2, pan=-0.2, notes=tuple(open_hats)),
+    Track(name="Crash", instrument="electronic_ride", gain=0.3, tone=Tone(brightness=0.8, decay_seconds=2.5), notes=tuple(crashes), effects=(rev_long,)),
+    # --- sonification: the simulation plays these
+    Track(name="Clack wall", instrument="fm_percussion", gain=1.0, pan=-0.45, tone=Tone(brightness=0.7), notes=tuple(hits_wall), effects=(rev_short,)),
+    Track(name="Clack block", instrument="fm_percussion", gain=1.0, pan=0.45, tone=Tone(brightness=0.75), notes=tuple(hits_block), effects=(rev_short,)),
+    Track(name="Clack notes L1", instrument="fm_bell", gain=0.5, tone=Tone(brightness=0.55, decay_seconds=1.2), notes=tuple(mel_l1), effects=(dotted8, rev_long)),
+    Track(name="Clack notes wall", instrument="trance_pluck", gain=0.7, pan=-0.4, tone=Tone(brightness=0.6, decay_seconds=0.3), notes=tuple(mel_wall), effects=(dotted8, rev_short)),
+    Track(name="Clack notes block", instrument="trance_pluck", gain=0.7, pan=0.4, tone=Tone(brightness=0.65, decay_seconds=0.3), notes=tuple(mel_block), effects=(dotted8, rev_short)),
+    Track(name="Squeeze roll wall", instrument="trance_pluck", gain=0.45, pan=-0.5, tone=Tone(brightness=0.7, decay_seconds=0.12), notes=tuple(roll_wall), effects=(rev_short,)),
+    Track(name="Squeeze roll block", instrument="trance_pluck", gain=0.45, pan=0.5, tone=Tone(brightness=0.75, decay_seconds=0.12), notes=tuple(roll_block), effects=(rev_short,)),
 ]
-tracks = groove + physics
 
 song = Song(title="Count the Clacks", bpm=float(BPM), beats=float(BEATS), seed=314, master_gain=0.8, tracks=tuple(tracks))
+
+
+def limit(x: np.ndarray, sr: int, ceiling: float, release_s: float = 0.08, lookahead_s: float = 0.003) -> np.ndarray:
+    """Simple lookahead peak limiter: gain follows the loudest sample ahead, releases smoothly."""
+    peak = np.abs(x).max(axis=1)
+    la = int(lookahead_s * sr)
+    ahead = np.maximum.reduce([np.roll(peak, -k) for k in range(la)])
+    target = np.minimum(1.0, ceiling / np.maximum(ahead, 1e-9))
+    rel = np.exp(-1 / (release_s * sr))
+    g = np.empty_like(target)
+    cur = 1.0
+    for i, t in enumerate(target):
+        cur = t if t < cur else t + (cur - t) * rel
+        g[i] = cur
+    return x * g[:, None]
+
+
+def finish_loop(path: Path, loop_seconds: float, target_lufs: float = -14.0, ceiling_dbfs: float = -1.0) -> dict:
+    """Fold the tail past the loop point onto the start, set loudness, limit peaks."""
+    with wave.open(str(path)) as w:
+        sr, ch = w.getframerate(), w.getnchannels()
+        data = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64).reshape(-1, ch) / 32768
+    n_loop = int(round(loop_seconds * sr))
+    out = data[:n_loop].copy()
+    tail = data[n_loop:]
+    out[: len(tail)] += tail[:n_loop]
+    lufs = measure_loudness(out, sr)["integrated_lufs"]
+    out *= 10 ** ((target_lufs - lufs) / 20)
+    out = limit(out, sr, 10 ** (ceiling_dbfs / 20))
+    with wave.open(str(path), "wb") as w:
+        w.setnchannels(ch); w.setsampwidth(2); w.setframerate(sr)
+        w.writeframes((np.clip(out, -1, 1) * 32767).astype(np.int16).tobytes())
+    return {"seconds": n_loop / sr, "tail_folded_seconds": round(len(tail) / sr, 3),
+            "lufs": round(measure_loudness(out, sr)["integrated_lufs"], 1), "peak_dbfs": round(20 * np.log10(np.abs(out).max()), 2)}
 
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     song.save(OUT / "score.json")
-    wav = PUBLIC / "track.wav"
-    report = render(song, wav, target_lufs=-14.0, peak_ceiling_dbfs=-1.0)
-    loop = finish_loop(wav, BEATS * SPB)
+    report = render(song, PUBLIC / "track.wav", target_lufs=-14.0, peak_ceiling_dbfs=-1.0)
+    loop = finish_loop(PUBLIC / "track.wav", BEATS * SPB)
     try:
         midi = export_midi(song, OUT / "song.mid")
-    except ValueError as err:  # two tracks share a drum voice
+    except ValueError as err:  # e.g. two tracks share a drum voice (panned clack layers)
         midi = {"skipped": str(err)}
     (OUT / "report.json").write_text(json.dumps({"render": report, "loop": loop, "midi": midi}, indent=2, default=str) + "\n")
-    print(json.dumps({"loop": loop, "notes": sum(len(t.notes) for t in tracks), "tracks": len(tracks), "level3_hits": len(l3_slots)}, indent=2))
+    print(json.dumps({"loop": loop, "notes": sum(len(t.notes) for t in tracks), "tracks": len(tracks)}, indent=2))
 
 
 if __name__ == "__main__":

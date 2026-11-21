@@ -4,11 +4,11 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 
 export const FPS = 30;
-export const BPM = 150; // hard techno: 12 frames per beat at 30 fps
-export const FRAMES_PER_BEAT = (60 / BPM) * FPS; // 12
-export const FRAMES_PER_BAR = FRAMES_PER_BEAT * 4; // 48
+export const BPM = 120;
+export const FRAMES_PER_BEAT = (60 / BPM) * FPS; // 15
+export const FRAMES_PER_BAR = FRAMES_PER_BEAT * 4; // 60
 export const TOTAL_BARS = 16;
-export const TOTAL_FRAMES = TOTAL_BARS * FRAMES_PER_BAR; // 768
+export const TOTAL_FRAMES = TOTAL_BARS * FRAMES_PER_BAR; // 960
 
 const SMALL_W = 1; // world units (metres)
 
@@ -49,7 +49,7 @@ type Level = {
   startFrame: number; firstHitFrame: number; lastHitFrame: number; endFrame: number;
 };
 
-// bars are 0-indexed here: frame = bar * 48
+// bars are 0-indexed here: frame = bar * 60
 const B = (bar: number) => bar * FRAMES_PER_BAR;
 const levels: Level[] = [
   // 1:1 -> 3 clacks on beats 1,2,3 of bar 4

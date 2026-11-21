@@ -34,5 +34,6 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 28 | PRIMES AS A RHYTHM | Sieve of Eratosthenes | Every prime is a kick | Unsolved Math | |
 | 29 | HOW A KEY OPENS A LOCK | Pin tumbler lock | Each pin that lifts plays a note | How Things Work | |
 | 30 | SHATTER A GLASS WITH A NOTE | Resonance | One note grows louder until the glass breaks | Every Wave | |
+| 31 | HOW FAST CAN A HEART BEAT? | Heart rate scales as 241 x M^-1/4 (Stahl 1967), whale to Etruscan shrew | Every heartbeat is a beep on the 16th grid; the shrew's 19.5 Hz is too fast for the grid and becomes the drop note (x16 = D#4). Drum and bass, 180 BPM | How Life Works | Done ([render](../renders/heart-rate.mp4)) |
 
 Numbers here are common facts; check each against a source before it goes into a caption.

@@ -16,7 +16,7 @@ import numpy as np
 from audio_as_code import (
     Chorus, Delay, Ducker, Filter, Note, Reverb, Song, Tone, Track, export_midi, render,
 )
-from audio_as_code import Automation, AutomationPoint
+from audio_as_code import Automation, AutomationPoint, measure_loudness
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
@@ -149,16 +149,31 @@ hits_wall, hits_block, mel_l1, mel_wall, mel_block, roll_wall, roll_block = [], 
 for e in events:
     beat = e["sec"] / SPB
     wall = e["type"] == "wall"
+    hits = hits_wall if wall else hits_block
     if e["level"] == 1:
-        (hits_wall if wall else hits_block).append(n(84, beat, 0.12, 0.9))
-        mel_l1.append(n([81, 76, 84][e["index"]], beat, 0.9, 0.85))
+        hits.append(n(84, beat, 0.25, 1.0))
+        mel_l1.append(n([81, 76, 84][e["index"]], beat, 0.9, 0.9))
     elif e["level"] == 2:
-        (hits_wall if wall else hits_block).append(n(84, beat, 0.06, 0.6))
+        # every clack keeps its percussive hit at full strength, plus a pentatonic note
+        hits.append(n(84, beat, 0.2, 0.95))
         k = e["index"] // 2
-        (mel_wall if wall else mel_block).append(n(pn(k, 57 if wall else 69), beat, 0.2, 0.7))
+        (mel_wall if wall else mel_block).append(n(pn(k, 57 if wall else 69), beat, 0.3, 0.95))
     else:
+        # level 3: 314 hits in ~8 s. Each one is still a hit; the pitch climbs two octaves
         k = int(e["index"] / (e["total"] - 1) * 10)
-        (roll_wall if wall else roll_block).append(n(pn(k, 69) - (12 if wall else 0), beat, 0.05, 0.45 + 0.3 * k / 10))
+        hits.append(n(84 + k, beat, 0.15, 0.75 + 0.25 * k / 10))
+        (roll_wall if wall else roll_block).append(n(pn(k, 69) - (12 if wall else 0), beat, 0.15, 0.8 + 0.2 * k / 10))
+
+# The clacks are the point of the video: the arrangement makes room for them.
+# During the squeeze (level 3, bars 10-13) hats and arp step back so the hits stay on top.
+SQUEEZE = (bar(9), bar(13) + 0.5)
+
+
+def thin(notes, factor):
+    return [n(x.pitch, x.start, x.duration, x.velocity * (factor if SQUEEZE[0] <= x.start < SQUEEZE[1] else 1.0)) for x in notes]
+
+
+hats, open_hats, arp_l, arp_r = thin(hats, 0.45), thin(open_hats, 0.4), thin(arp_l, 0.5), thin(arp_r, 0.5)
 
 # ---------------------------------------------------------------- song
 rev_short = Reverb(decay_seconds=1.2, mix=0.18)
@@ -190,42 +205,57 @@ tracks = [
     Track(name="Open hat", instrument="open_hat", gain=0.2, pan=-0.2, notes=tuple(open_hats)),
     Track(name="Crash", instrument="electronic_ride", gain=0.3, tone=Tone(brightness=0.8, decay_seconds=2.5), notes=tuple(crashes), effects=(rev_long,)),
     # --- sonification: the simulation plays these
-    Track(name="Clack wall", instrument="fm_percussion", gain=0.5, pan=-0.45, tone=Tone(brightness=0.7), notes=tuple(hits_wall), effects=(rev_short,)),
-    Track(name="Clack block", instrument="fm_percussion", gain=0.5, pan=0.45, tone=Tone(brightness=0.75), notes=tuple(hits_block), effects=(rev_short,)),
-    Track(name="Clack notes L1", instrument="fm_bell", gain=0.42, tone=Tone(brightness=0.55, decay_seconds=1.2), notes=tuple(mel_l1), effects=(dotted8, rev_long)),
-    Track(name="Clack notes wall", instrument="trance_pluck", gain=0.3, pan=-0.4, tone=Tone(brightness=0.6, decay_seconds=0.3), notes=tuple(mel_wall), effects=(dotted8, rev_short)),
-    Track(name="Clack notes block", instrument="trance_pluck", gain=0.3, pan=0.4, tone=Tone(brightness=0.65, decay_seconds=0.3), notes=tuple(mel_block), effects=(dotted8, rev_short)),
-    Track(name="Squeeze roll wall", instrument="trance_pluck", gain=0.2, pan=-0.5, tone=Tone(brightness=0.7, decay_seconds=0.12), notes=tuple(roll_wall), effects=(rev_short,)),
-    Track(name="Squeeze roll block", instrument="trance_pluck", gain=0.2, pan=0.5, tone=Tone(brightness=0.75, decay_seconds=0.12), notes=tuple(roll_block), effects=(rev_short,)),
+    Track(name="Clack wall", instrument="fm_percussion", gain=1.0, pan=-0.45, tone=Tone(brightness=0.7), notes=tuple(hits_wall), effects=(rev_short,)),
+    Track(name="Clack block", instrument="fm_percussion", gain=1.0, pan=0.45, tone=Tone(brightness=0.75), notes=tuple(hits_block), effects=(rev_short,)),
+    Track(name="Clack notes L1", instrument="fm_bell", gain=0.5, tone=Tone(brightness=0.55, decay_seconds=1.2), notes=tuple(mel_l1), effects=(dotted8, rev_long)),
+    Track(name="Clack notes wall", instrument="trance_pluck", gain=0.7, pan=-0.4, tone=Tone(brightness=0.6, decay_seconds=0.3), notes=tuple(mel_wall), effects=(dotted8, rev_short)),
+    Track(name="Clack notes block", instrument="trance_pluck", gain=0.7, pan=0.4, tone=Tone(brightness=0.65, decay_seconds=0.3), notes=tuple(mel_block), effects=(dotted8, rev_short)),
+    Track(name="Squeeze roll wall", instrument="trance_pluck", gain=0.45, pan=-0.5, tone=Tone(brightness=0.7, decay_seconds=0.12), notes=tuple(roll_wall), effects=(rev_short,)),
+    Track(name="Squeeze roll block", instrument="trance_pluck", gain=0.45, pan=0.5, tone=Tone(brightness=0.75, decay_seconds=0.12), notes=tuple(roll_block), effects=(rev_short,)),
 ]
 
 song = Song(title="Count the Clacks", bpm=float(BPM), beats=float(BEATS), seed=314, master_gain=0.8, tracks=tuple(tracks))
 
 
-def wrap_tail_for_loop(path: Path, loop_seconds: float, ceiling_dbfs: float = -1.0) -> dict:
-    """Fold everything past the loop point back onto the start, trim, keep the peak under the ceiling."""
+def limit(x: np.ndarray, sr: int, ceiling: float, release_s: float = 0.08, lookahead_s: float = 0.003) -> np.ndarray:
+    """Simple lookahead peak limiter: gain follows the loudest sample ahead, releases smoothly."""
+    peak = np.abs(x).max(axis=1)
+    la = int(lookahead_s * sr)
+    ahead = np.maximum.reduce([np.roll(peak, -k) for k in range(la)])
+    target = np.minimum(1.0, ceiling / np.maximum(ahead, 1e-9))
+    rel = np.exp(-1 / (release_s * sr))
+    g = np.empty_like(target)
+    cur = 1.0
+    for i, t in enumerate(target):
+        cur = t if t < cur else t + (cur - t) * rel
+        g[i] = cur
+    return x * g[:, None]
+
+
+def finish_loop(path: Path, loop_seconds: float, target_lufs: float = -14.0, ceiling_dbfs: float = -1.0) -> dict:
+    """Fold the tail past the loop point onto the start, set loudness, limit peaks."""
     with wave.open(str(path)) as w:
-        sr, ch, width = w.getframerate(), w.getnchannels(), w.getsampwidth()
+        sr, ch = w.getframerate(), w.getnchannels()
         data = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64).reshape(-1, ch) / 32768
     n_loop = int(round(loop_seconds * sr))
     out = data[:n_loop].copy()
     tail = data[n_loop:]
     out[: len(tail)] += tail[:n_loop]
-    peak = np.abs(out).max()
-    ceiling = 10 ** (ceiling_dbfs / 20)
-    if peak > ceiling:
-        out *= ceiling / peak
+    lufs = measure_loudness(out, sr)["integrated_lufs"]
+    out *= 10 ** ((target_lufs - lufs) / 20)
+    out = limit(out, sr, 10 ** (ceiling_dbfs / 20))
     with wave.open(str(path), "wb") as w:
         w.setnchannels(ch); w.setsampwidth(2); w.setframerate(sr)
         w.writeframes((np.clip(out, -1, 1) * 32767).astype(np.int16).tobytes())
-    return {"seconds": n_loop / sr, "tail_folded_seconds": round(len(tail) / sr, 3), "peak_dbfs": round(20 * np.log10(np.abs(out).max()), 2)}
+    return {"seconds": n_loop / sr, "tail_folded_seconds": round(len(tail) / sr, 3),
+            "lufs": round(measure_loudness(out, sr)["integrated_lufs"], 1), "peak_dbfs": round(20 * np.log10(np.abs(out).max()), 2)}
 
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     song.save(OUT / "score.json")
     report = render(song, PUBLIC / "track.wav", target_lufs=-14.0, peak_ceiling_dbfs=-1.0)
-    loop = wrap_tail_for_loop(PUBLIC / "track.wav", BEATS * SPB)
+    loop = finish_loop(PUBLIC / "track.wav", BEATS * SPB)
     try:
         midi = export_midi(song, OUT / "song.mid")
     except ValueError as err:  # e.g. two tracks share a drum voice (panned clack layers)

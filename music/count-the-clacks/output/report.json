@@ -2,10 +2,10 @@
   "render": {
     "engine_version": "0.5.0",
     "numpy_version": "2.5.5",
-    "score_sha256": "52b221831563563bfebf1ebb419f740282e66194820f8ff64ff5af29b1698b47",
+    "score_sha256": "130047e823fd61de004233bb51b0c2bc8a471171f826058ac52c659449f2ecee",
     "title": "Count the Clacks",
     "tracks": 22,
-    "notes": 1066,
+    "notes": 1380,
     "seed": 314,
     "normalize": true,
     "score_duration_seconds": 32.0,
@@ -536,17 +536,17 @@
         ]
       }
     },
-    "gain_applied": 1.4907538890838623,
+    "gain_applied": 0.6603605151176453,
     "before_gain": {
       "sample_rate": 44100,
       "channels": 2,
       "frames": 1629321,
       "duration_seconds": 36.94605442176871,
-      "peak": 0.5978524684906006,
-      "rms": 0.09380839455009982,
-      "peak_dbfs": -4.468119464890588,
-      "rms_dbfs": -20.555165930998356,
-      "clipped_samples": 0,
+      "peak": 1.3496428728103638,
+      "rms": 0.13242684129936366,
+      "peak_dbfs": 2.6043773123271974,
+      "rms_dbfs": -17.56047959600002,
+      "clipped_samples": 248,
       "silent": false
     },
     "audio": {
@@ -554,10 +554,10 @@
       "channels": 2,
       "frames": 1629321,
       "duration_seconds": 36.94605442176871,
-      "peak": 0.8912509083747864,
-      "rms": 0.13984522900000285,
-      "peak_dbfs": -1.0000002900227403,
-      "rms_dbfs": -17.087046911099893,
+      "peak": 0.8912508487701416,
+      "rms": 0.08744945712998016,
+      "peak_dbfs": -1.0000008709134622,
+      "rms_dbfs": -21.164857643931548,
       "clipped_samples": 0,
       "silent": false
     },
@@ -565,7 +565,7 @@
       "The sample-peak ceiling limited loudness gain; the target may not be reached."
     ],
     "loudness": {
-      "integrated_lufs": -15.302077939255812,
+      "integrated_lufs": -17.31359695227193,
       "measurable": true,
       "method": "ITU-R BS.1770-4",
       "backend": "pyloudnorm",
@@ -574,14 +574,14 @@
       "block_seconds": 0.4,
       "measured_frames": 1627290,
       "trailing_frames_ignored": 2031,
-      "before_lufs": -18.770196959130462,
+      "before_lufs": -13.709218904264029,
       "target_lufs": -14.0,
-      "requested_gain_db": 4.7701969591304625,
-      "applied_gain_db": 3.468119020163793,
+      "requested_gain_db": -0.2907810957359711,
+      "applied_gain_db": -3.6043780473484626,
       "sample_peak_ceiling_dbfs": -1.0,
       "peak_limited": true,
       "measurement_scope": "full_render_before_encoding",
-      "achieved_lufs": -15.302077939255812,
+      "achieved_lufs": -17.31359695227193,
       "target_reached": false
     },
     "output": "/home/claude/8bit-content-bank/public/count-the-clacks/track.wav",
@@ -592,9 +592,9 @@
       "frames": 1629321,
       "duration_seconds": 36.94605442176871,
       "peak": 0.891265869140625,
-      "rms": 0.13984522964562346,
+      "rms": 0.08744945591067284,
       "peak_dbfs": -0.9998544876801003,
-      "rms_dbfs": -17.087046870999924,
+      "rms_dbfs": -21.16485776503886,
       "full_scale_samples": 0,
       "silent": false
     }
@@ -602,6 +602,7 @@
   "loop": {
     "seconds": 32.0,
     "tail_folded_seconds": 4.946,
+    "lufs": -14.4,
     "peak_dbfs": -1.0
   },
   "midi": {

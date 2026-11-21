@@ -6,11 +6,15 @@ Series: The Sound of Pi · Channel: Square Wave Lab (`@squarewavelab`)
 
 | File | Use | Spec |
 |---|---|---|
-| `count-the-clacks.mp4` | The video, same file on every platform | 1080 × 1920, 30 fps, 32 s, H.264 + AAC, -14 LUFS, seamless loop |
+| `count-the-clacks.mp4` | The video, same file on every platform | 1080 × 1920, 30 fps, 25.6 s, H.264 + AAC, -14 LUFS, seamless loop |
 | `cover-9x16.png` | Instagram Reel cover, TikTok cover | 1080 × 1920 |
 | `cover-grid-3x4.png` | Preview of what the Instagram profile grid shows (centre 3:4 crop of the cover) | 1080 × 1440 |
 
 All captions below passed the `ig-caption` linter (READY: one ask, 3 hashtags, "digits of pi" present) and `ig-human` (PASS). None of them gives away the level 3 answer, because the ask is to guess it.
+
+**What's true in this video:** a real event-driven elastic collision simulation; positions are exact, time is warped so the hits land on the beat (said on screen). Level 2's 31 clacks sit on the 32nd-note grid. In level 3, clacks that fall inside the same 32nd note share one hit, so the 314-clack roll stays on the grid (90 hits); the counter on screen still counts every collision.
+
+**Music:** hard techno, 150 BPM, A minor, the channel's groove (`music/_shared/hard_techno.py`). **Physics:** every clack is a hit plus a note of A minor (A, C, E), and the outro plays pi's digits as A minor chord tones. **Groove, not physics:** the tuned "dem" kick (43 Hz), reese bass (F, E, D), clap on 2 and 4, hats, pad, roll, riser. Clacks above 800 Hz sit 9-14 dB over the music at every level (`music/count-the-clacks/check_clacks.py`). Loop check: PASS.
 
 ---
 
@@ -38,7 +42,7 @@ Based on Galperin's 2003 paper "Playing Pool with Pi".
 
 ## TikTok
 
-**Cover:** upload `cover-9x16.png` (or pick the frame at 0:18). Leave the cover title text off; the image already has it.
+**Cover:** upload `cover-9x16.png` (or pick the frame at 0:14). Leave the cover title text off; the image already has it.
 
 **Sound name:** `Count the Clacks - Square Wave Lab`.
 
@@ -74,13 +78,13 @@ From G. Galperin's 2003 paper "Playing Pool with Pi".
 #physics #math #pi
 ```
 
-**Thumbnail:** Shorts uses a frame from the video; pick the one at 0:18.
+**Thumbnail:** Shorts uses a frame from the video; pick the one at 0:14.
 
 ---
 
 ## Before you post
 
 - [ ] Same day on all three, so comments about the answer don't spoil it on the others
-- [ ] Pin your own first comment on each: `Answer drops at 0:26. No peeking.`
+- [ ] Pin your own first comment on each: `Answer drops at 0:20. No peeking.`
 - [ ] Turn on auto-captions where offered (the video has no speech, but it keeps the post accessible)
 - [ ] After 48 hours, note saves, shares and replays per platform in the README row

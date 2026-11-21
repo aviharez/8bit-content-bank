@@ -25,3 +25,16 @@ What makes it work, and what we copy:
 - **Dense and level.** Loudness range around 2-3 LU: no long sparse intros; the intro is the groove, filtered.
 - **Mid-heavy.** Distorted riffs and leads carry the track; keep sub and bass from dominating (still our gap).
 - **Physics plays the riff, not a second drum kit.** Map events to notes of one chord, quantised to the grid by choosing the time scale (e.g. one Europa-Ganymede cycle = 6 beats).
+
+## All three videos on the recipe
+
+Every soundtrack now uses the shared groove (`music/_shared/hard_techno.py`). Measured with the same scripts:
+
+| Measure | Count the Clacks | 32,768 to 1 Tick | Jupiter's Moons |
+|---|---|---|---|
+| Tempo, all bands | 150 BPM | 120 BPM (set by the physics: 2 Hz = one beat) | 150 BPM |
+| Key | A minor (F-E-D bass) | C minor (Ab-G-F bass) | A minor (F-E-D bass) |
+| Loudness range | 0.9 LU | 3.1 LU (3-bar breakdown where stages 11-14 rebuild the kit) | 3.3 LU |
+| Low end across a beat, lowest | 0.75 | 0.75 | 0.79 |
+| Kick body / -20 dB tail | 43 Hz / ~310 ms | ~41 Hz (scientific pitch) / ~410 ms of a 500 ms beat | 43 Hz / ~320 ms |
+| What the physics plays | each clack: a hit + an A minor chord tone; pi's digits in the outro | the slow stages are the kit (kick = 2 Hz, hats = 8 and 16 Hz, open hat = 4 Hz, tick = 1 Hz); the fast stages are tones with a C minor riff | the riff (A, C, E) |

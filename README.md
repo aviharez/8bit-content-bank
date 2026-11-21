@@ -10,7 +10,7 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 
 | # | Video | Series | Length | Status | Render |
 |---|---|---|---|---|---|
-| 1 | Count the Clacks (colliding blocks count the digits of pi) | The Sound of Pi | 32 s, 9:16 | Ready to post | [prod-ready/count-the-clacks/](prod-ready/count-the-clacks/) |
+| 1 | Count the Clacks (colliding blocks count the digits of pi) | The Sound of Pi | 25.6 s, 9:16 | Ready to post | [prod-ready/count-the-clacks/](prod-ready/count-the-clacks/) |
 | 2 | 32,768 to 1 Tick (how a quartz watch counts a second) | How Time Works | 36 s, 9:16 | Ready to post | [prod-ready/quartz-watch/](prod-ready/quartz-watch/) |
 | 3 | Jupiter's Moons 1:2:4 (the Laplace resonance writes a hard-techno riff) | Orbits | 38 s, 9:16 | Ready to post | [prod-ready/jupiter-moons/](prod-ready/jupiter-moons/) |
 

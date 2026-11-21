@@ -1,5 +1,6 @@
 import { Folder } from "remotion";
 import { CountTheClacks, CountTheClacksCover } from "./videos/count-the-clacks/CountTheClacks";
+import { QuartzWatch, QuartzWatchCover } from "./videos/quartz-watch/QuartzWatch";
 
 // One folder per series; one registration per video.
 export const RemotionRoot: React.FC = () => {
@@ -8,6 +9,10 @@ export const RemotionRoot: React.FC = () => {
       <Folder name="the-sound-of-pi">
         <CountTheClacks />
         <CountTheClacksCover />
+      </Folder>
+      <Folder name="how-time-works">
+        <QuartzWatch />
+        <QuartzWatchCover />
       </Folder>
     </>
   );

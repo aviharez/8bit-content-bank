@@ -11,6 +11,7 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 | # | Video | Series | Length | Status | Render |
 |---|---|---|---|---|---|
 | 1 | Count the Clacks (colliding blocks count the digits of pi) | The Sound of Pi | 32 s, 9:16 | Ready to post | [prod-ready/count-the-clacks/](prod-ready/count-the-clacks/) |
+| 2 | 32,768 to 1 Tick (how a quartz watch counts a second) | How Time Works | 36 s, 9:16 | Ready to post | [prod-ready/quartz-watch/](prod-ready/quartz-watch/) |
 
 The full bank of 30 ideas is in [docs/ideas.md](docs/ideas.md).
 

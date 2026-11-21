@@ -2,10 +2,10 @@
   "render": {
     "engine_version": "0.5.0",
     "numpy_version": "2.5.5",
-    "score_sha256": "41da58dc3f5afa429ab369b8ec79bb7bcadd661e472216dd6492c8695fe6a475",
+    "score_sha256": "eb481da7667e106d7fbd22ff525d6f5d868208997a1ee1d9961e4de66fac9f93",
     "title": "Jupiter's Moons 1:2:4",
-    "tracks": 13,
-    "notes": 1146,
+    "tracks": 14,
+    "notes": 1233,
     "seed": 124,
     "normalize": true,
     "score_duration_seconds": 38.4,
@@ -13,16 +13,32 @@
     "effects": {
       "master": [],
       "tracks": {
-        "Kick (dem)": [
+        "Kick (dem) F1": [
           {
             "type": "distortion",
-            "drive": 12.0,
+            "drive": 4.0,
             "mix": 0.9
           },
           {
             "type": "filter",
             "mode": "highpass",
-            "cutoff_hz": 36.0,
+            "cutoff_hz": 30.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          }
+        ],
+        "Kick (dem) F1 top": [
+          {
+            "type": "distortion",
+            "drive": 10.0,
+            "mix": 1.0
+          },
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 150.0,
             "resonance": 0.2,
             "end_cutoff_hz": null,
             "sweep_seconds": 1.0,
@@ -643,17 +659,17 @@
         ]
       }
     },
-    "gain_applied": 0.20027395062507133,
+    "gain_applied": 0.34519892232368604,
     "before_gain": {
       "sample_rate": 44100,
       "channels": 2,
       "frames": 1831032,
       "duration_seconds": 41.52,
-      "peak": 4.021406173706055,
-      "rms": 1.0979878338919777,
-      "peak_dbfs": 12.087558806452792,
-      "rms_dbfs": 0.8119505599708478,
-      "clipped_samples": 1386735,
+      "peak": 2.443702220916748,
+      "rms": 0.48624393274016475,
+      "peak_dbfs": 7.760965670593758,
+      "rms_dbfs": -6.26291609353679,
+      "clipped_samples": 170148,
       "silent": false
     },
     "audio": {
@@ -661,16 +677,16 @@
       "channels": 2,
       "frames": 1831032,
       "duration_seconds": 41.52,
-      "peak": 0.8053829073905945,
-      "rms": 0.2198983560759833,
-      "peak_dbfs": -1.8799518329059142,
-      "rms_dbfs": -13.155560346826737,
+      "peak": 0.8435633778572083,
+      "rms": 0.16785088497152584,
+      "peak_dbfs": -1.4776456564074802,
+      "rms_dbfs": -15.501527292997704,
       "clipped_samples": 0,
       "silent": false
     },
     "warnings": [],
     "loudness": {
-      "integrated_lufs": -14.000000203574455,
+      "integrated_lufs": -13.999999823773466,
       "measurable": true,
       "method": "ITU-R BS.1770-4",
       "backend": "pyloudnorm",
@@ -679,14 +695,14 @@
       "block_seconds": 0.4,
       "measured_frames": 1830150,
       "trailing_frames_ignored": 882,
-      "before_lufs": -0.0324892968553665,
+      "before_lufs": -4.761388624431979,
       "target_lufs": -14.0,
-      "requested_gain_db": -13.967510703144633,
-      "applied_gain_db": -13.967510703144633,
+      "requested_gain_db": -9.23861137556802,
+      "applied_gain_db": -9.23861137556802,
       "sample_peak_ceiling_dbfs": -1.0,
       "peak_limited": false,
       "measurement_scope": "full_render_before_encoding",
-      "achieved_lufs": -14.000000203574455,
+      "achieved_lufs": -13.999999823773466,
       "target_reached": true
     },
     "output": "/home/claude/8bit-content-bank/public/jupiter-moons/track.wav",
@@ -696,10 +712,10 @@
       "channels": 2,
       "frames": 1831032,
       "duration_seconds": 41.52,
-      "peak": 0.805389404296875,
-      "rms": 0.2198983553080362,
-      "peak_dbfs": -1.8798817653854676,
-      "rms_dbfs": -13.155560377160317,
+      "peak": 0.84356689453125,
+      "rms": 0.1678508804716711,
+      "peak_dbfs": -1.4776094464678926,
+      "rms_dbfs": -15.501527525854634,
       "full_scale_samples": 0,
       "silent": false
     }
@@ -707,8 +723,15 @@
   "loop": {
     "seconds": 38.4,
     "tail_folded_seconds": 3.12,
-    "lufs": -14.0,
-    "peak_dbfs": -1.9
+    "lufs": -9.3,
+    "phone_lufs": -15.6,
+    "peak_dbfs": -2.18,
+    "gain_reduction": {
+      "over_1db_pct": 90.5,
+      "over_3db_pct": 48.4,
+      "over_6db_pct": 0.7,
+      "max_db": 6.9
+    }
   },
   "midi": {
     "skipped": "MIDI export requires at most one track per drum instrument"

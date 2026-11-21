@@ -8,9 +8,9 @@
   "master_gain": 0.8,
   "tracks": [
     {
-      "name": "Kick (dem)",
+      "name": "Kick (dem) F1",
       "instrument": "kick_909",
-      "gain": 0.85,
+      "gain": 0.3,
       "pan": 0.0,
       "tone": {
         "brightness": 0.75,
@@ -29,7 +29,7 @@
         "fm_index": null,
         "fm_ratio": null,
         "modulation_rate_hz": null,
-        "tuning_semitones": -3.5
+        "tuning_semitones": -3.26
       },
       "notes": [
         {
@@ -735,13 +735,756 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 12.0,
+          "drive": 4.0,
           "mix": 0.9
         },
         {
           "type": "filter",
           "mode": "highpass",
-          "cutoff_hz": 36.0,
+          "cutoff_hz": 30.0,
+          "resonance": 0.2,
+          "end_cutoff_hz": null,
+          "sweep_seconds": 1.0,
+          "mix": 1.0
+        }
+      ],
+      "pedal": []
+    },
+    {
+      "name": "Kick (dem) F1 top",
+      "instrument": "kick_909",
+      "gain": 0.6,
+      "pan": 0.0,
+      "tone": {
+        "brightness": 1.0,
+        "decay_seconds": 0.35,
+        "pluck_position": null,
+        "breath": null,
+        "vibrato_depth_cents": null,
+        "vibrato_rate_hz": null,
+        "glide_semitones": null,
+        "detune_cents": null,
+        "cutoff_hz": null,
+        "resonance": null,
+        "filter_decay_seconds": null,
+        "filter_env_octaves": null,
+        "glide_seconds": null,
+        "fm_index": null,
+        "fm_ratio": null,
+        "modulation_rate_hz": null,
+        "tuning_semitones": -3.26
+      },
+      "notes": [
+        {
+          "pitch": 33,
+          "start": 0.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 1.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 2.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 3.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 4.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 5.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 6.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 7.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 8.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 9.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 10.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 11.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 12.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 13.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 14.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 15.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 16.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 17.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 18.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 19.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 20.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 21.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 22.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 23.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 24.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 25.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 26.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 27.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 28.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 29.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 30.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 31.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 32.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 33.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 34.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 35.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 36.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 37.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 38.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 39.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 40.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 41.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 42.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 43.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 44.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 45.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 46.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 47.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 56.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 57.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 58.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 59.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 60.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 61.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 62.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 64.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 65.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 66.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 67.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 68.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 69.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 70.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 71.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 72.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 73.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 74.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 75.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 76.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 77.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 78.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 79.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 80.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 81.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 82.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 83.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 84.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 85.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 86.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 87.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 88.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 89.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 90.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 91.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 92.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 93.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 94.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 95.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        }
+      ],
+      "release_seconds": 0.0,
+      "articulation": null,
+      "automation": [],
+      "effects": [
+        {
+          "type": "distortion",
+          "drive": 10.0,
+          "mix": 1.0
+        },
+        {
+          "type": "filter",
+          "mode": "highpass",
+          "cutoff_hz": 150.0,
           "resonance": 0.2,
           "end_cutoff_hz": null,
           "sweep_seconds": 1.0,
@@ -753,7 +1496,7 @@
     {
       "name": "Rumble",
       "instrument": "kick_909",
-      "gain": 0.28,
+      "gain": 0.15,
       "pan": 0.0,
       "tone": {
         "brightness": 0.4,

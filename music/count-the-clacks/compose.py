@@ -20,6 +20,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "_shared"))
 from dem import dem_tracks  # noqa: E402
+from mastering import finish_loop  # noqa: E402
 from audio_as_code import (
     Chorus, Delay, Ducker, Filter, Note, Reverb, Song, Tone, Track, export_midi, render,
 )
@@ -225,40 +226,6 @@ tracks = [
 ]
 
 song = Song(title="Count the Clacks", bpm=float(BPM), beats=float(BEATS), seed=314, master_gain=0.8, tracks=tuple(tracks))
-
-
-def limit(x: np.ndarray, sr: int, ceiling: float, release_s: float = 0.08, lookahead_s: float = 0.003) -> np.ndarray:
-    """Simple lookahead peak limiter: gain follows the loudest sample ahead, releases smoothly."""
-    peak = np.abs(x).max(axis=1)
-    la = int(lookahead_s * sr)
-    ahead = np.maximum.reduce([np.roll(peak, -k) for k in range(la)])
-    target = np.minimum(1.0, ceiling / np.maximum(ahead, 1e-9))
-    rel = np.exp(-1 / (release_s * sr))
-    g = np.empty_like(target)
-    cur = 1.0
-    for i, t in enumerate(target):
-        cur = t if t < cur else t + (cur - t) * rel
-        g[i] = cur
-    return x * g[:, None]
-
-
-def finish_loop(path: Path, loop_seconds: float, target_lufs: float = -14.0, ceiling_dbfs: float = -1.0) -> dict:
-    """Fold the tail past the loop point onto the start, set loudness, limit peaks."""
-    with wave.open(str(path)) as w:
-        sr, ch = w.getframerate(), w.getnchannels()
-        data = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64).reshape(-1, ch) / 32768
-    n_loop = int(round(loop_seconds * sr))
-    out = data[:n_loop].copy()
-    tail = data[n_loop:]
-    out[: len(tail)] += tail[:n_loop]
-    lufs = measure_loudness(out, sr)["integrated_lufs"]
-    out *= 10 ** ((target_lufs - lufs) / 20)
-    out = limit(out, sr, 10 ** (ceiling_dbfs / 20))
-    with wave.open(str(path), "wb") as w:
-        w.setnchannels(ch); w.setsampwidth(2); w.setframerate(sr)
-        w.writeframes((np.clip(out, -1, 1) * 32767).astype(np.int16).tobytes())
-    return {"seconds": n_loop / sr, "tail_folded_seconds": round(len(tail) / sr, 3),
-            "lufs": round(measure_loudness(out, sr)["integrated_lufs"], 1), "peak_dbfs": round(20 * np.log10(np.abs(out).max()), 2)}
 
 
 def main() -> None:

@@ -6,7 +6,7 @@ Series: How Time Works · Channel: Square Wave Lab (`@squarewavelab`)
 
 | File | Use | Spec |
 |---|---|---|
-| `quartz-watch.mp4` | The video, same file on every platform | 1080 × 1920, 30 fps, 36 s, H.264 + AAC, -14 LUFS, seamless loop |
+| `quartz-watch.mp4` | The video, same file on every platform | 1080 × 1920, 30 fps, 36 s, H.264 + AAC, ~-10 LUFS (mastered to phone-speaker loudness, -15.5 LUFS above 200 Hz), seamless loop |
 | `cover-9x16.png` | Instagram Reel cover, TikTok cover | 1080 × 1920 |
 | `cover-grid-3x4.png` | What the Instagram profile grid shows (centre 3:4 crop) | 1080 × 1440 |
 

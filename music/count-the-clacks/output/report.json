@@ -683,8 +683,15 @@
   "loop": {
     "seconds": 32.0,
     "tail_folded_seconds": 4.946,
-    "lufs": -15.0,
-    "peak_dbfs": -1.0
+    "lufs": -10.7,
+    "phone_lufs": -15.6,
+    "peak_dbfs": -1.94,
+    "gain_reduction": {
+      "over_1db_pct": 56.1,
+      "over_3db_pct": 19.8,
+      "over_6db_pct": 2.2,
+      "max_db": 13.4
+    }
   },
   "midi": {
     "skipped": "MIDI export requires at most one track per drum instrument"

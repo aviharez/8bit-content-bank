@@ -26,6 +26,7 @@ sys.path.insert(0, str(ROOT / "music" / "_shared"))
 from audio_as_code import (  # noqa: E402
     Automation, AutomationPoint, Delay, Distortion, Ducker, Filter, Note, Reverb, Song, Tone, Track, export_midi, render,
 )
+from dem import dem_tracks  # noqa: E402
 from mastering import finish_loop  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
@@ -111,11 +112,10 @@ space = Reverb(decay_seconds=1.8, mix=0.22)
 echo = Delay(time_seconds=0.75 * SPB, feedback=0.4, repeats=5, mix=0.25)
 
 tracks = [
-    # the "dem": a tuned kick at about F1 (43 Hz, sweeping down from ~65 Hz), distorted so its tail rings ~300 ms,
-    # like the reference (59 -> 43 Hz, -6 dB at 325 ms). It carries the low end, so there is no separate sub.
-    Track(name="Kick (dem)", instrument="kick_909", gain=0.85, tone=Tone(decay_seconds=2.0, tuning_semitones=-3.5, brightness=0.75),
-          notes=tuple(kick), effects=(Distortion(drive=12.0, mix=0.9), Filter(mode="highpass", cutoff_hz=36))),
-    Track(name="Rumble", instrument="kick_909", gain=0.28, tone=Tone(decay_seconds=0.6, tuning_semitones=-2, brightness=0.4), notes=tuple(rumble),
+    # the "dem": the shared tuned kick (music/_shared/dem.py) on F1 (43 Hz), ringing most of the beat, plus its top
+    # layer so a phone speaker hears it. It carries the low end, so there is no separate sub.
+    *dem_tracks([(x.start, 29, x.duration, x.velocity) for x in kick]),
+    Track(name="Rumble", instrument="kick_909", gain=0.15, tone=Tone(decay_seconds=0.6, tuning_semitones=-2, brightness=0.4), notes=tuple(rumble),
           effects=(Reverb(decay_seconds=1.4, mix=1.0), Distortion(drive=6.0, mix=0.8), Filter(mode="lowpass", cutoff_hz=170), side)),
     Track(name="Clap", instrument="clap", gain=0.62, notes=tuple(clap), effects=(Reverb(decay_seconds=1.1, mix=0.3),)),
     Track(name="Hat 16ths", instrument="metal_hat", gain=0.26, pan=0.2, tone=Tone(brightness=0.75, decay_seconds=0.1), notes=tuple(hat16)),

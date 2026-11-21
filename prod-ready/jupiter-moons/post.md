@@ -14,7 +14,7 @@ All captions passed `ig-caption` (READY) and `ig-human` (PASS). None gives the a
 
 **What's true in this video:** mean motions from the IMCCE periods, with Io set by the Laplace relation nIo - 3nEu + 2nGa = 0 (under 0.001 degrees per day from the published period). One Europa-Ganymede cycle (7.05 days) = 6 beats at 150 BPM: a uniform speed-up, not a warp, and it puts all 96 meetings exactly on the 8th-note grid. The view turns slowly with the system (-0.74 degrees per day) so the configuration repeats every cycle. Sizes and distances are not to scale; angles and timing are.
 
-**Physics:** the riff. Europa-Ganymede = A, Io-Ganymede = E, Io-Europa = C (an A minor chord); the 6-beat riff turns against the 4-beat bar. **Groove, not physics:** four-on-the-floor kick and rumble, a sustained distorted bass wall (F, E, D), clap on 2 and 4, hats, pad, riser, roll.
+**Physics:** the riff. Europa-Ganymede = A, Io-Ganymede = E, Io-Europa = C (an A minor chord); the 6-beat riff turns against the 4-beat bar. **Groove, not physics:** a deep tuned four-on-the-floor kick (the "dem", 43 Hz) with rumble, a distorted reese line (F, E, D), clap on 2 and 4, hats, pad, riser, roll.
 
 **Music:** hard techno, 150 BPM, A minor, modelled on the reference in `docs/music-reference.md`. Every band measures the same tempo; loudness range 3.3 LU; low end and bass grit measured against the reference (table in `docs/music-reference.md`). Loop check: PASS.
 

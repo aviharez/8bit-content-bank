@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Audio } from "@remotion/media";
-import { AbsoluteFill, Composition, Easing, interpolate, staticFile, useCurrentFrame, useDelayRender } from "remotion";
+import { AbsoluteFill, Composition, Easing, interpolate, staticFile, Still, useCurrentFrame, useDelayRender } from "remotion";
 import * as THREE from "three";
 import { C, quantize } from "../../lib/palette";
 import { fontsReady } from "../../lib/fonts";
@@ -44,7 +44,7 @@ function camAt(f: number): { pos: V3; look: V3 } {
 
 let S: ClackScene | null = null;
 
-function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, f: number) {
+function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, f: number, cover = false) {
   S ??= buildScene(W, H);
   const { renderer, scene, camera, small, big, hitLight, smallMat } = S;
   const s = frames[f] ?? REST;
@@ -79,6 +79,24 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
     ctx.fillRect(0, 0, W, H);
   }
   ctx.putImageData(quantize(ctx.getImageData(0, 0, W, H), 34, false), 0, 0);
+
+  if (cover) {
+    // Cover: everything that matters sits inside the centre 3:4 crop (y 80-560)
+    // that Instagram shows on the profile grid.
+    ov.clearRect(0, 0, W, H);
+    const { text, panel } = pixelKit(ov);
+    const M = 28;
+    panel(M, 96, W - 2 * M, 78, C["c0cbdc"]);
+    text("HOW MANY", W / 2, 108, "p16", C["c0cbdc"], "c");
+    text("CLACKS?", W / 2, 132, "p32", C["fee761"], "c", C["be4a2f"]);
+    panel(M + 16, 432, W - 2 * M - 32, 74, C["c0cbdc"]);
+    text("MASS RATIO 1 : 10,000", W / 2, 444, "s16", C["8b9bb4"], "c");
+    text("CLACKS = ?", W / 2, 466, "p24", C["ffffff"], "c", C["be4a2f"]);
+    text("@squarewavelab", W / 2, 528, "s16", C["c0cbdc"], "c", C["181425"]);
+    ov.putImageData(quantize(ov.getImageData(0, 0, W, H), 0, true), 0, 0);
+    ctx.drawImage(ov.canvas, 0, 0);
+    return;
+  }
 
   // ---------- 2D overlay (crisp: alpha-thresholded, no dither) ----------
   ov.clearRect(0, 0, W, H);
@@ -173,8 +191,8 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
   ctx.drawImage(ov.canvas, 0, 0);
 }
 
-export const CountTheClacksVideo: React.FC = () => {
-  const f = useCurrentFrame();
+export const CountTheClacksVideo: React.FC<{ coverFrame?: number }> = ({ coverFrame }) => {
+  const f = coverFrame ?? useCurrentFrame();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const overlayRef = useRef<HTMLCanvasElement | null>(null);
   const { delayRender, continueRender, cancelRender } = useDelayRender();
@@ -194,13 +212,13 @@ export const CountTheClacksVideo: React.FC = () => {
     }
     const ctx = canvasRef.current.getContext("2d", { willReadFrequently: true })!;
     const ov = overlayRef.current.getContext("2d", { willReadFrequently: true })!;
-    drawFrame(ctx, ov, f);
-  }, [f, ready]);
+    drawFrame(ctx, ov, f, coverFrame !== undefined);
+  }, [f, ready, coverFrame]);
 
   return (
     <AbsoluteFill style={{ backgroundColor: C["181425"] }}>
       <canvas ref={canvasRef} width={W} height={H} style={{ width: W * SCALE, height: H * SCALE, imageRendering: "pixelated" }} />
-      <Audio src={staticFile("count-the-clacks/track.wav")} />
+      {coverFrame === undefined ? <Audio src={staticFile("count-the-clacks/track.wav")} /> : null}
     </AbsoluteFill>
   );
 };
@@ -213,5 +231,16 @@ export const CountTheClacks = () => (
     fps={FPS}
     width={W * SCALE}
     height={H * SCALE}
+  />
+);
+
+/** Reel cover (9:16). The profile grid shows its centre 3:4 crop. */
+export const CountTheClacksCover = () => (
+  <Still
+    id="CountTheClacksCover"
+    component={CountTheClacksVideo}
+    width={W * SCALE}
+    height={H * SCALE}
+    defaultProps={{ coverFrame: 548 }}
   />
 );

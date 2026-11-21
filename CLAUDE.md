@@ -28,4 +28,8 @@ This repo makes pixel-art science explainers with 8-bit music, entirely in code,
 
 ## Captions
 
-Lint every caption with the Instagram skills from `Jakeschincariol/instagram-agent-skill` (`ig-caption/caption.py` and `ig-human/detect.py`) before it ships. House rules: the reel carries the hook, so line 1 is the one ask (comment a guess) plus the topic in searchable words; 300-500 characters; at most 3 hashtags at the bottom; sources in one line. Store the final text in `posts/<slug>/caption.txt`.
+Lint every caption with the Instagram skills from `Jakeschincariol/instagram-agent-skill` (`ig-caption/caption.py` and `ig-human/detect.py`) before it ships. House rules: the reel carries the hook, so line 1 is the one ask (comment a guess) plus the topic in searchable words; 300-500 characters; at most 3 hashtags at the bottom; sources in one line. Never put the answer the ask invites people to guess in the caption.
+
+## Shipping
+
+Each finished video gets `prod-ready/<slug>/`: the MP4, `cover-9x16.png` (the composition's `<Still>`, key text inside the centre 3:4 crop, y 80-560 at base size), `cover-grid-3x4.png` (that crop), and `post.md` with the Instagram caption, TikTok caption, YouTube Shorts title (under 40 characters) and description, sound name, and a pre-post checklist.

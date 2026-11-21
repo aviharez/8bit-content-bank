@@ -10,7 +10,7 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 
 | # | Video | Series | Length | Status | Render |
 |---|---|---|---|---|---|
-| 1 | Count the Clacks (colliding blocks count the digits of pi) | The Sound of Pi | 32 s, 9:16 | Prototype v2 | [renders/count-the-clacks.mp4](renders/count-the-clacks.mp4) |
+| 1 | Count the Clacks (colliding blocks count the digits of pi) | The Sound of Pi | 32 s, 9:16 | Ready to post | [prod-ready/count-the-clacks/](prod-ready/count-the-clacks/) |
 
 The full bank of 30 ideas is in [docs/ideas.md](docs/ideas.md).
 
@@ -54,6 +54,8 @@ Set `CHROME=/path/to/chrome` if Remotion cannot find a browser. Rendering uses `
 | `public/<slug>/` | Generated timeline and track |
 | `public/fonts/` | Press Start 2P and Silkscreen (OFL) |
 | `renders/` | Finished MP4s, compressed for git |
+| `prod-ready/<slug>/` | Everything to post: video, covers, `post.md` with captions and titles per platform |
+| `brand/` | Profile photos |
 | `docs/` | Ideas bank, style guide |
 | `.agents/skills/` | Remotion agent skills (`npx skills add remotion-dev/skills`) |
 

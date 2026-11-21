@@ -17,7 +17,7 @@ export const ANIMAL_SPRITES: Record<string, Sprite> = {
     "....-----------------...........",
     "........--##--..................",
     "...........#....................",
-  ], "#124e89", "#8b9bb4", "#ffffff", 4),
+  ], "#0099db", "#c0cbdc", "#ffffff", 4),
   elephant: S([
     "....#####...............",
     "..#########..########...",
@@ -105,30 +105,3 @@ export const ANIMAL_SPRITES: Record<string, Sprite> = {
     "...-..-...-..----....",
   ], "#733e39", "#f6757a", "#ffffff", 3),
 };
-
-export const HEART: Sprite = S([
-  ".###...###.",
-  "#o###.#####",
-  "#o#########",
-  "###########",
-  "###########",
-  ".#########.",
-  "..#######..",
-  "...#####...",
-  "....###....",
-  ".....#.....",
-], "#e43b44", "#a22633", "#ffffff", 6);
-
-export function drawSprite(ov: CanvasRenderingContext2D, s: Sprite, cx: number, bottom: number, px = s.px, tint?: string) {
-  const w = s.rows[0].length * px, h = s.rows.length * px;
-  const x0 = Math.round(cx - w / 2), y0 = Math.round(bottom - h);
-  s.rows.forEach((row, j) => {
-    for (let i = 0; i < row.length; i++) {
-      const c = row[i];
-      if (c === ".") continue;
-      ov.fillStyle = tint ?? (c === "#" ? s.body : c === "-" ? s.shade : s.eye);
-      ov.fillRect(x0 + i * px, y0 + j * px, px, px);
-    }
-  });
-  return { x0, y0, w, h };
-}

@@ -71,21 +71,15 @@ for (const a of animals) {
   }
 }
 
-// ---------------------------------------------------------------- groove (drum and bass two-step)
-// intro + outro: kick on 1; groove and build: kick on 1 and the "and" of 3, snare on 2 and 4; drop adds a kick on the last 16th of every 2nd bar
+// ---------------------------------------------------------------- groove (drum and bass two-step, from the first frame)
+// kick on 1 and the "and" of 3, snare on 2 and 4, every bar. Bar 11 is the snare roll into the drop (kick on 1 only);
+// the drop adds a kick on the last 16th of every 2nd bar.
 const kicks: number[] = [], snares: number[] = [];
 for (let b = 0; b < BARS; b++) {
   const t = b * 4;
-  const intro = b < 4, outro = b >= OUTRO_BAR, drop = b >= DROP_BAR && b < OUTRO_BAR;
-  if (intro || outro) {
-    kicks.push(t);
-    if (b === 3 || b === 23) kicks.push(t + 2.5); // lead into the groove / back into the loop
-    continue;
-  }
+  const drop = b >= DROP_BAR && b < OUTRO_BAR;
   kicks.push(t);
-  if (!(b === DROP_BAR - 1)) kicks.push(t + 2.5); // bar 11: the snare roll alone, then the drop
-  snares.push(t + 1);
-  if (b !== DROP_BAR - 1) snares.push(t + 3);
+  if (b !== DROP_BAR - 1) { kicks.push(t + 2.5); snares.push(t + 1, t + 3); } else snares.push(t + 1);
   if (drop && b % 2 === 1) kicks.push(t + 3.75);
 }
 

@@ -15,7 +15,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 9 | 27 TAKES 111 STEPS | Collatz sequence from 27 (peak 9,232) | Odd steps rise, even steps fall | Unsolved Math | |
 | 10 | TWO PENDULUMS, ONE DIFFERENCE | Chaos in a double pendulum | Two identical melodies that slowly drift into dissonance | Chaos | |
 | 11 | THE BALL THAT DRUMROLLS | A bouncing ball with a coefficient of restitution | Gaps shrink geometrically into a drum roll | Gravity | |
-| 12 | GAME OF LIFE SEQUENCER | Conway's cellular automaton | The grid is a step sequencer; a birth is a note | Chaos | |
+| 12 | GAME OF LIFE SEQUENCER | Conway's cellular automaton on a 16x16 torus; a glider laps it in 64 generations | Playhead reads one column per 16th; live cells play chord tones by row; the glider is the lead | Chaos | Done ([render](../renders/game-of-life.mp4)) |
 | 13 | ZOOM 10^12x | The Mandelbrot set | Iteration count sets the pitch | Chaos | |
 | 14 | HOW A SPEAKER WORKS | Coil and magnet move a cone | The cone on screen moves with the video's own soundtrack | Every Wave | |
 | 15 | SILENCE FROM NOISE | Noise cancelling by destructive interference | The drop is sudden silence | Every Wave | |

@@ -1,0 +1,501 @@
+{
+  "render": {
+    "engine_version": "0.5.0",
+    "numpy_version": "2.5.5",
+    "score_sha256": "bbdf2538db956d8a82dd35a50e9e2e408539411a6a7652779ae543b0fcb55b76",
+    "title": "Game of Life Sequencer",
+    "tracks": 18,
+    "notes": 929,
+    "seed": 6464,
+    "normalize": true,
+    "score_duration_seconds": 32.0,
+    "tail_seconds": 3.271045351473923,
+    "effects": {
+      "master": [],
+      "tracks": {
+        "Kick (dem) D#1": [
+          {
+            "type": "distortion",
+            "drive": 4.0,
+            "mix": 0.9
+          },
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 30.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          }
+        ],
+        "Kick (dem) G#1": [
+          {
+            "type": "distortion",
+            "drive": 4.0,
+            "mix": 0.9
+          },
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 30.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          }
+        ],
+        "Kick (dem) A#1": [
+          {
+            "type": "distortion",
+            "drive": 4.0,
+            "mix": 0.9
+          },
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 30.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          }
+        ],
+        "Kick (dem) C2": [
+          {
+            "type": "distortion",
+            "drive": 4.0,
+            "mix": 0.9
+          },
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 30.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          }
+        ],
+        "Kick (dem) D#1 top": [
+          {
+            "type": "distortion",
+            "drive": 10.0,
+            "mix": 1.0
+          },
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 150.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          }
+        ],
+        "Kick (dem) G#1 top": [
+          {
+            "type": "distortion",
+            "drive": 10.0,
+            "mix": 1.0
+          },
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 150.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          }
+        ],
+        "Kick (dem) A#1 top": [
+          {
+            "type": "distortion",
+            "drive": 10.0,
+            "mix": 1.0
+          },
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 150.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          }
+        ],
+        "Kick (dem) C2 top": [
+          {
+            "type": "distortion",
+            "drive": 10.0,
+            "mix": 1.0
+          },
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 150.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          }
+        ],
+        "Bass (triangle)": [
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              0.0,
+              2.0,
+              4.0,
+              6.0,
+              8.0,
+              10.0,
+              10.5,
+              12.0,
+              14.0,
+              14.5,
+              16.0,
+              18.0,
+              18.5,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              25.0,
+              26.0,
+              27.0,
+              28.0,
+              29.0,
+              30.0,
+              32.0,
+              33.0,
+              34.0,
+              35.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0,
+              58.0,
+              60.0,
+              62.0
+            ],
+            "depth": 0.5,
+            "attack_seconds": 0.004,
+            "release_seconds": 0.16,
+            "mix": 1.0
+          }
+        ],
+        "Pad": [
+          {
+            "type": "chorus",
+            "rate_hz": 0.7,
+            "depth_ms": 3.0,
+            "delay_ms": 18.0,
+            "mix": 0.35
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 2.6,
+            "mix": 0.3
+          },
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              0.0,
+              2.0,
+              4.0,
+              6.0,
+              8.0,
+              10.0,
+              10.5,
+              12.0,
+              14.0,
+              14.5,
+              16.0,
+              18.0,
+              18.5,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              25.0,
+              26.0,
+              27.0,
+              28.0,
+              29.0,
+              30.0,
+              32.0,
+              33.0,
+              34.0,
+              35.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0,
+              58.0,
+              60.0,
+              62.0
+            ],
+            "depth": 0.5,
+            "attack_seconds": 0.004,
+            "release_seconds": 0.16,
+            "mix": 1.0
+          }
+        ],
+        "Snare": [
+          {
+            "type": "distortion",
+            "drive": 3.0,
+            "mix": 0.5
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 1.1,
+            "mix": 0.18
+          }
+        ],
+        "Clap": [
+          {
+            "type": "reverb",
+            "decay_seconds": 1.0,
+            "mix": 0.25
+          }
+        ],
+        "Crash": [
+          {
+            "type": "reverb",
+            "decay_seconds": 2.6,
+            "mix": 0.3
+          }
+        ],
+        "Riser": [
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 350.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 2.6,
+            "mix": 0.3
+          }
+        ],
+        "Glider (lead)": [
+          {
+            "type": "distortion",
+            "drive": 3.0,
+            "mix": 0.5
+          },
+          {
+            "type": "delay",
+            "time_seconds": 0.25,
+            "feedback": 0.3,
+            "repeats": 3,
+            "mix": 0.18
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 1.1,
+            "mix": 0.18
+          },
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              0.0,
+              2.0,
+              4.0,
+              6.0,
+              8.0,
+              10.0,
+              10.5,
+              12.0,
+              14.0,
+              14.5,
+              16.0,
+              18.0,
+              18.5,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              25.0,
+              26.0,
+              27.0,
+              28.0,
+              29.0,
+              30.0,
+              32.0,
+              33.0,
+              34.0,
+              35.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0,
+              58.0,
+              60.0,
+              62.0
+            ],
+            "depth": 0.25,
+            "attack_seconds": 0.005,
+            "release_seconds": 0.12,
+            "mix": 1.0
+          }
+        ],
+        "Oscillators (pluck)": [
+          {
+            "type": "distortion",
+            "drive": 3.0,
+            "mix": 0.5
+          },
+          {
+            "type": "delay",
+            "time_seconds": 0.25,
+            "feedback": 0.3,
+            "repeats": 3,
+            "mix": 0.18
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 1.1,
+            "mix": 0.18
+          }
+        ]
+      }
+    },
+    "gain_applied": 0.34960660338401794,
+    "before_gain": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 1555453,
+      "duration_seconds": 35.271043083900224,
+      "peak": 2.5492963790893555,
+      "rms": 0.2362945267124378,
+      "peak_dbfs": 8.128406582438094,
+      "rms_dbfs": -12.530926756190144,
+      "clipped_samples": 13907,
+      "silent": false
+    },
+    "audio": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 1555453,
+      "duration_seconds": 35.271043083900224,
+      "peak": 0.8912508487701416,
+      "rms": 0.08261012688113929,
+      "peak_dbfs": -1.0000008709134622,
+      "rms_dbfs": -21.659334216058184,
+      "clipped_samples": 0,
+      "silent": false
+    },
+    "warnings": [
+      "The sample-peak ceiling limited loudness gain; the target may not be reached."
+    ],
+    "loudness": {
+      "integrated_lufs": -20.612921119903508,
+      "measurable": true,
+      "method": "ITU-R BS.1770-4",
+      "backend": "pyloudnorm",
+      "backend_version": "0.2.0",
+      "filter": "DeMan",
+      "block_seconds": 0.4,
+      "measured_frames": 1552320,
+      "trailing_frames_ignored": 3133,
+      "before_lufs": -11.484513660103278,
+      "target_lufs": -14.0,
+      "requested_gain_db": -2.5154863398967207,
+      "applied_gain_db": -9.128407459759726,
+      "sample_peak_ceiling_dbfs": -1.0,
+      "peak_limited": true,
+      "measurement_scope": "full_render_before_encoding",
+      "achieved_lufs": -20.612921119903508,
+      "target_reached": false
+    },
+    "output": "/home/claude/8bit-content-bank/public/game-of-life/track.wav",
+    "stems": [],
+    "wav": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 1555453,
+      "duration_seconds": 35.271043083900224,
+      "peak": 0.891265869140625,
+      "rms": 0.08261012894252809,
+      "peak_dbfs": -0.9998544876801003,
+      "rms_dbfs": -21.659333999317262,
+      "full_scale_samples": 0,
+      "silent": false
+    }
+  },
+  "loop": {
+    "seconds": 32.0,
+    "tail_folded_seconds": 3.271,
+    "lufs": -10.4,
+    "phone_lufs": -15.6,
+    "peak_dbfs": -1.94,
+    "gain_reduction": {
+      "over_1db_pct": 70.2,
+      "over_3db_pct": 19.1,
+      "over_6db_pct": 3.0,
+      "max_db": 13.4
+    }
+  },
+  "midi": {
+    "skipped": "MIDI export requires at most one track per drum instrument"
+  }
+}

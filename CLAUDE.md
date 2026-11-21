@@ -2,6 +2,17 @@
 
 This repo makes pixel-art science explainers with 8-bit music, entirely in code, for the channel **Square Wave Lab** (handle `@squarewavelab`; put it as the small watermark near the bottom of every video). Read README.md first.
 
+## First rule: a stranger must get it
+
+The channel owner's standard, above every other rule here. A viewer who knows no physics, scrolling with the sound on, must:
+1. **Know what the video is about within 2 seconds.** The hook is a question people already wonder about, in everyday words ("Why do jets go BOOM?", not "What does Mach 1 sound like?"). It must make them curious enough to stay.
+2. **Follow every step.** One idea per caption, in plain words, each held at least 2 bars. No jargon, symbols or raw factors (x128, Q, asin) before the code card at the end. Build the explanation in order: what we are looking at, the rule, what changes, the payoff.
+3. **See who or what it happens to.** Abstract pictures (rings, curves) are anchored to something familiar: a listener standing there, a glass on a table, a heart. Use an everyday comparison where one exists (an ambulance siren for Doppler).
+4. **Read the HUD at a glance.** At most two live readouts, in plain units, each labelled in plain words.
+5. **See the content in the picture and hear it in the music.** 3D scenes that fill the frame (a place, light, a moving camera), like videos 1 and 2; flat 2D on an empty background reads as dull. Every effect shows the physics; nothing is decoration (no shake on every kick). The music is techno, drum and bass or EDM, always with the kick, synced to the picture, dense from the first frame (no empty intro), with a hook melody, and its build-up and drop land on the physics climax.
+
+Before shipping, watch the render as that stranger and write two sentences in `post.md`: what the video is about after 3 seconds, and what you learned by the end. If either is hard to write, fix the video, not the sentence.
+
 ## Tools to use
 
 - **Remotion**: follow the Remotion skills in `.agents/skills/` (start at `remotion-best-practices`). Register each video as its own `<Composition>` inside a series `<Folder>` in `src/Root.tsx`. Audio goes through `<Audio>` from `@remotion/media`; fonts through `@remotion/fonts`.

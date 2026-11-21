@@ -21,7 +21,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 15 | SILENCE FROM NOISE | Noise cancelling by destructive interference | The drop is sudden silence | Every Wave | |
 | 16 | 2.45 GHZ IN YOUR KITCHEN | Water molecules flip in a microwave; standing-wave hot spots | Pitch rises with temperature | How Things Work | |
 | 17 | GPS: 38 MICROSECONDS A DAY | Trilateration and relativity correction | One ping per satellite; pings drift without the correction | How Time Works | |
-| 18 | WHY THE SKY IS BLUE | Rayleigh scattering scales as 1/wavelength^4 | Photon colour mapped to pitch | Light | |
+| 18 | WHY THE SKY IS BLUE | Rayleigh scattering scales as 1/wavelength^4, Kasten-Young airmass at sunset | Squares of light are the plucks (red root, green third, blue fifth), bounced ones are high pings; the sunset is the riser and the drop. Hard techno 150 BPM | Light | Done ([render](../renders/sky-blue.mp4)) |
 | 19 | WHY HOT METAL GLOWS | Black-body radiation, red to white | Pitch rises with temperature | Light | |
 | 20 | 8 BITS COUNT TO 255 | Transistors, logic gates, a binary adder | One note per bit; binary numbers become arpeggios | How Computers Work | |
 | 21 | HOW A PIXEL MAKES COLOR | RGB subpixels and colour perception | Three colour channels = three synth channels | How Computers Work | |

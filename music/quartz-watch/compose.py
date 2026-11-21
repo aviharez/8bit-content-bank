@@ -134,7 +134,7 @@ for b in DROP:
     for p, pitch, ln in HOOK[b % 4]:
         lead.append(n(pitch, b * 4 + p / 4, ln / 4 * 0.92, 0.85 if p in (0, 6) else 0.72))
         lead_low.append(n(pitch - 12, b * 4 + p / 4, ln / 4 * 0.92, 0.55))
-lead.append(n(72, 17 * 4, 3.5, 0.7))  # outro: land on C5 = 512 Hz
+lead.append(n(72, 17 * 4, 3.5, 0.3))  # outro: land on C5 = 512 Hz, soft so the end matches the intro level
 
 # ---------------------------------------------------------------- song
 rev_short, rev_long = Reverb(decay_seconds=1.2, mix=0.18), Reverb(decay_seconds=2.8, mix=0.34)

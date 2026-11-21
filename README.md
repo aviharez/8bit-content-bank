@@ -1,5 +1,6 @@
-# 8-bit content bank
+# 8-bit content bank: Square Wave Lab
 
+The content bank for **Square Wave Lab** (`@squarewavelab` on Instagram, TikTok and YouTube).
 Short science explainers in pixel art with 8-bit music, made entirely with code.
 Each video takes a real object or phenomenon, runs the actual equation behind it, and turns the simulation's events into the soundtrack.
 

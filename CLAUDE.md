@@ -1,6 +1,6 @@
 # Working in the 8-bit content bank
 
-This repo makes pixel-art science explainers with 8-bit music, entirely in code. Read README.md first.
+This repo makes pixel-art science explainers with 8-bit music, entirely in code, for the channel **Square Wave Lab** (handle `@squarewavelab`; put it as the small watermark near the bottom of every video). Read README.md first.
 
 ## Tools to use
 

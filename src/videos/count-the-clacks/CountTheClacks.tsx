@@ -167,7 +167,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
     text("t=atan(sqrt(m/M))", M + 12, 410, "p16", C["ffffff"]);
     text("N=ceil(PI/t)-1", M + 12, 432, "p16", C["63c74d"]);
   }
-  text("@yourhandle", W / 2, 586, "s16", C["5a6988"], "c");
+  text("@squarewavelab", W / 2, 586, "s16", C["5a6988"], "c");
 
   ov.putImageData(quantize(ov.getImageData(0, 0, W, H), 0, true), 0, 0);
   ctx.drawImage(ov.canvas, 0, 0);

@@ -7,6 +7,17 @@ This repo makes pixel-art science explainers with 8-bit music, entirely in code,
 - **Remotion**: follow the Remotion skills in `.agents/skills/` (start at `remotion-best-practices`). Register each video as its own `<Composition>` inside a series `<Folder>` in `src/Root.tsx`. Audio goes through `<Audio>` from `@remotion/media`; fonts through `@remotion/fonts`.
 - **Music**: compose with Audio as Code (`audio-as-code==0.5.0`, run with `uv run --locked`). Keep the Python composer as the source of truth, use only the library's own synthesised instruments, keep seeds and track names stable, and write the WAV to `public/<slug>/track.wav`. Shared mastering lives in `music/_shared/mastering.py` (`finish_loop` for the loop fold, loudness and limiter; `to_scientific_pitch` when a video's frequencies are powers of two, so every C is exactly 2^n Hz). Measurements in the render report are not a judgement of musical quality; say whether the audio was actually listened to.
 
+## Music direction
+
+From video 3 on, the sound is **drum & bass crossed with techno**: DnB tempo and backbeat (kick on 1, snare on 2 and 4, two-step kicks), reese and sub bass, with techno textures (acid 16ths, offbeat hats, hypnotic stabs, rumble). Keep chiptune colour in leads and arps. At 30 fps use 180 BPM (10 frames per beat) or 150 BPM (12). Physics still drives the drums wherever it can; anything added for groove is named as such in `post.md`.
+
+## Loops
+
+Every video must loop cleanly, picture and sound:
+- Picture: the last frame continues into the first (same camera, same state; use a rotating frame or period-aligned time scale so the simulation itself repeats).
+- Music: arrange the last bars to lead into the first (end on the texture the intro starts with), fold the tail onto the start (`finish_loop`).
+- Run `uv run --locked python scripts/check_loop.py <slug>` after the build; it must print PASS.
+
 ## Rules every video follows
 
 1. **One clock.** Choose BPM and fps first so frames per beat is a whole number (120 BPM at 30 fps = 15). Everything reads `public/<slug>/timeline.json`.

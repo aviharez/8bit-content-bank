@@ -4,6 +4,7 @@ import { AbsoluteFill, Composition, Easing, interpolate, staticFile, Still, useC
 import * as THREE from "three";
 import { C, quantize } from "../../lib/palette";
 import { fontsReady } from "../../lib/fonts";
+import { drawLooped } from "../../lib/loop";
 import { pixelKit } from "../../lib/pixel2d";
 import { buildQuartzScene, QuartzScene, stageX, WATCH } from "./scene";
 import timeline from "../../../public/quartz-watch/timeline.json";
@@ -224,7 +225,8 @@ export const QuartzWatchVideo: React.FC<{ coverFrame?: number }> = ({ coverFrame
     }
     const ctx = canvasRef.current.getContext("2d", { willReadFrequently: true })!;
     const ov = overlayRef.current.getContext("2d", { willReadFrequently: true })!;
-    drawFrame(ctx, ov, f, coverFrame !== undefined);
+    if (coverFrame !== undefined) drawFrame(ctx, ov, f, true);
+    else drawLooped(ctx, ov, f, DURATION, 12, (c, o, ff) => drawFrame(c, o, ff));
   }, [f, ready, coverFrame]);
 
   return (

@@ -5393,14 +5393,6 @@
           "velocity": 0.8,
           "release_seconds": null,
           "articulation": null
-        },
-        {
-          "pitch": 51,
-          "start": 68.0,
-          "duration": 3.5,
-          "velocity": 0.5,
-          "release_seconds": null,
-          "articulation": null
         }
       ],
       "release_seconds": 0.0,

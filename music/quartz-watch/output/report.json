@@ -2,10 +2,10 @@
   "render": {
     "engine_version": "0.5.0",
     "numpy_version": "2.5.5",
-    "score_sha256": "ef649225fc149cb9252e9787cd8d4a65f834c895b9e48c32780eeb10458909f1",
+    "score_sha256": "44f52aa5b94daaa4dc47c518b06972335fe897aff2f7b31e3fbdfb2b6179ed83",
     "title": "32,768 to 1 Tick",
     "tracks": 17,
-    "notes": 739,
+    "notes": 738,
     "seed": 32768,
     "normalize": true,
     "score_duration_seconds": 35.225910614251816,
@@ -282,9 +282,9 @@
       "frames": 1707465,
       "duration_seconds": 38.71802721088435,
       "peak": 0.6253094673156738,
-      "rms": 0.07708106305186135,
+      "rms": 0.07707877180338567,
       "peak_dbfs": -4.078099919211508,
-      "rms_dbfs": -22.26104608936808,
+      "rms_dbfs": -22.261304282838683,
       "clipped_samples": 0,
       "silent": false
     },
@@ -294,9 +294,9 @@
       "frames": 1707465,
       "duration_seconds": 38.71802721088435,
       "peak": 0.8912508487701416,
-      "rms": 0.10986329934177232,
+      "rms": 0.10986003363547958,
       "peak_dbfs": -1.0000008709134622,
-      "rms_dbfs": -19.18294725349697,
+      "rms_dbfs": -19.18320544696297,
       "clipped_samples": 0,
       "silent": false
     },
@@ -304,7 +304,7 @@
       "The sample-peak ceiling limited loudness gain; the target may not be reached."
     ],
     "loudness": {
-      "integrated_lufs": -17.39719138432743,
+      "integrated_lufs": -17.39809040951353,
       "measurable": true,
       "method": "ITU-R BS.1770-4",
       "backend": "pyloudnorm",
@@ -313,14 +313,14 @@
       "block_seconds": 0.4,
       "measured_frames": 1706670,
       "trailing_frames_ignored": 795,
-      "before_lufs": -20.475290220141947,
+      "before_lufs": -20.476189245329717,
       "target_lufs": -14.0,
-      "requested_gain_db": 6.475290220141947,
+      "requested_gain_db": 6.476189245329716,
       "applied_gain_db": 3.0780988361046457,
       "sample_peak_ceiling_dbfs": -1.0,
       "peak_limited": true,
       "measurement_scope": "full_render_before_encoding",
-      "achieved_lufs": -17.39719138432743,
+      "achieved_lufs": -17.39809040951353,
       "target_reached": false
     },
     "output": "/home/claude/8bit-content-bank/public/quartz-watch/track.wav",
@@ -331,9 +331,9 @@
       "frames": 1707465,
       "duration_seconds": 38.71802721088435,
       "peak": 0.891265869140625,
-      "rms": 0.10986328756333219,
+      "rms": 0.10986002224819248,
       "peak_dbfs": -0.9998544876801003,
-      "rms_dbfs": -19.182948184710916,
+      "rms_dbfs": -19.18320634727877,
       "full_scale_samples": 0,
       "silent": false
     }
@@ -341,7 +341,7 @@
   "loop": {
     "seconds": 36.0,
     "tail_folded_seconds": 3.569,
-    "lufs": -14.5,
+    "lufs": -14.4,
     "peak_dbfs": -1.0
   },
   "midi": {

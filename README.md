@@ -12,6 +12,7 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 |---|---|---|---|---|---|
 | 1 | Count the Clacks (colliding blocks count the digits of pi) | The Sound of Pi | 32 s, 9:16 | Ready to post | [prod-ready/count-the-clacks/](prod-ready/count-the-clacks/) |
 | 2 | 32,768 to 1 Tick (how a quartz watch counts a second) | How Time Works | 36 s, 9:16 | Ready to post | [prod-ready/quartz-watch/](prod-ready/quartz-watch/) |
+| 3 | Jupiter's Moons 1:2:4 (the Laplace resonance as a drum & bass beat) | Orbits | 32 s, 9:16 | Ready to post | [prod-ready/jupiter-moons/](prod-ready/jupiter-moons/) |
 
 The full bank of 30 ideas is in [docs/ideas.md](docs/ideas.md).
 
@@ -36,6 +37,7 @@ Requirements: Node 20+, [uv](https://docs.astral.sh/uv/), ffmpeg, Chrome.
 npm install
 uv sync
 scripts/build.sh count-the-clacks CountTheClacks      # sim -> music -> render
+uv run --locked python scripts/check_loop.py count-the-clacks   # must print PASS
 # or step by step
 npm run sim:count-the-clacks
 npm run music:count-the-clacks

@@ -2,7 +2,7 @@
 
 Hard techno, 150 BPM, A minor, 24 bars (38.4 s). One groove, one grid.
 
-Groove (not physics): four-on-the-floor distorted kick with rumble, rolling offbeat bass, clap on 2 and 4,
+Groove (not physics): four-on-the-floor distorted kick with rumble, a sustained distorted bass wall (F, E, D), clap on 2 and 4,
 16th hats, offbeat open hat, dark pad, riser and roll into the drop.
 
 Physics: the moons write the riff. One Europa-Ganymede cycle (7.05 days) = 6 beats, so every conjunction
@@ -51,7 +51,9 @@ FULL = set(GROOVE) | set(DROP)
 bar_of = lambda beat: int(beat // 4)  # noqa: E731
 
 # ---------------------------------------------------------------- groove
-kick, rumble, clap, hat16, hat_open, bass, roll, crash = [], [], [], [], [], [], [], []
+kick, rumble, clap, hat16, hat_open, sub, grit, roll, crash = [], [], [], [], [], [], [], [], []
+# bass line by bar (8-bar cycle): F, F, E, E, F, F, D, E  (F1 = 29, E1 = 28, D1 = 26), dark half-step moves like the reference
+BASS_LINE = [29, 29, 28, 28, 29, 29, 26, 28]
 for b in range(BARS):
     t = b * 4
     if b in KICK_BARS:
@@ -66,20 +68,24 @@ for b in range(BARS):
         hat16 += [n(42, t + s / 4, 0.06, 0.55 if s % 4 == 2 else 0.32) for s in range(16)]
     if b in KICK_BARS:
         hat_open += [n(46, t + q + 0.5, 0.22, 0.55 if b in FULL else 0.4) for q in range(4)]
-    if b in FULL or b in OUTRO[:2] or b in INTRO[2:]:
-        # rolling bass: the three 16ths after every kick, A1, accent on the offbeat
-        for q in range(4):
-            for s in (1, 2, 3):
-                bass.append(n(33 + (12 if (s == 2 and b in DROP) else 0), t + q + s / 4, 0.2, 0.95 if s == 2 else 0.7))
+    # bass wall: legato 16ths, loudest on the offbeat, never silent (the reference's low end never drops below ~70%)
+    root = BASS_LINE[b % 8] if b not in BREAK else 26  # D in the breakdown
+    for q in range(4):
+        for s16 in range(4):
+            v = (0.62, 0.8, 1.0, 0.82)[s16] * (0.8 if b in INTRO or b in OUTRO else 1.0)
+            sub.append(n(root, t + q + s16 / 4, 0.25, v))
+            if b not in BREAK:
+                grit.append(n(root + 12, t + q + s16 / 4, 0.24, v))
 roll += [n(38, 15 * 4 + s / 4, 0.1, 0.3 + 0.65 * (s / 15) ** 2) for s in range(16)]
 crash += [n(51, 4 * 4, 3, 0.6), n(51, 16 * 4, 4, 0.85)]
 riser = [n(p, 14 * 4, 7.9, 0.7) for p in (45, 52, 57)]
 
-# dark pad: A minor drone with a slow move to F and back
+# dark pad follows the bass: Fmaj7 over F (contains the moons' A, C, E), Em over E, Dm over D
+PAD = {29: [53, 57, 60, 64], 28: [52, 55, 59, 64], 26: [50, 53, 57, 62]}
 pad = []
-for b in range(0, BARS, 4):
-    chord = [45, 52, 57, 60] if (b // 4) % 2 == 0 else [41, 48, 53, 57]
-    pad += [n(p, b * 4, 15.8, 0.45) for p in chord]
+for b in range(BARS):
+    root = BASS_LINE[b % 8] if b not in BREAK else 26
+    pad += [n(p, b * 4, 3.95, 0.45) for p in PAD[root]]
 
 # ---------------------------------------------------------------- the moons' riff
 NOTE = {"EG": 57, "IG": 64, "IE": 60}  # A3, E4, C4
@@ -100,14 +106,14 @@ for e in events:
         riff_dark.append(n(p, beat, LEN[e["pair"]], accent * 0.75))
 
 # ---------------------------------------------------------------- song
-side = Ducker(trigger_beats=tuple(x.start for x in kick), depth=0.75, attack_seconds=0.002, release_seconds=0.16)
+side = Ducker(trigger_beats=tuple(x.start for x in kick), depth=0.25, attack_seconds=0.002, release_seconds=0.09)
 space = Reverb(decay_seconds=1.8, mix=0.22)
 echo = Delay(time_seconds=0.75 * SPB, feedback=0.4, repeats=5, mix=0.25)
 
 tracks = [
-    Track(name="Kick", instrument="kick_909", gain=0.95, tone=Tone(decay_seconds=0.42, tuning_semitones=-2, brightness=0.65),
+    Track(name="Kick", instrument="kick_909", gain=0.82, tone=Tone(decay_seconds=0.24, tuning_semitones=0, brightness=0.75),
           notes=tuple(kick), effects=(Distortion(drive=4.0, mix=0.5), Filter(mode="highpass", cutoff_hz=40))),
-    Track(name="Rumble", instrument="kick_909", gain=0.42, tone=Tone(decay_seconds=0.6, tuning_semitones=-2, brightness=0.4), notes=tuple(rumble),
+    Track(name="Rumble", instrument="kick_909", gain=0.28, tone=Tone(decay_seconds=0.6, tuning_semitones=-2, brightness=0.4), notes=tuple(rumble),
           effects=(Reverb(decay_seconds=1.4, mix=1.0), Distortion(drive=6.0, mix=0.8), Filter(mode="lowpass", cutoff_hz=170), side)),
     Track(name="Clap", instrument="clap", gain=0.62, notes=tuple(clap), effects=(Reverb(decay_seconds=1.1, mix=0.3),)),
     Track(name="Hat 16ths", instrument="metal_hat", gain=0.26, pan=0.2, tone=Tone(brightness=0.75, decay_seconds=0.1), notes=tuple(hat16)),
@@ -117,15 +123,15 @@ tracks = [
     Track(name="Riser", instrument="supersaw", gain=0.2, tone=Tone(brightness=0.6, glide_semitones=-12, glide_seconds=2.0, detune_cents=25), notes=tuple(riser),
           effects=(Filter(mode="highpass", cutoff_hz=500), space),
           automation=(Automation(parameter="gain", points=(AutomationPoint(beat=56.0, value=0.0), AutomationPoint(beat=63.9, value=1.0), AutomationPoint(beat=64.0, value=0.0))),)),
-    Track(name="Rolling bass", instrument="acid_bass", gain=0.34, tone=Tone(cutoff_hz=650, resonance=0.45, filter_env_octaves=2.2, filter_decay_seconds=0.09),
-          notes=tuple(bass), effects=(Distortion(drive=3.0, mix=0.45), side)),
-    Track(name="Pad", instrument="wavetable_pad", gain=0.26, tone=Tone(brightness=0.5, cutoff_hz=2600, detune_cents=14), notes=tuple(pad), release_seconds=1.0, effects=(space, side)),
+    Track(name="Sub bass", instrument="sub_bass", gain=0.5, tone=Tone(brightness=0.35), notes=tuple(sub), effects=(side,)),
+    Track(name="Grit bass", instrument="reese_bass", gain=0.72, tone=Tone(brightness=0.7, cutoff_hz=1800, resonance=0.4, detune_cents=22),
+          notes=tuple(grit), effects=(Distortion(drive=10.0, mix=0.85), Filter(mode="highpass", cutoff_hz=110), side)),
+    Track(name="Pad", instrument="wavetable_pad", gain=0.26, tone=Tone(brightness=0.5, cutoff_hz=2600, detune_cents=14), notes=tuple(pad), release_seconds=0.6, effects=(space, side)),
     # the moons
     Track(name="Moon riff", instrument="sync_lead", gain=0.6, tone=Tone(brightness=0.6, cutoff_hz=4500),
           notes=tuple(riff_main), effects=(Distortion(drive=3.0, mix=0.4), echo, space, Ducker(trigger_beats=side.trigger_beats, depth=0.35, release_seconds=0.12))),
     Track(name="Moon riff body", instrument="hoover", gain=0.3, pan=-0.1, tone=Tone(brightness=0.6, cutoff_hz=4000, detune_cents=12),
           notes=tuple(riff_main), effects=(Filter(mode="highpass", cutoff_hz=250), echo, Ducker(trigger_beats=side.trigger_beats, depth=0.35, release_seconds=0.12))),
-    Track(name="Moon riff low", instrument="sub_bass", gain=0.25, tone=Tone(brightness=0.2), notes=tuple(riff_low), effects=(side,)),
     Track(name="Moon riff (filtered)", instrument="sync_lead", gain=0.5, tone=Tone(brightness=0.4, cutoff_hz=1400),
           notes=tuple(riff_dark), effects=(echo, space)),
 ]

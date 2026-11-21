@@ -9,11 +9,11 @@ This repo makes pixel-art science explainers with 8-bit music, entirely in code,
 
 ## Music direction
 
-The target is **hard techno** like the reference in `docs/music-reference.md` (about 144 BPM, A minor, dense, mid-heavy): four-on-the-floor distorted kick with rumble, rolling offbeat bass ducked under it, clap on 2 and 4, 16th hats and offbeat open hat, a hypnotic riff, chiptune colour in the leads. At 30 fps use 150 BPM (12 frames per beat).
+The target is **hard techno** like the reference in `docs/music-reference.md` (about 144 BPM, A minor, dense, mid-heavy): a short four-on-the-floor kick over a sustained, distorted bass wall (low end never below ~70% across a beat, light sidechain, dark half-step line like F-E-D), clap on 2 and 4, 16th hats and offbeat open hat, a hypnotic riff, chiptune colour in the leads. At 30 fps use 150 BPM (12 frames per beat).
 - **One grid.** Every layer, physics included, lands on the same 8th/16th grid. Choose the simulation's time scale so its events fall on the grid; never add a second, competing drum pattern.
 - **Physics plays the riff** (notes of one chord), or a single percussion voice on the grid; the groove is the kick, bass, clap and hats, named as groove in `post.md`.
 - **Dense and level:** loudness range 2-4 LU; the intro is the groove filtered, not silence.
-- Compare every new track with `uv run --locked python scripts/analyze_audio.py public/<slug>/track.wav` against the reference table; all bands should report the same tempo.
+- Compare every new track with `uv run --locked python scripts/analyze_audio.py public/<slug>/track.wav` and `python3 scripts/analyze_bass.py public/<slug>/track.wav <bpm> <start> <end>` against the reference table; all bands should report the same tempo, low end >= 0.65, grit >= 1.0.
 
 ## Loops
 

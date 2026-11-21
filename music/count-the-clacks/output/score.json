@@ -4748,9 +4748,485 @@
       "pedal": []
     },
     {
+      "name": "Kick (dem) F1 top",
+      "instrument": "kick_909",
+      "gain": 0.6,
+      "pan": 0.0,
+      "tone": {
+        "brightness": 1.0,
+        "decay_seconds": 0.35,
+        "pluck_position": null,
+        "breath": null,
+        "vibrato_depth_cents": null,
+        "vibrato_rate_hz": null,
+        "glide_semitones": null,
+        "detune_cents": null,
+        "cutoff_hz": null,
+        "resonance": null,
+        "filter_decay_seconds": null,
+        "filter_env_octaves": null,
+        "glide_seconds": null,
+        "fm_index": null,
+        "fm_ratio": null,
+        "modulation_rate_hz": null,
+        "tuning_semitones": -3.26
+      },
+      "notes": [
+        {
+          "pitch": 33,
+          "start": 20.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 22.0,
+          "duration": 0.45,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 22.5,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 36.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 37.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 38.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 39.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 52.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 53.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 54.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 55.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        }
+      ],
+      "release_seconds": 0.0,
+      "articulation": null,
+      "automation": [],
+      "effects": [
+        {
+          "type": "distortion",
+          "drive": 10.0,
+          "mix": 1.0
+        },
+        {
+          "type": "filter",
+          "mode": "highpass",
+          "cutoff_hz": 150.0,
+          "resonance": 0.2,
+          "end_cutoff_hz": null,
+          "sweep_seconds": 1.0,
+          "mix": 1.0
+        }
+      ],
+      "pedal": []
+    },
+    {
+      "name": "Kick (dem) G1 top",
+      "instrument": "kick_909",
+      "gain": 0.6,
+      "pan": 0.0,
+      "tone": {
+        "brightness": 1.0,
+        "decay_seconds": 0.35,
+        "pluck_position": null,
+        "breath": null,
+        "vibrato_depth_cents": null,
+        "vibrato_rate_hz": null,
+        "glide_semitones": null,
+        "detune_cents": null,
+        "cutoff_hz": null,
+        "resonance": null,
+        "filter_decay_seconds": null,
+        "filter_env_octaves": null,
+        "glide_seconds": null,
+        "fm_index": null,
+        "fm_ratio": null,
+        "modulation_rate_hz": null,
+        "tuning_semitones": -1.26
+      },
+      "notes": [
+        {
+          "pitch": 33,
+          "start": 12.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 14.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 28.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 30.0,
+          "duration": 0.45,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 30.5,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 44.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 45.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 46.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 47.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        }
+      ],
+      "release_seconds": 0.0,
+      "articulation": null,
+      "automation": [],
+      "effects": [
+        {
+          "type": "distortion",
+          "drive": 10.0,
+          "mix": 1.0
+        },
+        {
+          "type": "filter",
+          "mode": "highpass",
+          "cutoff_hz": 150.0,
+          "resonance": 0.2,
+          "end_cutoff_hz": null,
+          "sweep_seconds": 1.0,
+          "mix": 1.0
+        }
+      ],
+      "pedal": []
+    },
+    {
+      "name": "Kick (dem) A1 top",
+      "instrument": "kick_909",
+      "gain": 0.6,
+      "pan": 0.0,
+      "tone": {
+        "brightness": 1.0,
+        "decay_seconds": 0.35,
+        "pluck_position": null,
+        "breath": null,
+        "vibrato_depth_cents": null,
+        "vibrato_rate_hz": null,
+        "glide_semitones": null,
+        "detune_cents": null,
+        "cutoff_hz": null,
+        "resonance": null,
+        "filter_decay_seconds": null,
+        "filter_env_octaves": null,
+        "glide_seconds": null,
+        "fm_index": null,
+        "fm_ratio": null,
+        "modulation_rate_hz": null,
+        "tuning_semitones": 0.74
+      },
+      "notes": [
+        {
+          "pitch": 33,
+          "start": 16.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 18.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 32.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 48.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 49.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 50.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 51.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        }
+      ],
+      "release_seconds": 0.0,
+      "articulation": null,
+      "automation": [],
+      "effects": [
+        {
+          "type": "distortion",
+          "drive": 10.0,
+          "mix": 1.0
+        },
+        {
+          "type": "filter",
+          "mode": "highpass",
+          "cutoff_hz": 150.0,
+          "resonance": 0.2,
+          "end_cutoff_hz": null,
+          "sweep_seconds": 1.0,
+          "mix": 1.0
+        }
+      ],
+      "pedal": []
+    },
+    {
+      "name": "Kick (dem) C2 top",
+      "instrument": "kick_909",
+      "gain": 0.6,
+      "pan": 0.0,
+      "tone": {
+        "brightness": 1.0,
+        "decay_seconds": 0.35,
+        "pluck_position": null,
+        "breath": null,
+        "vibrato_depth_cents": null,
+        "vibrato_rate_hz": null,
+        "glide_semitones": null,
+        "detune_cents": null,
+        "cutoff_hz": null,
+        "resonance": null,
+        "filter_decay_seconds": null,
+        "filter_env_octaves": null,
+        "glide_seconds": null,
+        "fm_index": null,
+        "fm_ratio": null,
+        "modulation_rate_hz": null,
+        "tuning_semitones": 3.74
+      },
+      "notes": [
+        {
+          "pitch": 33,
+          "start": 8.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 10.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 24.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 26.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 40.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 41.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 42.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 43.0,
+          "duration": 0.5,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 33,
+          "start": 56.0,
+          "duration": 0.5,
+          "velocity": 1.0,
+          "release_seconds": null,
+          "articulation": null
+        }
+      ],
+      "release_seconds": 0.0,
+      "articulation": null,
+      "automation": [],
+      "effects": [
+        {
+          "type": "distortion",
+          "drive": 10.0,
+          "mix": 1.0
+        },
+        {
+          "type": "filter",
+          "mode": "highpass",
+          "cutoff_hz": 150.0,
+          "resonance": 0.2,
+          "end_cutoff_hz": null,
+          "sweep_seconds": 1.0,
+          "mix": 1.0
+        }
+      ],
+      "pedal": []
+    },
+    {
       "name": "Snare",
       "instrument": "electronic_snare",
-      "gain": 0.5,
+      "gain": 0.8,
       "pan": 0.0,
       "tone": {
         "brightness": 0.55,
@@ -6220,7 +6696,7 @@
     {
       "name": "Clack wall",
       "instrument": "fm_percussion",
-      "gain": 1.0,
+      "gain": 0.3,
       "pan": -0.45,
       "tone": {
         "brightness": 0.7,
@@ -7642,7 +8118,7 @@
     {
       "name": "Clack block",
       "instrument": "fm_percussion",
-      "gain": 1.0,
+      "gain": 0.3,
       "pan": 0.45,
       "tone": {
         "brightness": 0.75,

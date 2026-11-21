@@ -27,16 +27,26 @@ def tuning_for(midi: int) -> float:
     return round(12 * math.log2(midi_hz(midi) / KICK_BODY_HZ), 2)
 
 
-def dem_tracks(hits, gain: float = 0.3, drive: float = 4.0, name: str = "Kick (dem)") -> list[Track]:
+def dem_tracks(hits, gain: float = 0.3, drive: float = 4.0, name: str = "Kick (dem)", top_gain: float = 0.6) -> list[Track]:
     """hits: (beat, root_midi, duration_beats, velocity). Returns one track per root, named "<name> <note>"."""
     names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     by_root = defaultdict(list)
     for beat, root, dur, vel in hits:
         by_root[root].append(Note(pitch=33, start=round(beat, 6), duration=round(dur, 6), velocity=vel))
-    return [
+    body = [
         Track(name=f"{name} {names[r % 12]}{r // 12 - 1}", instrument="kick_909", gain=gain,
               tone=Tone(decay_seconds=2.0, tuning_semitones=tuning_for(r), brightness=0.75),
               notes=tuple(sorted(notes, key=lambda x: x.start)),
               effects=(Distortion(drive=drive, mix=0.9), Filter(mode="highpass", cutoff_hz=30)))
         for r, notes in sorted(by_root.items())
     ]
+    # the top: the same hit, short, bright and driven hard, highpassed at 150 Hz. Phone speakers cannot play the
+    # 43-65 Hz body, so this is the part of the dem a phone plays; it is the same note, on the same hits.
+    top = [
+        Track(name=f"{name} {names[r % 12]}{r // 12 - 1} top", instrument="kick_909", gain=top_gain,
+              tone=Tone(decay_seconds=0.35, tuning_semitones=tuning_for(r), brightness=1.0),
+              notes=tuple(sorted((Note(pitch=33, start=x.start, duration=min(x.duration, 0.5), velocity=x.velocity) for x in notes), key=lambda x: x.start)),
+              effects=(Distortion(drive=10.0, mix=1.0), Filter(mode="highpass", cutoff_hz=150)))
+        for r, notes in sorted(by_root.items())
+    ] if top_gain > 0 else []
+    return body + top

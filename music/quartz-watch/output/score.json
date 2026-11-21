@@ -625,7 +625,7 @@
     {
       "name": "Stage arp (pulse)",
       "instrument": "hoover",
-      "gain": 0.3,
+      "gain": 0.6,
       "pan": 0.0,
       "tone": {
         "brightness": 0.55,
@@ -1222,7 +1222,7 @@
     {
       "name": "Stage 11: 16 Hz",
       "instrument": "metal_hat",
-      "gain": 0.22,
+      "gain": 0.5,
       "pan": 0.3,
       "tone": {
         "brightness": 0.75,
@@ -3302,7 +3302,7 @@
     {
       "name": "Stage 12: 8 Hz",
       "instrument": "metal_hat",
-      "gain": 0.3,
+      "gain": 0.7,
       "pan": -0.25,
       "tone": {
         "brightness": 0.6,
@@ -4230,7 +4230,7 @@
     {
       "name": "Stage 13: 4 Hz",
       "instrument": "open_hat",
-      "gain": 0.24,
+      "gain": 0.5,
       "pan": 0.15,
       "tone": null,
       "notes": [
@@ -4628,7 +4628,7 @@
     {
       "name": "Stage 14: 2 Hz (dem) F1",
       "instrument": "kick_909",
-      "gain": 0.8,
+      "gain": 0.3,
       "pan": 0.0,
       "tone": {
         "brightness": 0.75,
@@ -4689,7 +4689,7 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 12.0,
+          "drive": 4.0,
           "mix": 0.9
         },
         {
@@ -4707,7 +4707,7 @@
     {
       "name": "Stage 14: 2 Hz (dem) G1",
       "instrument": "kick_909",
-      "gain": 0.8,
+      "gain": 0.3,
       "pan": 0.0,
       "tone": {
         "brightness": 0.75,
@@ -4768,7 +4768,7 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 12.0,
+          "drive": 4.0,
           "mix": 0.9
         },
         {
@@ -4786,7 +4786,7 @@
     {
       "name": "Stage 14: 2 Hz (dem) G#1",
       "instrument": "kick_909",
-      "gain": 0.8,
+      "gain": 0.3,
       "pan": 0.0,
       "tone": {
         "brightness": 0.75,
@@ -4847,7 +4847,7 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 12.0,
+          "drive": 4.0,
           "mix": 0.9
         },
         {
@@ -4865,7 +4865,7 @@
     {
       "name": "Stage 14: 2 Hz (dem) C2",
       "instrument": "kick_909",
-      "gain": 0.8,
+      "gain": 0.3,
       "pan": 0.0,
       "tone": {
         "brightness": 0.75,
@@ -4958,7 +4958,7 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 12.0,
+          "drive": 4.0,
           "mix": 0.9
         },
         {
@@ -5656,7 +5656,7 @@
     {
       "name": "Bass (triangle)",
       "instrument": "triangle",
-      "gain": 0.5,
+      "gain": 0.9,
       "pan": 0.0,
       "tone": null,
       "notes": [
@@ -6084,7 +6084,7 @@
     {
       "name": "Lead (pulse)",
       "instrument": "hoover",
-      "gain": 0.4,
+      "gain": 1.0,
       "pan": 0.0,
       "tone": {
         "brightness": 0.62,
@@ -6365,7 +6365,7 @@
     {
       "name": "Lead low",
       "instrument": "synthesizer",
-      "gain": 0.16,
+      "gain": 0.35,
       "pan": 0.0,
       "tone": {
         "brightness": 0.4,

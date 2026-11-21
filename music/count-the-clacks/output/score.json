@@ -469,7 +469,7 @@
     {
       "name": "Bass (triangle)",
       "instrument": "triangle",
-      "gain": 0.55,
+      "gain": 0.9,
       "pan": 0.0,
       "tone": null,
       "notes": [
@@ -1409,7 +1409,7 @@
     {
       "name": "Arp L",
       "instrument": "synthesizer",
-      "gain": 0.22,
+      "gain": 0.5,
       "pan": -0.45,
       "tone": {
         "brightness": 0.7,
@@ -2395,7 +2395,7 @@
     {
       "name": "Arp R",
       "instrument": "synthesizer",
-      "gain": 0.22,
+      "gain": 0.5,
       "pan": 0.45,
       "tone": {
         "brightness": 0.7,
@@ -3381,7 +3381,7 @@
     {
       "name": "Lead (pulse)",
       "instrument": "hoover",
-      "gain": 0.4,
+      "gain": 1.0,
       "pan": 0.0,
       "tone": {
         "brightness": 0.62,
@@ -3702,7 +3702,7 @@
     {
       "name": "Lead low",
       "instrument": "synthesizer",
-      "gain": 0.16,
+      "gain": 0.35,
       "pan": 0.0,
       "tone": {
         "brightness": 0.4,
@@ -4004,7 +4004,7 @@
     {
       "name": "Pi melody",
       "instrument": "hoover",
-      "gain": 0.42,
+      "gain": 1.0,
       "pan": 0.0,
       "tone": {
         "brightness": 0.6,
@@ -4274,7 +4274,7 @@
     {
       "name": "Kick (dem) F1",
       "instrument": "kick_909",
-      "gain": 0.8,
+      "gain": 0.3,
       "pan": 0.0,
       "tone": {
         "brightness": 0.75,
@@ -4391,7 +4391,7 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 12.0,
+          "drive": 4.0,
           "mix": 0.9
         },
         {
@@ -4409,7 +4409,7 @@
     {
       "name": "Kick (dem) G1",
       "instrument": "kick_909",
-      "gain": 0.8,
+      "gain": 0.3,
       "pan": 0.0,
       "tone": {
         "brightness": 0.75,
@@ -4510,7 +4510,7 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 12.0,
+          "drive": 4.0,
           "mix": 0.9
         },
         {
@@ -4528,7 +4528,7 @@
     {
       "name": "Kick (dem) A1",
       "instrument": "kick_909",
-      "gain": 0.8,
+      "gain": 0.3,
       "pan": 0.0,
       "tone": {
         "brightness": 0.75,
@@ -4613,7 +4613,7 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 12.0,
+          "drive": 4.0,
           "mix": 0.9
         },
         {
@@ -4631,7 +4631,7 @@
     {
       "name": "Kick (dem) C2",
       "instrument": "kick_909",
-      "gain": 0.8,
+      "gain": 0.3,
       "pan": 0.0,
       "tone": {
         "brightness": 0.75,
@@ -4732,7 +4732,7 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 12.0,
+          "drive": 4.0,
           "mix": 0.9
         },
         {
@@ -5192,7 +5192,7 @@
     {
       "name": "Hat",
       "instrument": "metal_hat",
-      "gain": 0.26,
+      "gain": 0.7,
       "pan": 0.2,
       "tone": {
         "brightness": 0.6,
@@ -5992,7 +5992,7 @@
     {
       "name": "Open hat",
       "instrument": "open_hat",
-      "gain": 0.2,
+      "gain": 0.5,
       "pan": -0.2,
       "tone": null,
       "notes": [

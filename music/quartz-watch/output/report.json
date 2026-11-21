@@ -2,7 +2,7 @@
   "render": {
     "engine_version": "0.5.0",
     "numpy_version": "2.5.5",
-    "score_sha256": "b688a6e33550161fa0a13df5c548f89acd00b966099a447876c9d9eefe66ea1f",
+    "score_sha256": "86fdeda5e490aa79dea54614db37838981277c20c765359529e5b9f62e85bcd4",
     "title": "32,768 to 1 Tick",
     "tracks": 19,
     "notes": 722,
@@ -89,7 +89,7 @@
         "Stage 14: 2 Hz (dem) F1": [
           {
             "type": "distortion",
-            "drive": 12.0,
+            "drive": 4.0,
             "mix": 0.9
           },
           {
@@ -105,7 +105,7 @@
         "Stage 14: 2 Hz (dem) G1": [
           {
             "type": "distortion",
-            "drive": 12.0,
+            "drive": 4.0,
             "mix": 0.9
           },
           {
@@ -121,7 +121,7 @@
         "Stage 14: 2 Hz (dem) G#1": [
           {
             "type": "distortion",
-            "drive": 12.0,
+            "drive": 4.0,
             "mix": 0.9
           },
           {
@@ -137,7 +137,7 @@
         "Stage 14: 2 Hz (dem) C2": [
           {
             "type": "distortion",
-            "drive": 12.0,
+            "drive": 4.0,
             "mix": 0.9
           },
           {
@@ -308,17 +308,17 @@
         ]
       }
     },
-    "gain_applied": 0.2946606141726226,
+    "gain_applied": 1.0340745449066162,
     "before_gain": {
       "sample_rate": 44100,
       "channels": 2,
       "frames": 1707465,
       "duration_seconds": 38.71802721088435,
-      "peak": 1.6713510751724243,
-      "rms": 0.38982602274688266,
-      "peak_dbfs": 4.461353701583848,
-      "rms_dbfs": -8.18258346044024,
-      "clipped_samples": 181104,
+      "peak": 0.8618826270103455,
+      "rms": 0.14472660291846226,
+      "peak_dbfs": -1.291037465697792,
+      "rms_dbfs": -16.78903263418147,
+      "clipped_samples": 0,
       "silent": false
     },
     "audio": {
@@ -326,16 +326,18 @@
       "channels": 2,
       "frames": 1707465,
       "duration_seconds": 38.71802721088435,
-      "peak": 0.4924813508987427,
-      "rms": 0.11486638061782642,
-      "peak_dbfs": -6.152204211149332,
-      "rms_dbfs": -18.796141262377237,
+      "peak": 0.8912509083747864,
+      "rms": 0.14965809604762087,
+      "peak_dbfs": -1.0000002900227403,
+      "rms_dbfs": -16.497995683565545,
       "clipped_samples": 0,
       "silent": false
     },
-    "warnings": [],
+    "warnings": [
+      "The sample-peak ceiling limited loudness gain; the target may not be reached."
+    ],
     "loudness": {
-      "integrated_lufs": -13.999999596505452,
+      "integrated_lufs": -15.039042333347277,
       "measurable": true,
       "method": "ITU-R BS.1770-4",
       "backend": "pyloudnorm",
@@ -344,15 +346,15 @@
       "block_seconds": 0.4,
       "measured_frames": 1706670,
       "trailing_frames_ignored": 795,
-      "before_lufs": -3.3864417946627166,
+      "before_lufs": -15.33007928389941,
       "target_lufs": -14.0,
-      "requested_gain_db": -10.613558205337284,
-      "applied_gain_db": -10.613558205337284,
+      "requested_gain_db": 1.3300792838994104,
+      "applied_gain_db": 0.29103695068374547,
       "sample_peak_ceiling_dbfs": -1.0,
-      "peak_limited": false,
+      "peak_limited": true,
       "measurement_scope": "full_render_before_encoding",
-      "achieved_lufs": -13.999999596505452,
-      "target_reached": true
+      "achieved_lufs": -15.039042333347277,
+      "target_reached": false
     },
     "output": "/home/claude/8bit-content-bank/public/quartz-watch/track.wav",
     "stems": [],
@@ -361,10 +363,10 @@
       "channels": 2,
       "frames": 1707465,
       "duration_seconds": 38.71802721088435,
-      "peak": 0.49249267578125,
-      "rms": 0.11486638453719308,
-      "peak_dbfs": -6.152004476583826,
-      "rms_dbfs": -18.79614096600518,
+      "peak": 0.891265869140625,
+      "rms": 0.14965809006896832,
+      "peak_dbfs": -0.9998544876801003,
+      "rms_dbfs": -16.49799603055591,
       "full_scale_samples": 0,
       "silent": false
     }
@@ -372,8 +374,8 @@
   "loop": {
     "seconds": 36.0,
     "tail_folded_seconds": 3.569,
-    "lufs": -14.0,
-    "peak_dbfs": -6.08
+    "lufs": -14.1,
+    "peak_dbfs": -1.0
   },
   "midi": {
     "skipped": "MIDI export requires at most one track per drum instrument"

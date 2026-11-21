@@ -145,13 +145,13 @@ tracks = [
     Track(name="Pad", instrument="wavetable_pad", gain=0.3, tone=Tone(brightness=0.45, cutoff_hz=2400, detune_cents=12), notes=tuple(pad), release_seconds=0.6,
           effects=(Filter(mode="lowpass", cutoff_hz=400, end_cutoff_hz=9000, sweep_seconds=4.0), Chorus(), rev_long, duck)),
     Track(name="Stage tone (sine)", instrument="sine", gain=0.32, notes=tuple(drone), release_seconds=0.05, effects=(rev_short,)),
-    Track(name="Stage arp (pulse)", instrument="hoover", gain=0.3, tone=Tone(brightness=0.55, cutoff_hz=6000, detune_cents=4), notes=tuple(arp), effects=(dotted8, rev_short)),
+    Track(name="Stage arp (pulse)", instrument="hoover", gain=0.6, tone=Tone(brightness=0.55, cutoff_hz=6000, detune_cents=4), notes=tuple(arp), effects=(dotted8, rev_short)),
     Track(name="Stage 10 sub", instrument="sub_bass", gain=0.5, tone=Tone(brightness=0.3), notes=tuple(sub)),
-    Track(name="Stage 11: 16 Hz", instrument="metal_hat", gain=0.22, pan=0.3, tone=Tone(brightness=0.75, decay_seconds=0.1), notes=tuple(roll16)),
-    Track(name="Stage 12: 8 Hz", instrument="metal_hat", gain=0.3, pan=-0.25, tone=Tone(brightness=0.6, decay_seconds=0.15), notes=tuple(hat8)),
-    Track(name="Stage 13: 4 Hz", instrument="open_hat", gain=0.24, pan=0.15, notes=tuple(hat4)),
+    Track(name="Stage 11: 16 Hz", instrument="metal_hat", gain=0.5, pan=0.3, tone=Tone(brightness=0.75, decay_seconds=0.1), notes=tuple(roll16)),
+    Track(name="Stage 12: 8 Hz", instrument="metal_hat", gain=0.7, pan=-0.25, tone=Tone(brightness=0.6, decay_seconds=0.15), notes=tuple(hat8)),
+    Track(name="Stage 13: 4 Hz", instrument="open_hat", gain=0.5, pan=0.15, notes=tuple(hat4)),
     # stage 14 is the "dem": each 2 Hz edge tuned to the root of its chord (C2, Ab1, F1, G1), an octave under the triangle bass
-    *dem_tracks([(x.start, ROOTS[int(x.start // 4) % 4] - 12, x.duration, x.velocity) for x in kick2], gain=0.8, name="Stage 14: 2 Hz (dem)"),
+    *dem_tracks([(x.start, ROOTS[int(x.start // 4) % 4] - 12, x.duration, x.velocity) for x in kick2], gain=0.3, drive=4.0, name="Stage 14: 2 Hz (dem)"),
     Track(name="Stage 15: 1 Hz tick", instrument="fm_percussion", gain=0.75, tone=Tone(brightness=0.7), notes=tuple(tick1), effects=(rev_short,)),
     Track(name="Snare", instrument="electronic_snare", gain=0.5, tone=Tone(brightness=0.55), notes=tuple(snare), effects=(rev_short,)),
     Track(name="Clap", instrument="clap", gain=0.38, notes=tuple(clap), effects=(Reverb(decay_seconds=1.0, mix=0.25),)),
@@ -159,10 +159,10 @@ tracks = [
     Track(name="Riser", instrument="supersaw", gain=0.24, tone=Tone(brightness=0.6, glide_semitones=-12, glide_seconds=1.2, detune_cents=25), notes=tuple(riser),
           effects=(Filter(mode="highpass", cutoff_hz=350), rev_long),
           automation=(Automation(parameter="gain", points=(AutomationPoint(beat=48.0, value=0.0), AutomationPoint(beat=51.95, value=1.0), AutomationPoint(beat=52.0, value=0.0))),)),
-    Track(name="Bass (triangle)", instrument="triangle", gain=0.5, notes=tuple(bass), effects=(duck,)),
-    Track(name="Lead (pulse)", instrument="hoover", gain=0.4, tone=Tone(brightness=0.62, cutoff_hz=5200, detune_cents=7), notes=tuple(lead),
+    Track(name="Bass (triangle)", instrument="triangle", gain=0.9, notes=tuple(bass), effects=(duck,)),
+    Track(name="Lead (pulse)", instrument="hoover", gain=1.0, tone=Tone(brightness=0.62, cutoff_hz=5200, detune_cents=7), notes=tuple(lead),
           effects=(Chorus(mix=0.3), dotted8, rev_short, Ducker(trigger_beats=duck.trigger_beats, depth=0.25, release_seconds=0.12))),
-    Track(name="Lead low", instrument="synthesizer", gain=0.16, tone=Tone(brightness=0.4), notes=tuple(lead_low), effects=(duck,)),
+    Track(name="Lead low", instrument="synthesizer", gain=0.35, tone=Tone(brightness=0.4), notes=tuple(lead_low), effects=(duck,)),
 ]
 
 song = Song(title="32,768 to 1 Tick", bpm=round(render_bpm_for_scientific_pitch(BPM), 4), beats=float(BEATS), seed=32768, master_gain=0.8, tracks=tuple(tracks))

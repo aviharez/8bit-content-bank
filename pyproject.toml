@@ -1,0 +1,12 @@
+[project]
+name = "8bit-content-bank-audio"
+version = "0.1.0"
+description = "Music for the 8-bit content bank, composed with Audio as Code"
+requires-python = ">=3.10"
+dependencies = [
+    "audio-as-code[loudness]==0.5.0",
+    "numpy",
+]
+
+[tool.uv]
+package = false

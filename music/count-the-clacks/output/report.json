@@ -1,0 +1,610 @@
+{
+  "render": {
+    "engine_version": "0.5.0",
+    "numpy_version": "2.5.5",
+    "score_sha256": "52b221831563563bfebf1ebb419f740282e66194820f8ff64ff5af29b1698b47",
+    "title": "Count the Clacks",
+    "tracks": 22,
+    "notes": 1066,
+    "seed": 314,
+    "normalize": true,
+    "score_duration_seconds": 32.0,
+    "tail_seconds": 4.946045351473927,
+    "effects": {
+      "master": [],
+      "tracks": {
+        "Pad": [
+          {
+            "type": "filter",
+            "mode": "lowpass",
+            "cutoff_hz": 450.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": 9000.0,
+            "sweep_seconds": 4.0,
+            "mix": 1.0
+          },
+          {
+            "type": "chorus",
+            "rate_hz": 0.7,
+            "depth_ms": 3.0,
+            "delay_ms": 18.0,
+            "mix": 0.35
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 2.6,
+            "mix": 0.32
+          },
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              8.0,
+              10.0,
+              12.0,
+              14.0,
+              16.0,
+              18.0,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              26.0,
+              28.0,
+              30.0,
+              30.5,
+              32.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0
+            ],
+            "depth": 0.6,
+            "attack_seconds": 0.004,
+            "release_seconds": 0.17,
+            "mix": 1.0
+          }
+        ],
+        "Bass (triangle)": [
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              8.0,
+              10.0,
+              12.0,
+              14.0,
+              16.0,
+              18.0,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              26.0,
+              28.0,
+              30.0,
+              30.5,
+              32.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0
+            ],
+            "depth": 0.6,
+            "attack_seconds": 0.004,
+            "release_seconds": 0.17,
+            "mix": 1.0
+          }
+        ],
+        "Sub": [
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              8.0,
+              10.0,
+              12.0,
+              14.0,
+              16.0,
+              18.0,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              26.0,
+              28.0,
+              30.0,
+              30.5,
+              32.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0
+            ],
+            "depth": 0.6,
+            "attack_seconds": 0.004,
+            "release_seconds": 0.17,
+            "mix": 1.0
+          }
+        ],
+        "Arp L": [
+          {
+            "type": "delay",
+            "time_seconds": 0.375,
+            "feedback": 0.35,
+            "repeats": 5,
+            "mix": 0.22
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          },
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              8.0,
+              10.0,
+              12.0,
+              14.0,
+              16.0,
+              18.0,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              26.0,
+              28.0,
+              30.0,
+              30.5,
+              32.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0
+            ],
+            "depth": 0.6,
+            "attack_seconds": 0.004,
+            "release_seconds": 0.17,
+            "mix": 1.0
+          }
+        ],
+        "Arp R": [
+          {
+            "type": "delay",
+            "time_seconds": 0.375,
+            "feedback": 0.35,
+            "repeats": 5,
+            "mix": 0.22
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          },
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              8.0,
+              10.0,
+              12.0,
+              14.0,
+              16.0,
+              18.0,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              26.0,
+              28.0,
+              30.0,
+              30.5,
+              32.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0
+            ],
+            "depth": 0.6,
+            "attack_seconds": 0.004,
+            "release_seconds": 0.17,
+            "mix": 1.0
+          }
+        ],
+        "Lead (pulse)": [
+          {
+            "type": "chorus",
+            "rate_hz": 0.7,
+            "depth_ms": 3.0,
+            "delay_ms": 18.0,
+            "mix": 0.3
+          },
+          {
+            "type": "delay",
+            "time_seconds": 0.375,
+            "feedback": 0.35,
+            "repeats": 5,
+            "mix": 0.22
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          },
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              8.0,
+              10.0,
+              12.0,
+              14.0,
+              16.0,
+              18.0,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              26.0,
+              28.0,
+              30.0,
+              30.5,
+              32.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0
+            ],
+            "depth": 0.25,
+            "attack_seconds": 0.005,
+            "release_seconds": 0.12,
+            "mix": 1.0
+          }
+        ],
+        "Lead low": [
+          {
+            "type": "ducker",
+            "trigger_beats": [
+              8.0,
+              10.0,
+              12.0,
+              14.0,
+              16.0,
+              18.0,
+              20.0,
+              22.0,
+              22.5,
+              24.0,
+              26.0,
+              28.0,
+              30.0,
+              30.5,
+              32.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0
+            ],
+            "depth": 0.6,
+            "attack_seconds": 0.004,
+            "release_seconds": 0.17,
+            "mix": 1.0
+          }
+        ],
+        "Pi melody": [
+          {
+            "type": "chorus",
+            "rate_hz": 0.7,
+            "depth_ms": 3.0,
+            "delay_ms": 18.0,
+            "mix": 0.3
+          },
+          {
+            "type": "delay",
+            "time_seconds": 0.375,
+            "feedback": 0.4,
+            "repeats": 6,
+            "mix": 0.3
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 2.6,
+            "mix": 0.32
+          }
+        ],
+        "Riser": [
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 350.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 2.6,
+            "mix": 0.32
+          }
+        ],
+        "Snare": [
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          }
+        ],
+        "Clap": [
+          {
+            "type": "reverb",
+            "decay_seconds": 1.0,
+            "mix": 0.25
+          }
+        ],
+        "Crash": [
+          {
+            "type": "reverb",
+            "decay_seconds": 2.6,
+            "mix": 0.32
+          }
+        ],
+        "Clack wall": [
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          }
+        ],
+        "Clack block": [
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          }
+        ],
+        "Clack notes L1": [
+          {
+            "type": "delay",
+            "time_seconds": 0.375,
+            "feedback": 0.35,
+            "repeats": 5,
+            "mix": 0.22
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 2.6,
+            "mix": 0.32
+          }
+        ],
+        "Clack notes wall": [
+          {
+            "type": "delay",
+            "time_seconds": 0.375,
+            "feedback": 0.35,
+            "repeats": 5,
+            "mix": 0.22
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          }
+        ],
+        "Clack notes block": [
+          {
+            "type": "delay",
+            "time_seconds": 0.375,
+            "feedback": 0.35,
+            "repeats": 5,
+            "mix": 0.22
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          }
+        ],
+        "Squeeze roll wall": [
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          }
+        ],
+        "Squeeze roll block": [
+          {
+            "type": "reverb",
+            "decay_seconds": 1.2,
+            "mix": 0.18
+          }
+        ]
+      }
+    },
+    "gain_applied": 1.4907538890838623,
+    "before_gain": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 1629321,
+      "duration_seconds": 36.94605442176871,
+      "peak": 0.5978524684906006,
+      "rms": 0.09380839455009982,
+      "peak_dbfs": -4.468119464890588,
+      "rms_dbfs": -20.555165930998356,
+      "clipped_samples": 0,
+      "silent": false
+    },
+    "audio": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 1629321,
+      "duration_seconds": 36.94605442176871,
+      "peak": 0.8912509083747864,
+      "rms": 0.13984522900000285,
+      "peak_dbfs": -1.0000002900227403,
+      "rms_dbfs": -17.087046911099893,
+      "clipped_samples": 0,
+      "silent": false
+    },
+    "warnings": [
+      "The sample-peak ceiling limited loudness gain; the target may not be reached."
+    ],
+    "loudness": {
+      "integrated_lufs": -15.302077939255812,
+      "measurable": true,
+      "method": "ITU-R BS.1770-4",
+      "backend": "pyloudnorm",
+      "backend_version": "0.2.0",
+      "filter": "DeMan",
+      "block_seconds": 0.4,
+      "measured_frames": 1627290,
+      "trailing_frames_ignored": 2031,
+      "before_lufs": -18.770196959130462,
+      "target_lufs": -14.0,
+      "requested_gain_db": 4.7701969591304625,
+      "applied_gain_db": 3.468119020163793,
+      "sample_peak_ceiling_dbfs": -1.0,
+      "peak_limited": true,
+      "measurement_scope": "full_render_before_encoding",
+      "achieved_lufs": -15.302077939255812,
+      "target_reached": false
+    },
+    "output": "/home/claude/8bit-content-bank/public/count-the-clacks/track.wav",
+    "stems": [],
+    "wav": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 1629321,
+      "duration_seconds": 36.94605442176871,
+      "peak": 0.891265869140625,
+      "rms": 0.13984522964562346,
+      "peak_dbfs": -0.9998544876801003,
+      "rms_dbfs": -17.087046870999924,
+      "full_scale_samples": 0,
+      "silent": false
+    }
+  },
+  "loop": {
+    "seconds": 32.0,
+    "tail_folded_seconds": 4.946,
+    "peak_dbfs": -1.0
+  },
+  "midi": {
+    "skipped": "MIDI export requires at most one track per drum instrument"
+  }
+}

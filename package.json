@@ -1,0 +1,44 @@
+{
+  "name": "8bit-content-bank",
+  "version": "1.0.0",
+  "description": "Pixel-art + 8-bit audio science explainers, made with code",
+  "repository": {},
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "private": true,
+  "dependencies": {
+    "@fontsource/press-start-2p": "^5.3.0",
+    "@fontsource/silkscreen": "^5.3.0",
+    "@remotion/cli": "4.0.545",
+    "@remotion/fonts": "4.0.545",
+    "@remotion/media": "4.0.545",
+    "@types/three": "^0.170.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.545",
+    "three": "^0.170.0",
+    "tsx": "^4.23.15"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.545",
+    "@types/react": "19.3.0",
+    "@types/web": "0.0.166",
+    "eslint": "10.12.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "build:count-the-clacks": "scripts/build.sh count-the-clacks CountTheClacks",
+    "sim:count-the-clacks": "tsx sims/count-the-clacks.ts",
+    "music:count-the-clacks": "uv run --locked python music/count-the-clacks/compose.py"
+  },
+  "allowScripts": {
+    "esbuild": false
+  }
+}

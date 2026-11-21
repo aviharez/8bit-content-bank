@@ -133,16 +133,21 @@ function drawFrame(ctx: CanvasRenderingContext2D, ov: CanvasRenderingContext2D, 
 
     // caption: two lines, bottom of the safe area
     let cap: string[] = [];
-    if (f < 120) cap = blink(15) ? ["SOUND ON", "COUNT EVERY CLACK"] : ["", "COUNT EVERY CLACK"];
+    if (f < 120) cap = ["COUNT EVERY CLACK", ""];
     else if (lvl?.id === 3 && f >= 780) cap = ["314 CLACKS", "THAT'S PI"];
     else if (lvl?.id === 3 && f >= 545) cap = ["TIME WARPED", "TO THE BEAT"];
     else if (lvl?.id === 3 && f >= 500) cap = ["LEVEL 3", blink(8) ? "GUESS THE COUNT" : ""];
     else if (lvl) cap = lvl.cap;
     if (cap.length) {
       const w = Math.max(measure(cap[0], "p16"), measure(cap[1], "s16")) + 28;
-      panel(W / 2 - w / 2, 450, w, 52, C["c0cbdc"]);
-      text(cap[0], W / 2, 460, "p16", C["ffffff"], "c");
-      text(cap[1], W / 2, 480, "s16", C["fee761"], "c");
+      if (cap[1]) {
+        panel(W / 2 - w / 2, 450, w, 52, C["c0cbdc"]);
+        text(cap[0], W / 2, 460, "p16", C["ffffff"], "c");
+        text(cap[1], W / 2, 480, "s16", C["fee761"], "c");
+      } else {
+        panel(W / 2 - w / 2, 462, w, 34, C["c0cbdc"]);
+        text(cap[0], W / 2, 471, "p16", C["ffffff"], "c");
+      }
     }
   } else {
     // outro: pi lands one digit per 8th note, in sync with the melody

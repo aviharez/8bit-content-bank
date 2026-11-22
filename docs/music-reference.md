@@ -1,6 +1,6 @@
 # Music reference
 
-This is the reference for the hard-techno style (Jupiter's Moons). It is one style, not the house style: what every video shares is the tuned "dem" kick, a bass locked to it, and all parts in one key and grid (see CLAUDE.md, Music direction).
+The house sound is now "Target sound v3" at the bottom of this file (the owner's sample, the swoop kick and the instruments in `music/_shared/target_sound.py`; see CLAUDE.md, Music direction). The first two sections below are the earlier references (the "dem" kick and reese wall of Jupiter's Moons), kept as history.
 
 The target sound, from the reference the channel owner picked (thel.ab67, "How a zombie outbreak starts", hard techno). Measured with `scripts/analyze_audio.py`; the file itself is not kept in the repo.
 

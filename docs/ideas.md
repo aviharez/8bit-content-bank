@@ -17,7 +17,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 11 | THE BALL THAT DRUMROLLS | A bouncing ball with a coefficient of restitution | Gaps shrink geometrically into a drum roll | Gravity | Dropped: built once (flat 2D side view), the result was not good enough |
 | 12 | GAME OF LIFE SEQUENCER | Conway's cellular automaton | The grid is a step sequencer; a birth is a note | Chaos | Dropped: built once, too abstract to follow without explanation (needs the rules shown visually first) |
 | 13 | ZOOM 10^12x | The Mandelbrot set | Iteration count sets the pitch | Chaos | |
-| 14 | HOW A SPEAKER WORKS | Coil and magnet move a cone | The cone on screen moves with the video's own soundtrack | Every Wave | |
+| 14 | HOW A SPEAKER WORKS | Coil and magnet move a cone | The cone on screen moves with the video's own soundtrack | Every Wave | Done ([render](../renders/speaker.mp4)) |
 | 15 | SILENCE FROM NOISE | Noise cancelling by destructive interference | The drop is sudden silence | Every Wave | |
 | 16 | 2.45 GHZ IN YOUR KITCHEN | Water molecules flip in a microwave; standing-wave hot spots | Pitch rises with temperature | How Things Work | |
 | 17 | GPS: 38 MICROSECONDS A DAY | Trilateration and relativity correction | One ping per satellite; pings drift without the correction | How Time Works | |

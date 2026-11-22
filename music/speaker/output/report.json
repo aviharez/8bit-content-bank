@@ -1,0 +1,178 @@
+{
+  "loop": {
+    "seconds": 38.4,
+    "tail_folded_seconds": 0.233,
+    "lufs": -12.7,
+    "phone_lufs": -15.5,
+    "peak_dbfs": -3.71,
+    "gain_reduction": {
+      "over_1db_pct": 32.6,
+      "over_3db_pct": 0.0,
+      "over_6db_pct": 0.0,
+      "max_db": 2.9
+    }
+  },
+  "plan": [
+    {
+      "section": "intro",
+      "bars": "0-3",
+      "what": "the question: sand hops on the big cone",
+      "chords": [
+        "Em",
+        "Em",
+        "F",
+        "Em"
+      ],
+      "hook": [
+        "A",
+        "A'"
+      ],
+      "balance_20_60_150_1k_5k": [
+        13,
+        48,
+        32,
+        7
+      ]
+    },
+    {
+      "section": "rule",
+      "bars": "4-7",
+      "what": "cutaway: coil and magnet, the coil glows with the current",
+      "chords": [
+        "C",
+        "C",
+        "Dm",
+        "Dm"
+      ],
+      "hook": [
+        "B",
+        "B'"
+      ],
+      "balance_20_60_150_1k_5k": [
+        2,
+        64,
+        29,
+        5
+      ]
+    },
+    {
+      "section": "build",
+      "bars": "8-11",
+      "what": "low vs high: both cones, the hook climbs",
+      "chords": [
+        "Am",
+        "C",
+        "Dm",
+        "F"
+      ],
+      "hook": [
+        "A'' rise"
+      ],
+      "balance_20_60_150_1k_5k": [
+        6,
+        49,
+        27,
+        19
+      ]
+    },
+    {
+      "section": "drop",
+      "bars": "12-15",
+      "what": "full mix, stabs on the small cone",
+      "chords": [
+        "Em",
+        "F",
+        "C",
+        "Dm"
+      ],
+      "hook": [
+        "C",
+        "C'"
+      ],
+      "balance_20_60_150_1k_5k": [
+        6,
+        46,
+        39,
+        10
+      ]
+    },
+    {
+      "section": "drop2",
+      "bars": "16-19",
+      "what": "camera on the other side, new chords, code card",
+      "chords": [
+        "Am",
+        "C",
+        "Dm",
+        "F"
+      ],
+      "hook": [
+        "C (new chords)",
+        "C'"
+      ],
+      "balance_20_60_150_1k_5k": [
+        5,
+        51,
+        35,
+        9
+      ]
+    },
+    {
+      "section": "turn",
+      "bars": "20-23",
+      "what": "the kick stops, the sand settles, back to the start",
+      "chords": [
+        "Em",
+        "F",
+        "Em",
+        "F"
+      ],
+      "hook": [
+        "A",
+        "answer"
+      ],
+      "balance_20_60_150_1k_5k": [
+        14,
+        43,
+        31,
+        11
+      ]
+    }
+  ],
+  "identical_neighbour_blocks": [],
+  "big_cone_swing_mm": {
+    "intro": 3.55,
+    "rule": 3.88,
+    "build": 3.83,
+    "drop": 3.88,
+    "drop2": 3.94,
+    "turn": 3.38
+  },
+  "pushes_a_second_big_small": {
+    "intro": [
+      84,
+      1481
+    ],
+    "rule": [
+      82,
+      1176
+    ],
+    "build": [
+      86,
+      1313
+    ],
+    "drop": [
+      83,
+      1046
+    ],
+    "drop2": [
+      83,
+      1317
+    ],
+    "turn": [
+      83,
+      1049
+    ]
+  },
+  "mm_per_unit": 5.75635382555922
+}

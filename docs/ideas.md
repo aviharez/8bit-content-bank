@@ -10,7 +10,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 4 | 15 PENDULUMS, 1 MINUTE | Pendulum wave: different lengths realign after one cycle | Each pendulum plays a tone of the current chord as it passes the centre (snapped to 16ths); 16-30 swings in 32 s, real time | Every Wave | Done ([render](../renders/pendulum-wave.mp4)) |
 | 5 | CHLADNI: SEE A SOUND | Sand forms patterns on a vibrating plate | The plate frequency is the note you hear; the pattern changes with each chord | Every Wave | |
 | 6 | DOPPLER: HEAR IT PASS | Doppler shift of a passing siren | The computed siren pitch, quantised to the key | Every Wave | |
-| 7 | WHY A STRING SINGS | Standing waves and the harmonic series | The melody is the harmonic series itself | Every Wave | |
+| 7 | WHY A STRING SINGS | Standing waves and the harmonic series | The melody is the harmonic series itself | Every Wave || Done ([render](../renders/guitar-string.mp4)) |
 | 8 | DRAW WITH CIRCLES | Fourier series (epicycles) drawing a shape | One voice per circle; their sum is the timbre | The Sound of Pi | |
 | 9 | 27 TAKES 111 STEPS | Collatz sequence from 27 (peak 9,232) | Odd steps rise, even steps fall | Unsolved Math | |
 | 10 | TWO PENDULUMS, ONE DIFFERENCE | Chaos in a double pendulum | Two identical melodies that slowly drift into dissonance | Chaos | |

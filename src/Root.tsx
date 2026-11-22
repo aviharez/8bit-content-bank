@@ -10,6 +10,7 @@ import { MachOne, MachOneCover } from "./videos/mach-one/MachOne";
 import { EightBits, EightBitsCover } from "./videos/eight-bits/EightBits";
 import { KeyLock, KeyLockCover } from "./videos/key-lock/KeyLock";
 import { Speaker, SpeakerCover } from "./videos/speaker/Speaker";
+import { GuitarString, GuitarStringCover } from "./videos/guitar-string/GuitarString";
 
 // One folder per series; one registration per video.
 export const RemotionRoot: React.FC = () => {
@@ -36,6 +37,8 @@ export const RemotionRoot: React.FC = () => {
         <MachOneCover />
         <Speaker />
         <SpeakerCover />
+        <GuitarString />
+        <GuitarStringCover />
       </Folder>
       <Folder name="probability">
         <GaltonBoard />

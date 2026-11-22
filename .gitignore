@@ -9,3 +9,6 @@ out
 # Python (Audio as Code)
 .venv
 __pycache__
+
+# the owner's reference sample and its analyses (not ours to publish)
+audio-analytic-AI/

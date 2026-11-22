@@ -54,19 +54,64 @@ the owner's and are not kept here. What they say, checked against the WAV:
 | Part | What it is |
 |---|---|
 | Tempo / grid | 143.28 BPM, 40 bars on a strict 16th grid |
-| **Kick ("the swoop")** | the part the owner likes most. A pitched, driven sine: ~275 Hz falling to ~87 Hz (F2) with a 28 ms time constant, full level for ~90 ms, then gone in ~35 ms. Odd harmonics from the drive (h3 about -7 dB). Not a long sub boom: a short, round punch that sits above the bass and plays on a phone as it is. In 8th-note runs each hit rings on to the next |
+| **Kick ("the swoop")** | the part the owner likes most. A pitched, hard-clipped sine: ~250 Hz falling to E2 (82 Hz, the root) with a ~35 ms time constant (150/109/93/87/83/83 Hz at 30/60/100/150/250/350 ms), then **held at full level until the next hit** (within ~2 dB across a beat). It is the track's low-mid tone, not a short punch. Harmonics h2-h6 -10, -9, -9, -12, -14 dB (asymmetric clip). Measured on the full mix: the Demucs drum stem had lost the tail to the bass stem, which first read as "gone after ~90 ms" |
 | Kick pattern | changes by section: syncopated 8th runs in the intro (`x.x.....x.x.x.x.`), four on the floor in the main part, 3+3+2 (`X..X..X.X.x.x...`) and near-empty bars in the breakdowns |
 | Bass | its own line under the kick, not the kick's root: a sine plus a filtered saw an octave up, rolling around E1 with chromatic 16th pickups (`D#1 E1 F1 F#1` into a held `E1`), and octave jumps to E2/F2. E Phrygian: the E-F half step is the colour |
 | Snare / hats | busy 8th snares in the intro, then 2 and 4; hats on the offbeat 8ths; almost nothing above 5 kHz |
 | Mid / lead | octave dyads on the 8ths (E2/E3, B2/B3, C3/C4, D3 ...) carry the 150 Hz-1 kHz band. The lead is not FM: its stem fits 3 detuned saws low-passed at ~6x the note, a 12 ms attack and a pluck decay (harmonics 0, -8, -6, -17, -14 dB), playing octave-doubled stabs on 3+3+2 (steps 0, 3, 6 of each half bar), held 2-3 sixteenths, stepping down through the chord. The FM ostinato guessed from the first analysis sounded bad to the owner; don't use it |
 | Balance | the drums, bass and other stems measure -23.6, -21.9 and -22.1 dB RMS: three equal parts. Main section energy: 36-42% below 150 Hz, 40-48% at 150 Hz-1 kHz, 15-20% at 1-5 kHz |
 
-How this differs from the house sound in CLAUDE.md: the kick is short and pitched at ~87 Hz instead of a 46 Hz,
-300 ms "dem" tuned to the chord root; the bass is a separate rolling line instead of following the kick; there is
+How this differs from the house sound in CLAUDE.md: the kick is pitched at 82 Hz (E2) and held to the next hit instead of a
+46 Hz, 300 ms "dem" with a top layer; the bass is a separate rolling line instead of following the kick; there is
 no reese wall; the drum pattern changes by section instead of staying four on the floor.
 
-Built from the library's instruments: `music/_shared/swoop.py` (sub_bass with a +20 semitone, 0.03 s glide and drive
-14; note the drive sits after the gain, so the gain still sets its level: ~0.09 keeps it level with the bass) and the
-sound check `music/_demo/target-v2/compose.py` (16 bars at our 150 BPM clock). Measured against the sample:
-kick f0 234/188/142/115/99 Hz at 5/20/40/60/90 ms (sample's fitted kick 216/178/131/108/93); main-section energy
-41-46% / 36-41% / 16-20% (sample 36-42% / 40-48% / 15-20%). `scripts/analyze_swoop.py` measures a kick the same way.
+Built from the library's instruments: `music/_shared/swoop.py` (sub_bass, E2, +19 semitone glide over 0.035 s, drive 20,
+each note held to the next hit, at most two beats). The owner chose it in an A/B on 2026-11-22 over a deep variant that
+falls to E1 like Gemini's reconstruction. Measured alone: 152/113/91/84/82/82 Hz at 30/60/100/150/250/350 ms, level flat
+within 1 dB; the gap left is the even harmonics (h2/h4 near -35 dB: the library's distortion is symmetric). The drive sits
+after the gain, so the gain still sets its level: in the sound check `music/_demo/target-v2/compose.py` (16 bars, 150 BPM)
+gain 0.027 gives main-section energy 40% / 45% / 15% below 150 Hz / 150 Hz-1 kHz / 1-5 kHz (sample 39 / 42 / 19).
+`scripts/analyze_swoop.py` measures a kick the same way. Still to re-check on the full mix: the bass (its "saw an octave up"
+may be the kick's held E2 that leaked into the bass stem), the lead and the stabs.
+
+## Target sound v3: every instrument, measured on the full mix (Nov 2026)
+
+The stems turned out to mislead (Demucs moved the kick's held tail into the bass stem, and its "drums" stem held the
+stabs' attacks), so v3 measures each instrument on the full mix, where it is most exposed, and fits library patches by
+rendering candidates and measuring them the same way. The patches are in `music/_shared/target_sound.py`; the kick is
+`music/_shared/swoop.py`.
+
+| Instrument | Where measured | What it is | Patch (mean error per harmonic, h1-h12) |
+|---|---|---|---|
+| Kick | bars 4-11, 32 hits | sine swooping ~250 Hz -> E2, hard-clipped, held to the next hit | swoop.py (owner picked it in an A/B) |
+| High stabs, held whine | bars 0, 1, 24, 26 (E5) | clean odd harmonics: h3 -5, h5 -20, h7 -21 dB, 2% energy between harmonics | clipped sine, HP 700 Hz, LP 2 kHz (2.4 dB) |
+| Lead | bars 16-17 (E4, G4), 16th notes | odd-dominant, h3 as loud as h1 (the band 0.7-2 kHz is lifted) | same patch, clipped less (5.7 dB) |
+| Mid riff, E3 stabs | bars 4-11 (D3), 20-21 (E3) | all harmonics, much energy between them: detuned saws in octaves | supersaw in octaves, drive 4, LP 2 kHz (2.9 dB) |
+| Bass | bar 28 (no kick) | E1, held flat; h3 -12, h5 -9 | clipped sine, drive 10, LP 300 Hz; misses the even harmonics |
+| Snare / hats | onsets folded on the grid | none: the hits in 1-8 kHz add most energy at 0.5-2 kHz, i.e. stab attacks, not noise | none |
+
+So the sample is close to one synth: a clipped sine filtered into 0.7-2 kHz, played as kick, lead and stabs, over
+detuned saws in the mids. **Gain staging matters:** the library's Distortion is tanh(drive * x) after the track gain, so
+turning a clipped sound down with its track gain un-clips it (the v2 sound check's kick at gain 0.027 is a clean sine,
+not the kick the owner picked). Render each clipped instrument as its own bus and set its level after the distortion
+(`target_sound.render_buses`, one Song per bus, level by master_gain or after rendering).
+
+`music/_demo/sample-replica/compose.py` re-plays all 40 bars from the transcription with these patches, fits the bus
+levels per 4-bar block to the sample (the transcription has no dynamics) and writes `out/sample-replica-AB.wav`
+(sample, then replica, per section, level-matched on a phone). Band balance per section after the fit, sample vs
+replica: intro 29/42/23/6 vs 30/39/26/5, main 3/29/48/21 vs 2/31/48/20, lead 10/38/36/17 vs 12/29/43/16,
+breakdown 20/13/52/15 vs 22/13/51/15, bass section 43/24/27/6 vs 50/27/20/4 (% in 20-60 / 60-150 / 150-1k / 1-5k Hz).
+The notes come from an automatic transcription and are only as right as it is.
+
+**More parts, same instruments (2026-11-22).** The owner heard about two parts at a time in the replica where the
+sample has more; new timbres, width and percussion layers were tried and rejected (the instruments stay as they are).
+The replica now adds three parts played by the approved patches: a harmony a diatonic third under the lead (lead
+patch), triad stabs of the bass note's chord on the 3+3+2 accents (stab patch, one bus per voice so the clipping does
+not intermodulate), and an offbeat octave pulse on the bass root (mid saws patch). Each sits a fixed distance in
+phone-band RMS under the loudest core part of its 4-bar block (harmony -6, chords -6, pulse -9 dB). Parts audible at
+once (within 15 dB of the loudest, 150 Hz-5 kHz), mean per 16th: intro 1.9 -> 3.2, main 1.8 -> 3.7, lead
+2.1 -> 3.9, breakdown 1.5 -> 3.0, drop 2.0 -> 3.4, outro 2.7 -> 4.8. Cost: the mix leans more to 150 Hz-1 kHz
+(main 58% vs the sample's 48%).
+The owner then asked for a little more kick and bass: both get +3 dB on top of the fit (`BOOST_DB`), which brings the
+low end back near the sample in the intro and main part (main 2/24/55/18 vs 3/29/48/21) and a little over it in the
+lead, breakdown and drop sections.

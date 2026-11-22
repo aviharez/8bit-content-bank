@@ -1,7 +1,7 @@
 """Sound check for the owner's target sound (Nov 2026), not a video: 16 bars to listen to before the next video.
 
 What it copies from the reference (docs/music-reference.md, "Target sound v2"):
-- the swoop kick (music/_shared/swoop.py): 275 -> 87 Hz, short and driven; syncopated 8th-note runs in the intro,
+- the swoop kick (music/_shared/swoop.py): ~250 Hz -> E2, hard-clipped, each hit held to the next; syncopated 8th-note runs in the intro,
   four on the floor in the main part, 3+3+2 in the last bars
 - a rolling, chromatic bass on E1: 16th pickups crawling D#-E-F-F# into a held E, octave jumps to E2/F2;
   a sine with a filtered saw an octave up, no reese
@@ -89,7 +89,7 @@ for b in range(4, BARS):
 
 side = tuple(s / 4 for s in kick_steps)
 tracks = [
-    swoop_track(swoop_hits(kick_steps, kick_vel), gain=0.09),
+    swoop_track(swoop_hits(kick_steps, kick_vel, end_step=BARS * 16), gain=0.027),
     Track(name="Bass sine", instrument="sub_bass", gain=0.28, tone=Tone(brightness=0.3), notes=tuple(bass), release_seconds=0.03),
     Track(name="Bass saw", instrument="acid_bass", gain=0.6, tone=Tone(cutoff_hz=420, resonance=0.25, filter_env_octaves=1.5, filter_decay_seconds=0.25),
           notes=tuple(n(x.pitch + 12, x.start, x.duration, x.velocity) for x in bass), effects=(Distortion(drive=2.0, mix=0.3),)),

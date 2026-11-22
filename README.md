@@ -18,7 +18,6 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 | 6 | How Fast Can a Heart Beat (whale to shrew: smaller body, faster heart; the shrew's 19.5 beats a second become the drop note) | How Life Works | 38.4 s, 9:16 | Ready to post | [prod-ready/heart-rate/](prod-ready/heart-rate/) |
 | 7 | Can a Single Note Break Glass? (a speaker finds the glass's own note, like pushing a swing in time; the glass shatters on the drop) | Every Wave | 38.4 s, 9:16 | Ready to post | [prod-ready/glass-resonance/](prod-ready/glass-resonance/) |
 | 8 | Why Do Jets Go Boom? (a jet chases its own sound: the note ahead climbs, the rings stack into the boom, every kick in the drop hits a tower) | Every Wave | 38.4 s, 9:16 | Ready to post | [prod-ready/mach-one/](prod-ready/mach-one/) |
-| 9 | Why Is the Sky Blue? (air bounces blue 4x more than red, so blue fills the sky; at sunset the light crosses up to 38x more air and only red gets through) | Light | 38.4 s, 9:16 | Ready to post | [prod-ready/sky-blue/](prod-ready/sky-blue/) |
 
 The full bank of ideas is in [docs/ideas.md](docs/ideas.md).
 

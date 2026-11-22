@@ -43,4 +43,4 @@ A 67 s sample the owner shared to show what "rhythmic" means (the WAV is theirs 
 | Sections | contrast: bursts, a dense ostinato, a sparse breakdown of stabs, isolated sub hits with gaps, a gated finale (4 s loudness swings of up to 8 dB) |
 | Sound | FM leads with non-integer ratios (~1.41, 1.73), bandpassed ~380-3600 Hz, crushed; clipped sine subs with a fast pitch drop |
 
-What we copy: **the melody is rhythmic.** The hook is a 16th-note ostinato on `fm_bell` (`fm_ratio` 1.414, `fm_index` ~5.5, decay ~0.16 s, highpass 380 Hz, lowpass 3.6 kHz), accents on 3+3+2, a high root, its step above in key (a half step where the key gives one) and a leap to the low root. The rolling 16th reese stays under it. First used in video 9 (sky-blue).
+What we copy: **the melody is rhythmic.** The hook is a 16th-note ostinato on `fm_bell` (`fm_ratio` 1.414, `fm_index` ~5.5, decay ~0.16 s, highpass 380 Hz, lowpass 3.6 kHz), accents on 3+3+2, a high root, its step above in key (a half step where the key gives one) and a leap to the low root. The rolling 16th reese stays under it. Tried on a sky-colour video that was later dropped.

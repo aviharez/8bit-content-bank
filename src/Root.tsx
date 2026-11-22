@@ -5,7 +5,6 @@ import { JupiterMoons, JupiterMoonsCover } from "./videos/jupiter-moons/JupiterM
 import { PendulumWave, PendulumWaveCover } from "./videos/pendulum-wave/PendulumWave";
 import { GaltonBoard, GaltonBoardCover } from "./videos/galton-board/GaltonBoard";
 import { HeartRate, HeartRateCover } from "./videos/heart-rate/HeartRate";
-import { SkyBlue, SkyBlueCover } from "./videos/sky-blue/SkyBlue";
 import { GlassResonance, GlassResonanceCover } from "./videos/glass-resonance/GlassResonance";
 import { MachOne, MachOneCover } from "./videos/mach-one/MachOne";
 
@@ -40,8 +39,6 @@ export const RemotionRoot: React.FC = () => {
       <Folder name="how-life-works">
         <HeartRate />
         <HeartRateCover />
-        <SkyBlue />
-        <SkyBlueCover />
       </Folder>
     </>
   );

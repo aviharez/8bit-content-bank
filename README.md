@@ -19,6 +19,7 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 | 7 | Can a Single Note Break Glass? (a speaker finds the glass's own note, like pushing a swing in time; the glass shatters on the drop) | Every Wave | 38.4 s, 9:16 | Ready to post | [prod-ready/glass-resonance/](prod-ready/glass-resonance/) |
 | 8 | Why Do Jets Go Boom? (a jet chases its own sound: the note ahead climbs, the rings stack into the boom, every kick in the drop hits a tower) | Every Wave | 38.4 s, 9:16 | Ready to post | [prod-ready/mach-one/](prod-ready/mach-one/) |
 | 9 | How Do Computers Count With 0 & 1? (8 lights count 0 to 255 in binary; every light switching is a sound, the light that flips each beat is the kick) | How Computers Work | 35.2 s, 9:16 | Rendered, not yet listened to | [prod-ready/eight-bits/](prod-ready/eight-bits/) |
+| 10 | How Does a Key Open a Lock? (a cutaway pin tumbler: wrong keys leave a pin off the line, a pick sets them one by one, the right key lifts all 5 at once; every pin moving is a note) | How Things Work | 38.4 s, 9:16 | Ready to post (owner listened) | [prod-ready/key-lock/](prod-ready/key-lock/) |
 
 The full bank of ideas is in [docs/ideas.md](docs/ideas.md).
 

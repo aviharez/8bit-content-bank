@@ -1,0 +1,130 @@
+{
+  "loop": {
+    "seconds": 38.4,
+    "tail_folded_seconds": 0.233,
+    "lufs": -13.4,
+    "phone_lufs": -15.5,
+    "peak_dbfs": -3.48,
+    "gain_reduction": {
+      "over_1db_pct": 24.3,
+      "over_3db_pct": 0.1,
+      "over_6db_pct": 0.0,
+      "max_db": 3.2
+    }
+  },
+  "plan": [
+    {
+      "section": "intro",
+      "bars": "0-3",
+      "what": "key A, key B: wrong, CLUNK",
+      "chords": [
+        "Em",
+        "Em",
+        "F",
+        "Em"
+      ],
+      "balance_20_60_150_1k_5k": [
+        6,
+        40,
+        34,
+        20
+      ]
+    },
+    {
+      "section": "rule",
+      "bars": "4-7",
+      "what": "key C, key C2: 4 of 5, one red pin blocks",
+      "chords": [
+        "C",
+        "C",
+        "Dm",
+        "Dm"
+      ],
+      "balance_20_60_150_1k_5k": [
+        0,
+        55,
+        26,
+        18
+      ]
+    },
+    {
+      "section": "build",
+      "bars": "8-11",
+      "what": "no key: a pick sets the pins one at a time",
+      "chords": [
+        "Am",
+        "C",
+        "Dm",
+        "F"
+      ],
+      "balance_20_60_150_1k_5k": [
+        8,
+        43,
+        31,
+        18
+      ]
+    },
+    {
+      "section": "drop",
+      "bars": "12-15",
+      "what": "picked open; then the right key at 16ths",
+      "chords": [
+        "Em",
+        "F",
+        "C",
+        "Dm"
+      ],
+      "balance_20_60_150_1k_5k": [
+        5,
+        43,
+        35,
+        17
+      ]
+    },
+    {
+      "section": "drop2",
+      "bars": "16-19",
+      "what": "right key at 16ths, far side, new chords",
+      "chords": [
+        "Am",
+        "C",
+        "Dm",
+        "F"
+      ],
+      "balance_20_60_150_1k_5k": [
+        4,
+        46,
+        34,
+        16
+      ]
+    },
+    {
+      "section": "turn",
+      "bars": "20-23",
+      "what": "right key slow, out; key E: locked again",
+      "chords": [
+        "Em",
+        "F",
+        "Em",
+        "F"
+      ],
+      "balance_20_60_150_1k_5k": [
+        6,
+        45,
+        33,
+        16
+      ]
+    }
+  ],
+  "identical_neighbour_blocks": [],
+  "notes": {
+    "springs": 324,
+    "lead": 164,
+    "bass": 163,
+    "line": 40,
+    "clunk": 10,
+    "pins": 76,
+    "chord": 27,
+    "kicks": 129
+  }
+}

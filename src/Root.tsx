@@ -8,6 +8,7 @@ import { HeartRate, HeartRateCover } from "./videos/heart-rate/HeartRate";
 import { GlassResonance, GlassResonanceCover } from "./videos/glass-resonance/GlassResonance";
 import { MachOne, MachOneCover } from "./videos/mach-one/MachOne";
 import { EightBits, EightBitsCover } from "./videos/eight-bits/EightBits";
+import { KeyLock, KeyLockCover } from "./videos/key-lock/KeyLock";
 
 // One folder per series; one registration per video.
 export const RemotionRoot: React.FC = () => {
@@ -44,6 +45,10 @@ export const RemotionRoot: React.FC = () => {
       <Folder name="how-computers-work">
         <EightBits />
         <EightBitsCover />
+      </Folder>
+      <Folder name="how-things-work">
+        <KeyLock />
+        <KeyLockCover />
       </Folder>
     </>
   );

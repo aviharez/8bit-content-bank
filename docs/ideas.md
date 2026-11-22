@@ -23,7 +23,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 17 | GPS: 38 MICROSECONDS A DAY | Trilateration and relativity correction | One ping per satellite; pings drift without the correction | How Time Works | |
 | 18 | WHY THE SKY IS BLUE | Rayleigh scattering scales as 1/wavelength^4 | Photon colour mapped to pitch | Light | Dropped (Nov 2026): nothing in the picture moves on the beat, so the visuals cannot sync to the music |
 | 19 | WHY HOT METAL GLOWS | Black-body radiation, red to white | Pitch rises with temperature | Light | |
-| 20 | 8 BITS COUNT TO 255 | Transistors, logic gates, a binary adder | One note per bit; binary numbers become arpeggios | How Computers Work | |
+| 20 | 8 BITS COUNT TO 255 | Transistors, logic gates, a binary adder | One note per bit; binary numbers become arpeggios | How Computers Work | Done ([render](../renders/eight-bits.mp4)) |
 | 21 | HOW A PIXEL MAKES COLOR | RGB subpixels and colour perception | Three colour channels = three synth channels | How Computers Work | |
 | 22 | WHY DO JETS GO BOOM? | Doppler ahead of a jet, 1/(1-M), and the Mach cone, asin(1/M) (343 m/s) | Rings are the hats; the engine she hears climbs the harmonics to infinity at Mach 1 (the drop); towers placed so every kick is a boom. Hard techno 150 BPM | Every Wave | Done ([render](../renders/mach-one.mp4)) |
 | 23 | ESCAPE: 11.2 KM/S | Earth's escape velocity | Tempo follows speed | Orbits | |

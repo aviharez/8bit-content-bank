@@ -18,6 +18,7 @@ Each video takes a real object or phenomenon, runs the actual equation behind it
 | 6 | How Fast Can a Heart Beat (whale to shrew: smaller body, faster heart; the shrew's 19.5 beats a second become the drop note) | How Life Works | 38.4 s, 9:16 | Ready to post | [prod-ready/heart-rate/](prod-ready/heart-rate/) |
 | 7 | Can a Single Note Break Glass? (a speaker finds the glass's own note, like pushing a swing in time; the glass shatters on the drop) | Every Wave | 38.4 s, 9:16 | Ready to post | [prod-ready/glass-resonance/](prod-ready/glass-resonance/) |
 | 8 | Why Do Jets Go Boom? (a jet chases its own sound: the note ahead climbs, the rings stack into the boom, every kick in the drop hits a tower) | Every Wave | 38.4 s, 9:16 | Ready to post | [prod-ready/mach-one/](prod-ready/mach-one/) |
+| 9 | How Do Computers Count With 0 & 1? (8 lights count 0 to 255 in binary; every light switching is a sound, the light that flips each beat is the kick) | How Computers Work | 35.2 s, 9:16 | Rendered, not yet listened to | [prod-ready/eight-bits/](prod-ready/eight-bits/) |
 
 The full bank of ideas is in [docs/ideas.md](docs/ideas.md).
 

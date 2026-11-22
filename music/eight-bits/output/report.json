@@ -1,0 +1,113 @@
+{
+  "loop": {
+    "seconds": 35.2,
+    "tail_folded_seconds": 0.233,
+    "lufs": -12.7,
+    "phone_lufs": -15.6,
+    "peak_dbfs": -3.92,
+    "gain_reduction": {
+      "over_1db_pct": 32.3,
+      "over_3db_pct": 0.0,
+      "over_6db_pct": 0.0,
+      "max_db": 2.7
+    }
+  },
+  "plan": [
+    {
+      "section": "intro",
+      "bars": "0-3",
+      "speed": "per beat",
+      "chords": [
+        "Em",
+        "Em",
+        "Em",
+        "Em"
+      ],
+      "balance_20_60_150_1k_5k": [
+        9,
+        60,
+        27,
+        4
+      ]
+    },
+    {
+      "section": "rule",
+      "bars": "4-9",
+      "speed": "per 8th",
+      "chords": [
+        "F",
+        "F",
+        "C",
+        "C",
+        "Dm",
+        "Dm"
+      ],
+      "balance_20_60_150_1k_5k": [
+        3,
+        58,
+        32,
+        7
+      ]
+    },
+    {
+      "section": "build",
+      "bars": "10-13",
+      "speed": "per 16th",
+      "chords": [
+        "Am",
+        "C",
+        "Dm",
+        "F"
+      ],
+      "balance_20_60_150_1k_5k": [
+        4,
+        48,
+        39,
+        9
+      ]
+    },
+    {
+      "section": "drop",
+      "bars": "14-17",
+      "speed": "per 16th",
+      "chords": [
+        "Em",
+        "F",
+        "C",
+        "Dm"
+      ],
+      "balance_20_60_150_1k_5k": [
+        4,
+        46,
+        38,
+        11
+      ]
+    },
+    {
+      "section": "drop2",
+      "bars": "18-21",
+      "speed": "per 16th",
+      "chords": [
+        "Am",
+        "C",
+        "Dm",
+        "F"
+      ],
+      "balance_20_60_150_1k_5k": [
+        3,
+        48,
+        40,
+        9
+      ]
+    }
+  ],
+  "identical_neighbour_blocks": [],
+  "notes": {
+    "lead": 240,
+    "stab": 15,
+    "bass": 256,
+    "pulse": 128,
+    "pad": 24,
+    "whine": 8
+  }
+}

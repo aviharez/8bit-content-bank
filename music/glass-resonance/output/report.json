@@ -2,10 +2,10 @@
   "render": {
     "engine_version": "0.5.0",
     "numpy_version": "2.5.5",
-    "score_sha256": "02f2a12b69464ebfcdd8a1cd20b8ac3776edfa51b1d163a6bc2904b68d4055f3",
+    "score_sha256": "cb6932cd765d74457ab06aec24e3fce6e9b3722a5eba9b09f972617ce9c4d760",
     "title": "Which Note Breaks This Glass",
-    "tracks": 24,
-    "notes": 1524,
+    "tracks": 25,
+    "notes": 1540,
     "seed": 880,
     "normalize": true,
     "score_duration_seconds": 38.4,
@@ -334,7 +334,7 @@
         "Grit bass": [
           {
             "type": "distortion",
-            "drive": 10.0,
+            "drive": 4.0,
             "mix": 0.85
           },
           {
@@ -581,6 +581,25 @@
             "mix": 0.24
           }
         ],
+        "Speaker lead (x2 to x4)": [
+          {
+            "type": "distortion",
+            "drive": 2.0,
+            "mix": 0.3
+          },
+          {
+            "type": "delay",
+            "time_seconds": 0.30000000000000004,
+            "feedback": 0.35,
+            "repeats": 4,
+            "mix": 0.22
+          },
+          {
+            "type": "reverb",
+            "decay_seconds": 1.8,
+            "mix": 0.24
+          }
+        ],
         "Drop lead": [
           {
             "type": "distortion",
@@ -727,17 +746,17 @@
         ]
       }
     },
-    "gain_applied": 0.23543416909054557,
+    "gain_applied": 0.3659314215183258,
     "before_gain": {
       "sample_rate": 44100,
       "channels": 2,
       "frames": 1798398,
       "duration_seconds": 40.78,
-      "peak": 2.984470844268799,
-      "rms": 0.693295238693545,
-      "peak_dbfs": 9.49734681124493,
-      "rms_dbfs": -3.1816356474372443,
-      "clipped_samples": 566071,
+      "peak": 2.43556809425354,
+      "rms": 0.3566786002047067,
+      "peak_dbfs": 7.73200552393819,
+      "rms_dbfs": -8.954458928557088,
+      "clipped_samples": 40446,
       "silent": false
     },
     "audio": {
@@ -745,16 +764,18 @@
       "channels": 2,
       "frames": 1798398,
       "duration_seconds": 40.78,
-      "peak": 0.7026464343070984,
-      "rms": 0.16322539223051166,
-      "peak_dbfs": -3.065263065915735,
-      "rms_dbfs": -15.744245582257737,
+      "peak": 0.8912509083747864,
+      "rms": 0.13051990720303128,
+      "peak_dbfs": -1.0000002900227403,
+      "rms_dbfs": -17.68646487316989,
       "clipped_samples": 0,
       "silent": false
     },
-    "warnings": [],
+    "warnings": [
+      "The sample-peak ceiling limited loudness gain; the target may not be reached."
+    ],
     "loudness": {
-      "integrated_lufs": -13.99999979916762,
+      "integrated_lufs": -16.01985236260917,
       "measurable": true,
       "method": "ITU-R BS.1770-4",
       "backend": "pyloudnorm",
@@ -763,15 +784,15 @@
       "block_seconds": 0.4,
       "measured_frames": 1794870,
       "trailing_frames_ignored": 3528,
-      "before_lufs": -1.4373898643354277,
+      "before_lufs": -7.28784641793807,
       "target_lufs": -14.0,
-      "requested_gain_db": -12.56261013566457,
-      "applied_gain_db": -12.56261013566457,
+      "requested_gain_db": -6.71215358206193,
+      "applied_gain_db": -8.732005944942637,
       "sample_peak_ceiling_dbfs": -1.0,
-      "peak_limited": false,
+      "peak_limited": true,
       "measurement_scope": "full_render_before_encoding",
-      "achieved_lufs": -13.99999979916762,
-      "target_reached": true
+      "achieved_lufs": -16.01985236260917,
+      "target_reached": false
     },
     "output": "/home/claude/8bit-content-bank/public/glass-resonance/track.wav",
     "stems": [],
@@ -780,10 +801,10 @@
       "channels": 2,
       "frames": 1798398,
       "duration_seconds": 40.78,
-      "peak": 0.70263671875,
-      "rms": 0.16322540171850217,
-      "peak_dbfs": -3.065383167343759,
-      "rms_dbfs": -15.744245077363033,
+      "peak": 0.891265869140625,
+      "rms": 0.1305199087137414,
+      "peak_dbfs": -0.9998544876801003,
+      "rms_dbfs": -17.68646477263456,
       "full_scale_samples": 0,
       "silent": false
     }
@@ -791,14 +812,14 @@
   "loop": {
     "seconds": 38.4,
     "tail_folded_seconds": 2.38,
-    "lufs": -8.7,
+    "lufs": -11.8,
     "phone_lufs": -15.6,
-    "peak_dbfs": -2.34,
+    "peak_dbfs": -2.25,
     "gain_reduction": {
-      "over_1db_pct": 95.7,
-      "over_3db_pct": 39.3,
-      "over_6db_pct": 0.0,
-      "max_db": 5.9
+      "over_1db_pct": 66.1,
+      "over_3db_pct": 6.0,
+      "over_6db_pct": 0.3,
+      "max_db": 6.4
     }
   },
   "midi": {

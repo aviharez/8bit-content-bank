@@ -2,10 +2,10 @@
   "render": {
     "engine_version": "0.5.0",
     "numpy_version": "2.5.5",
-    "score_sha256": "2f034641fc71f02a35db02329412088d1167e948f9cba81fe519a8b925504fa8",
+    "score_sha256": "bfa5d894e359878ed055f14fbd39dfb7f128df16d237e1f4ca529fed824710bf",
     "title": "Why Is the Sky Blue",
-    "tracks": 21,
-    "notes": 1894,
+    "tracks": 22,
+    "notes": 2221,
     "seed": 450,
     "normalize": true,
     "score_duration_seconds": 38.4,
@@ -318,7 +318,7 @@
         "Grit bass": [
           {
             "type": "distortion",
-            "drive": 10.0,
+            "drive": 4.0,
             "mix": 0.85
           },
           {
@@ -546,13 +546,75 @@
             "mix": 1.0
           }
         ],
-        "Photons that reach her": [
+        "Hook (daylight)": [
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 380.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          },
+          {
+            "type": "filter",
+            "mode": "lowpass",
+            "cutoff_hz": 3600.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          },
+          {
+            "type": "distortion",
+            "drive": 2.5,
+            "mix": 0.35
+          },
           {
             "type": "delay",
             "time_seconds": 0.30000000000000004,
-            "feedback": 0.35,
-            "repeats": 4,
-            "mix": 0.22
+            "feedback": 0.25,
+            "repeats": 2,
+            "mix": 0.12
+          }
+        ],
+        "Hook (red light)": [
+          {
+            "type": "filter",
+            "mode": "highpass",
+            "cutoff_hz": 300.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          },
+          {
+            "type": "filter",
+            "mode": "lowpass",
+            "cutoff_hz": 2800.0,
+            "resonance": 0.2,
+            "end_cutoff_hz": null,
+            "sweep_seconds": 1.0,
+            "mix": 1.0
+          },
+          {
+            "type": "distortion",
+            "drive": 4.0,
+            "mix": 0.55
+          },
+          {
+            "type": "delay",
+            "time_seconds": 0.30000000000000004,
+            "feedback": 0.25,
+            "repeats": 2,
+            "mix": 0.12
+          }
+        ],
+        "Hook (red, octave down)": [
+          {
+            "type": "distortion",
+            "drive": 3.0,
+            "mix": 0.4
           },
           {
             "type": "ducker",
@@ -672,143 +734,20 @@
             "decay_seconds": 3.5,
             "mix": 0.35
           }
-        ],
-        "Red riff": [
-          {
-            "type": "distortion",
-            "drive": 3.0,
-            "mix": 0.4
-          },
-          {
-            "type": "delay",
-            "time_seconds": 0.30000000000000004,
-            "feedback": 0.35,
-            "repeats": 4,
-            "mix": 0.22
-          },
-          {
-            "type": "reverb",
-            "decay_seconds": 1.8,
-            "mix": 0.22
-          },
-          {
-            "type": "ducker",
-            "trigger_beats": [
-              0.0,
-              1.0,
-              2.0,
-              3.0,
-              4.0,
-              5.0,
-              6.0,
-              7.0,
-              8.0,
-              9.0,
-              10.0,
-              11.0,
-              12.0,
-              13.0,
-              14.0,
-              15.0,
-              16.0,
-              17.0,
-              18.0,
-              19.0,
-              20.0,
-              21.0,
-              22.0,
-              23.0,
-              24.0,
-              25.0,
-              26.0,
-              27.0,
-              28.0,
-              29.0,
-              30.0,
-              31.0,
-              32.0,
-              33.0,
-              34.0,
-              35.0,
-              36.0,
-              37.0,
-              38.0,
-              39.0,
-              40.0,
-              41.0,
-              42.0,
-              43.0,
-              44.0,
-              45.0,
-              46.0,
-              48.0,
-              49.0,
-              50.0,
-              51.0,
-              52.0,
-              53.0,
-              54.0,
-              55.0,
-              56.0,
-              57.0,
-              58.0,
-              59.0,
-              60.0,
-              61.0,
-              62.0,
-              63.0,
-              64.0,
-              65.0,
-              66.0,
-              67.0,
-              68.0,
-              69.0,
-              70.0,
-              71.0,
-              72.0,
-              73.0,
-              74.0,
-              75.0,
-              76.0,
-              77.0,
-              78.0,
-              79.0,
-              80.0,
-              81.0,
-              82.0,
-              83.0,
-              84.0,
-              85.0,
-              86.0,
-              87.0,
-              88.0,
-              89.0,
-              90.0,
-              91.0,
-              92.0,
-              93.0,
-              94.0,
-              95.0
-            ],
-            "depth": 0.35,
-            "attack_seconds": 0.005,
-            "release_seconds": 0.12,
-            "mix": 1.0
-          }
         ]
       }
     },
-    "gain_applied": 0.2339470285021109,
+    "gain_applied": 0.3132897615432739,
     "before_gain": {
       "sample_rate": 44100,
       "channels": 2,
       "frames": 1893654,
       "duration_seconds": 42.94,
-      "peak": 3.27162766456604,
-      "rms": 0.6649471038216488,
-      "peak_dbfs": 10.295277437726856,
-      "rms_dbfs": -3.544258024225821,
-      "clipped_samples": 554855,
+      "peak": 2.844813346862793,
+      "rms": 0.3508955399356374,
+      "peak_dbfs": 9.081075537034565,
+      "rms_dbfs": -9.096443037153923,
+      "clipped_samples": 58576,
       "silent": false
     },
     "audio": {
@@ -816,16 +755,18 @@
       "channels": 2,
       "frames": 1893654,
       "duration_seconds": 42.94,
-      "peak": 0.7653875350952148,
-      "rms": 0.1555623958868584,
-      "peak_dbfs": -2.3223722972459724,
-      "rms_dbfs": -16.161907534144287,
+      "peak": 0.8912509083747864,
+      "rms": 0.1099319800329401,
+      "peak_dbfs": -1.0000002900227403,
+      "rms_dbfs": -19.17751899384679,
       "clipped_samples": 0,
       "silent": false
     },
-    "warnings": [],
+    "warnings": [
+      "The sample-peak ceiling limited loudness gain; the target may not be reached."
+    ],
     "loudness": {
-      "integrated_lufs": -14.00000017663057,
+      "integrated_lufs": -17.030985383106408,
       "measurable": true,
       "method": "ITU-R BS.1770-4",
       "backend": "pyloudnorm",
@@ -834,15 +775,15 @@
       "block_seconds": 0.4,
       "measured_frames": 1891890,
       "trailing_frames_ignored": 1764,
-      "before_lufs": -1.3823506667057273,
+      "before_lufs": -6.949909426331616,
       "target_lufs": -14.0,
-      "requested_gain_db": -12.617649333294272,
-      "applied_gain_db": -12.617649333294272,
+      "requested_gain_db": -7.050090573668384,
+      "applied_gain_db": -10.08107595668543,
       "sample_peak_ceiling_dbfs": -1.0,
-      "peak_limited": false,
+      "peak_limited": true,
       "measurement_scope": "full_render_before_encoding",
-      "achieved_lufs": -14.00000017663057,
-      "target_reached": true
+      "achieved_lufs": -17.030985383106408,
+      "target_reached": false
     },
     "output": "/home/claude/8bit-content-bank/public/sky-blue/track.wav",
     "stems": [],
@@ -851,10 +792,10 @@
       "channels": 2,
       "frames": 1893654,
       "duration_seconds": 42.94,
-      "peak": 0.765380859375,
-      "rms": 0.15556239647984757,
-      "peak_dbfs": -2.3224480560207823,
-      "rms_dbfs": -16.161907501034495,
+      "peak": 0.891265869140625,
+      "rms": 0.1099319803628991,
+      "peak_dbfs": -0.9998544876801003,
+      "rms_dbfs": -19.177518967776233,
       "full_scale_samples": 0,
       "silent": false
     }
@@ -862,14 +803,14 @@
   "loop": {
     "seconds": 38.4,
     "tail_folded_seconds": 4.54,
-    "lufs": -9.0,
-    "phone_lufs": -15.6,
-    "peak_dbfs": -2.28,
+    "lufs": -11.0,
+    "phone_lufs": -15.5,
+    "peak_dbfs": -2.02,
     "gain_reduction": {
-      "over_1db_pct": 93.6,
-      "over_3db_pct": 20.0,
-      "over_6db_pct": 0.2,
-      "max_db": 6.2
+      "over_1db_pct": 67.9,
+      "over_3db_pct": 8.1,
+      "over_6db_pct": 3.7,
+      "max_db": 8.6
     }
   },
   "midi": {

@@ -97,12 +97,17 @@ for b in range(BARS):
     pad += [n(p, b * 4, 3.95, 0.5) for p in PAD[chord(b)["name"]]]
 # ---------------------------------------------------------------- the speaker (the lead) and the glass
 lead = [n(p["midi"], p["beat"], p["dur"] * 0.95, 0.9) for p in tl["probe"]]
-# drive: x1 for the melody, rising to x4 while the speaker holds A5 (gain 0.25 -> 1.0 is exactly x4)
-lead_gain = [AutomationPoint(beat=0.0, value=0.25)]
+hold_notes = [n(p["midi"], p["beat"], p["dur"] * 0.95, 0.9) for p in tl["probe"] if p["beat"] >= HOLD * 4]
+# drive x1 for the melody, rising to x4 while the speaker holds A5. The speaker's level is 0.5 x drive, split over two
+# identical tracks (a track's gain stops at 1): the main one carries up to drive 2, the second one adds the rest.
+# x1 sits level with the hook of the mix (scripts/analyze_stems.py); x4 is 12 dB above it.
+lead_gain, boost_gain = [AutomationPoint(beat=0.0, value=0.5)], [AutomationPoint(beat=HOLD * 4.0 - 0.01, value=0.0)]
 for p in tl["probe"]:
     if p["beat"] >= HOLD * 4:
-        lead_gain.append(AutomationPoint(beat=float(p["beat"]), value=round(0.25 * p["drive"], 4)))
+        lead_gain.append(AutomationPoint(beat=float(p["beat"]), value=round(min(1.0, 0.5 * p["drive"]), 4)))
+        boost_gain.append(AutomationPoint(beat=float(p["beat"]), value=round(max(0.0, 0.5 * p["drive"] - 1.0), 4)))
 lead_gain += [AutomationPoint(beat=DROP * 4 - 0.01, value=1.0), AutomationPoint(beat=DROP * 4.0, value=0.0)]
+boost_gain += [AutomationPoint(beat=DROP * 4 - 0.01, value=1.0), AutomationPoint(beat=DROP * 4.0, value=0.0)]
 # the hook comes back in the drop on a supersaw: the tune that broke the glass
 drop_lead = []
 for b in DROPS:
@@ -140,19 +145,21 @@ tracks = [
     Track(name="Hat open", instrument="open_hat", gain=0.26, pan=-0.15, tone=Tone(brightness=0.7), notes=tuple(hat_open)),
     Track(name="Snare roll", instrument="electronic_snare", gain=0.5, tone=Tone(brightness=0.7), notes=tuple(roll), effects=(space,)),
     Track(name="Crash", instrument="electronic_ride", gain=0.26, tone=Tone(brightness=0.85, decay_seconds=2.5), notes=tuple(crash), effects=(space,)),
-    Track(name="Riser", instrument="supersaw", gain=0.24, tone=Tone(brightness=0.6, glide_semitones=-12, glide_seconds=2.0, detune_cents=25), notes=tuple(riser),
+    Track(name="Riser", instrument="supersaw", gain=0.12, tone=Tone(brightness=0.6, glide_semitones=-12, glide_seconds=2.0, detune_cents=25), notes=tuple(riser),
           effects=(Filter(mode="highpass", cutoff_hz=400), space),
           automation=(Automation(parameter="gain", points=(AutomationPoint(beat=(HOLD + 2) * 4.0, value=0.0), AutomationPoint(beat=DROP * 4 - 0.1, value=1.0), AutomationPoint(beat=DROP * 4.0, value=0.0))),)),
     Track(name="Rewind sweep", instrument="supersaw", gain=0.2, tone=Tone(brightness=0.6, glide_semitones=12, glide_seconds=2.0, detune_cents=25), notes=tuple(rewind_sweep),
           effects=(Filter(mode="highpass", cutoff_hz=500), space)),
     Track(name="Rumble", instrument="kick_909", gain=0.15, tone=Tone(decay_seconds=0.6, tuning_semitones=-2, brightness=0.4), notes=tuple(rumble),
           effects=(Reverb(decay_seconds=1.4, mix=1.0), Distortion(drive=6.0, mix=0.8), Filter(mode="lowpass", cutoff_hz=170), side)),
-    Track(name="Grit bass", instrument="reese_bass", gain=0.85, tone=Tone(brightness=0.7, cutoff_hz=1800, resonance=0.4, detune_cents=22),
-          notes=tuple(grit), effects=(Distortion(drive=10.0, mix=0.85), Filter(mode="highpass", cutoff_hz=110), side)),
+    Track(name="Grit bass", instrument="reese_bass", gain=0.35, tone=Tone(brightness=0.7, cutoff_hz=1800, resonance=0.4, detune_cents=22),
+          notes=tuple(grit), effects=(Distortion(drive=4.0, mix=0.85), Filter(mode="highpass", cutoff_hz=110), side)),
     Track(name="Pad", instrument="wavetable_pad", gain=0.2, tone=Tone(brightness=0.45, cutoff_hz=2400, detune_cents=14), notes=tuple(pad), release_seconds=0.5, effects=(space, side)),
     # the speaker
     Track(name="Speaker lead", instrument="sync_lead", gain=1.0, tone=Tone(brightness=0.6, cutoff_hz=4200), notes=tuple(lead),
           effects=(Distortion(drive=2.0, mix=0.3), echo, space), automation=(Automation(parameter="gain", points=tuple(lead_gain)),)),
+    Track(name="Speaker lead (x2 to x4)", instrument="sync_lead", gain=1.0, tone=Tone(brightness=0.6, cutoff_hz=4200), notes=tuple(hold_notes),
+          effects=(Distortion(drive=2.0, mix=0.3), echo, space), automation=(Automation(parameter="gain", points=tuple(boost_gain)),)),
     Track(name="Drop lead", instrument="sync_lead", gain=0.6, pan=0.05, tone=Tone(brightness=0.6, cutoff_hz=4500), notes=tuple(drop_lead),
           effects=(Distortion(drive=3.0, mix=0.4), echo, space, side)),
     # the glass

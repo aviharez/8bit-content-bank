@@ -6149,7 +6149,7 @@
     {
       "name": "Riser",
       "instrument": "supersaw",
-      "gain": 0.24,
+      "gain": 0.12,
       "pan": 0.0,
       "tone": {
         "brightness": 0.6,
@@ -7218,7 +7218,7 @@
     {
       "name": "Grit bass",
       "instrument": "reese_bass",
-      "gain": 0.85,
+      "gain": 0.35,
       "pan": 0.0,
       "tone": {
         "brightness": 0.7,
@@ -10287,7 +10287,7 @@
       "effects": [
         {
           "type": "distortion",
-          "drive": 10.0,
+          "drive": 4.0,
           "mix": 0.85
         },
         {
@@ -12030,67 +12030,328 @@
           "points": [
             {
               "beat": 0.0,
-              "value": 0.25
+              "value": 0.5
             },
             {
               "beat": 48.0,
-              "value": 0.25
+              "value": 0.5
             },
             {
               "beat": 49.0,
-              "value": 0.2742
+              "value": 0.5484
             },
             {
               "beat": 50.0,
-              "value": 0.3008
+              "value": 0.6015
             },
             {
               "beat": 51.0,
-              "value": 0.3299
+              "value": 0.6598
             },
             {
               "beat": 52.0,
-              "value": 0.3618
+              "value": 0.7236
             },
             {
               "beat": 53.0,
-              "value": 0.3969
+              "value": 0.7937
             },
             {
               "beat": 54.0,
-              "value": 0.4353
+              "value": 0.8706
             },
             {
               "beat": 55.0,
-              "value": 0.4774
+              "value": 0.9548
             },
             {
               "beat": 56.0,
-              "value": 0.5236
+              "value": 1.0
             },
             {
               "beat": 57.0,
-              "value": 0.5743
+              "value": 1.0
             },
             {
               "beat": 58.0,
-              "value": 0.63
+              "value": 1.0
             },
             {
               "beat": 59.0,
-              "value": 0.691
+              "value": 1.0
             },
             {
               "beat": 60.0,
-              "value": 0.7579
+              "value": 1.0
             },
             {
               "beat": 61.0,
-              "value": 0.8312
+              "value": 1.0
             },
             {
               "beat": 62.0,
-              "value": 0.9117
+              "value": 1.0
+            },
+            {
+              "beat": 63.0,
+              "value": 1.0
+            },
+            {
+              "beat": 63.99,
+              "value": 1.0
+            },
+            {
+              "beat": 64.0,
+              "value": 0.0
+            }
+          ],
+          "interpolation": "linear"
+        }
+      ],
+      "effects": [
+        {
+          "type": "distortion",
+          "drive": 2.0,
+          "mix": 0.3
+        },
+        {
+          "type": "delay",
+          "time_seconds": 0.30000000000000004,
+          "feedback": 0.35,
+          "repeats": 4,
+          "mix": 0.22
+        },
+        {
+          "type": "reverb",
+          "decay_seconds": 1.8,
+          "mix": 0.24
+        }
+      ],
+      "pedal": []
+    },
+    {
+      "name": "Speaker lead (x2 to x4)",
+      "instrument": "sync_lead",
+      "gain": 1.0,
+      "pan": 0.0,
+      "tone": {
+        "brightness": 0.6,
+        "decay_seconds": null,
+        "pluck_position": null,
+        "breath": null,
+        "vibrato_depth_cents": null,
+        "vibrato_rate_hz": null,
+        "glide_semitones": null,
+        "detune_cents": null,
+        "cutoff_hz": 4200.0,
+        "resonance": null,
+        "filter_decay_seconds": null,
+        "filter_env_octaves": null,
+        "glide_seconds": null,
+        "fm_index": null,
+        "fm_ratio": null,
+        "modulation_rate_hz": null,
+        "tuning_semitones": null
+      },
+      "notes": [
+        {
+          "pitch": 81,
+          "start": 48.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 49.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 50.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 51.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 52.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 53.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 54.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 55.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 56.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 57.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 58.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 59.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 60.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 61.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 62.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        },
+        {
+          "pitch": 81,
+          "start": 63.0,
+          "duration": 0.95,
+          "velocity": 0.9,
+          "release_seconds": null,
+          "articulation": null
+        }
+      ],
+      "release_seconds": 0.0,
+      "articulation": null,
+      "automation": [
+        {
+          "parameter": "gain",
+          "points": [
+            {
+              "beat": 47.99,
+              "value": 0.0
+            },
+            {
+              "beat": 48.0,
+              "value": 0.0
+            },
+            {
+              "beat": 49.0,
+              "value": 0.0
+            },
+            {
+              "beat": 50.0,
+              "value": 0.0
+            },
+            {
+              "beat": 51.0,
+              "value": 0.0
+            },
+            {
+              "beat": 52.0,
+              "value": 0.0
+            },
+            {
+              "beat": 53.0,
+              "value": 0.0
+            },
+            {
+              "beat": 54.0,
+              "value": 0.0
+            },
+            {
+              "beat": 55.0,
+              "value": 0.0
+            },
+            {
+              "beat": 56.0,
+              "value": 0.0473
+            },
+            {
+              "beat": 57.0,
+              "value": 0.1487
+            },
+            {
+              "beat": 58.0,
+              "value": 0.2599
+            },
+            {
+              "beat": 59.0,
+              "value": 0.3819
+            },
+            {
+              "beat": 60.0,
+              "value": 0.5157
+            },
+            {
+              "beat": 61.0,
+              "value": 0.6625
+            },
+            {
+              "beat": 62.0,
+              "value": 0.8234
             },
             {
               "beat": 63.0,

@@ -23,7 +23,7 @@ All captions passed `ig-caption` (READY) and `ig-human` (PASS). None gives the a
 
 **Every thing on screen is an instrument (the reference's rule):** the speaker is the lead (the exact notes that drive the simulated glass; it gets 4x louder while it holds A5); the glass's own voice is a held A5 whose volume follows the simulated shaking and stops dead on the drop; every shard landing is a high chord tone (glockenspiel), snapped to the nearest 16th. **Groove:** hard techno, the tuned "dem" four on the floor with rumble, clap on 2 and 4, 16th hats, offbeat open hat, distorted reese wall in legato 16ths, pad, riser, snare roll, impact, the hook again as a distorted lead in the drop, a rewind sweep back into the loop.
 
-**Music:** hard techno, 150 BPM, A minor (Am, F, C, G), the house sound of `docs/music-reference.md`. Dense and level: loudness per 4 s within 0.7 dB end to end. All bands measure the same tempo (75 = half of 150). Key estimate: A minor. The drop (the break) lands at 25.6 s. Loop check: PASS. Mix and loudness measured, not yet listened to by the channel owner.
+**Music:** hard techno, 150 BPM, A minor (Am, F, C, G), the house sound of `docs/music-reference.md`. Dense and level. Phone balance (200 Hz-5 kHz, `scripts/analyze_stems.py`): the speaker's tune sits within 2 dB of the kick top and the reese, and rises 12 dB above them as it holds A5 at 4x. All bands measure the same tempo (75 = half of 150). Key estimate: A minor. The drop (the break) lands at 25.6 s. Loop check: PASS. Mix and loudness measured, not yet listened to by the channel owner.
 
 ---
 

@@ -3,13 +3,15 @@
 Hard techno, 150 BPM, F# minor (F#m, D, Bm, C#; one chord per bar), 24 bars (38.4 s). One groove, one grid.
 The house sound (docs/music-reference.md): four-on-the-floor dem with rumble, distorted reese wall in legato 16ths,
 clap on 2 and 4, 16th hats, offbeat open hat, dense from the first frame. Every thing on screen is an instrument:
-- the photons (timeline.json): one red, one green, one blue every 8th note. A photon that reaches her on the hill is a
-  pluck on a chord tone (red = the root, green = the next tone up, blue = the one above); a photon the air scatters
-  away is a high bell, at the moment it scatters. Both snapped to the nearest 16th. At noon most get through and the
-  blue ones ring in the sky; at sunset nearly everything scatters early and only red gets through: the plucks thin out
-  to the red root while the bells fill the sky. That change is the drop.
+- the sunlight that reaches her is the hook: a 16th-note FM ostinato (register leaps, accents 3+3+2) on a bright lead, as loud as the share of sunlight that gets
+  through the air (the mean of red, green and blue transmission, timeline.json frames.T, 1 at noon). As the sun sets
+  the bright lead fades and the same hook passes to a dark, distorted red lead (red is what still gets through), which
+  carries the drop with an octave below; next morning it passes back. The hook never stops, only its colour changes.
+- the photons the air scatters (timeline.json photons) are high bells on chord tones, at the moment they scatter,
+  snapped to the nearest 16th: at noon the blue ones ring all over the sky.
 - the sun going down is the riser (bars 8-11); the drop lands as it touches the horizon.
 - the sky's colour is the pad.
+Mix for a phone: the reese wall is kept below the hook (scripts/analyze_stems.py).
 
 Run from the repo root:  uv run --locked python music/sky-blue/compose.py
 """
@@ -97,26 +99,62 @@ for b in range(BARS):
 PAD = {"F#m": [54, 57, 61, 66], "D": [54, 57, 62, 66], "Bm": [54, 59, 62, 66], "C#": [53, 56, 61, 65]}
 pad = [n(p, b * 4, 3.95, 0.45) for b in range(BARS) for p in PAD[CHORDS[b % 4][0]]]
 
-# ---------------------------------------------------------------- the photons
-pluck, bell = {}, {}
+# ---------------------------------------------------------------- the hook: the sunlight that reaches her
+FPB = tl["fps"] * 60 / BPM
+NOON_T = sum(tl["frames"][0]["T"].values()) / 3
+
+
+def daylight(beat):
+    """Share of sunlight that reaches her at this beat, 1 at noon."""
+    fr = tl["frames"][min(len(tl["frames"]) - 1, int(round(beat * FPB)))]
+    return min(1.0, sum(fr["T"].values()) / 3 / NOON_T)
+
+
+# the hook is a 16th-note ostinato (the owner's rhythmic reference, docs/music-reference.md): every 16th is a note,
+# the register leaps (high root, its upper neighbour, a low root) make the rhythm, and accents fall 3+3+2.
+SCALE = [6, 8, 9, 11, 1, 2, 4]  # F# natural minor
+
+
+def nearest(pc, lo, hi):
+    return next(m for m in range(lo, hi + 1) if m % 12 == pc)
+
+
+def ostinato(chord_name):
+    _, root, pcs = next(c for c in CHORDS if c[0] == chord_name)
+    hi = nearest(root, 73, 84)
+    up = next(m for m in range(hi + 1, hi + 4) if m % 12 in SCALE)  # the step above the root, in key
+    lo = hi - 12
+    third = max(m for m in range(hi - 12, hi) if m % 12 == pcs[1])
+    fifth = max(m for m in range(hi - 12, hi) if m % 12 == pcs[2])
+    H, N, L, T, F = hi, up, lo, third, fifth
+    return [H, N, H, L, N, F, T, H, H, N, H, L, N, H, T, F]
+
+
+ACCENT = {0, 3, 6, 8, 11, 14}  # 3+3+2, twice
+day_lead, red_lead, red_low = [], [], []
+for b in range(BARS):
+    for st, p in enumerate(ostinato(CHORDS[b % 4][0])):
+        beat = b * 4 + st / 4
+        if b == DROP - 1 and st >= 12:
+            continue  # the beat of air before the drop
+        day = daylight(beat)
+        acc = 1.0 if st in ACCENT else 0.62
+        if day > 0.06:
+            day_lead.append(n(p, beat, 0.2, acc * day))
+        if day < 0.94:
+            red_lead.append(n(p, beat, 0.2, acc * (1 - day)))
+            if b in DROPS and st in ACCENT:
+                red_low.append(n(p - 12, beat, 0.45, 1.0))
+
+# ---------------------------------------------------------------- the photons the air scatters
+bell = {}
 for ph in tl["photons"]:
     beat = ph["noteBeat"]
-    if beat >= BEATS:
+    if beat >= BEATS or ph["scatterAt"] is None:
         continue
-    if ph["scatterAt"] is None:  # reached her
-        key = (beat, chord_tone(beat, 62, ph["col"]))
-        pluck[key] = min(1.0, pluck.get(key, 0) + 0.75)
-    else:  # scattered into the sky
-        key = (beat, chord_tone(beat, 86, ph["col"]))
-        bell[key] = min(1.0, bell.get(key, 0) + 0.45)
-pluck_notes = [n(p, b, 0.22, v) for (b, p), v in sorted(pluck.items())]
+    key = (beat, chord_tone(beat, 86, ph["col"]))
+    bell[key] = min(1.0, bell.get(key, 0) + 0.45)
 bell_notes = [n(p, b, 0.35, v) for (b, p), v in sorted(bell.items())]
-# the drop: the red that gets through, doubled as a dark riff on the roots (red = root)
-RIFF = [(0, 0.5), (0.75, 0.25), (1.5, 0.5), (2.25, 0.25), (2.5, 0.5), (3.5, 0.5)]
-riff = []
-for b in DROPS:
-    root = chord_tone(b * 4, 66, "red")
-    riff += [n(root + (12 if i == 3 else 0), b * 4 + off, d, 0.9 if off == 0 else 0.75) for i, (off, d) in enumerate(RIFF)]
 
 # ---------------------------------------------------------------- song
 side = Ducker(trigger_beats=tuple(k for k, *_ in kick_notes), depth=0.3, attack_seconds=0.002, release_seconds=0.15)
@@ -135,18 +173,23 @@ tracks = [
     Track(name="Hat open", instrument="open_hat", gain=0.26, pan=-0.15, tone=Tone(brightness=0.7), notes=tuple(hat_open)),
     Track(name="Snare roll", instrument="electronic_snare", gain=0.5, tone=Tone(brightness=0.6), notes=tuple(roll), effects=(space,)),
     Track(name="Crash", instrument="electronic_ride", gain=0.25, tone=Tone(brightness=0.85, decay_seconds=2.5), notes=tuple(crash), effects=(space,)),
-    Track(name="Sunset riser", instrument="supersaw", gain=0.22, tone=Tone(brightness=0.6, glide_semitones=-12, glide_seconds=2.0, detune_cents=25), notes=tuple(riser),
+    Track(name="Sunset riser", instrument="supersaw", gain=0.12, tone=Tone(brightness=0.6, glide_semitones=-12, glide_seconds=2.0, detune_cents=25), notes=tuple(riser),
           effects=(Filter(mode="highpass", cutoff_hz=400), space),
           automation=(Automation(parameter="gain", points=(AutomationPoint(beat=SET * 4.0, value=0.0), AutomationPoint(beat=DROP * 4 - 0.1, value=1.0), AutomationPoint(beat=DROP * 4.0, value=0.0))),)),
-    Track(name="Grit bass", instrument="reese_bass", gain=0.85, tone=Tone(brightness=0.7, cutoff_hz=1800, resonance=0.4, detune_cents=22),
-          notes=tuple(grit), effects=(Distortion(drive=10.0, mix=0.85), Filter(mode="highpass", cutoff_hz=110), side)),
+    Track(name="Grit bass", instrument="reese_bass", gain=0.35, tone=Tone(brightness=0.7, cutoff_hz=1800, resonance=0.4, detune_cents=22),
+          notes=tuple(grit), effects=(Distortion(drive=4.0, mix=0.85), Filter(mode="highpass", cutoff_hz=110), side)),
     Track(name="Sky pad", instrument="wavetable_pad", gain=0.22, tone=Tone(brightness=0.5, cutoff_hz=2600, detune_cents=14), notes=tuple(pad), release_seconds=0.6, effects=(space, side)),
-    # the photons
-    Track(name="Photons that reach her", instrument="trance_pluck", gain=0.5, tone=Tone(brightness=0.65, cutoff_hz=2400, resonance=0.35, decay_seconds=0.35),
-          notes=tuple(pluck_notes), effects=(echo, side)),
-    Track(name="Photons scattered", instrument="glockenspiel", gain=0.42, pan=0.15, tone=Tone(brightness=0.8, decay_seconds=0.9), notes=tuple(bell_notes), effects=(echo, big_space)),
-    Track(name="Red riff", instrument="sync_lead", gain=0.6, tone=Tone(brightness=0.6, cutoff_hz=4200), notes=tuple(riff),
-          effects=(Distortion(drive=3.0, mix=0.4), echo, space, Ducker(trigger_beats=side.trigger_beats, depth=0.35, release_seconds=0.12))),
+    # the sunlight that reaches her: the hook
+    Track(name="Hook (daylight)", instrument="fm_bell", gain=0.75, tone=Tone(brightness=0.8, decay_seconds=0.16, fm_index=5.5, fm_ratio=1.414),
+          notes=tuple(day_lead), effects=(Filter(mode="highpass", cutoff_hz=380), Filter(mode="lowpass", cutoff_hz=3600), Distortion(drive=2.5, mix=0.35),
+                                          Delay(time_seconds=0.75 * SPB, feedback=0.25, repeats=2, mix=0.12))),
+    Track(name="Hook (red light)", instrument="fm_bell", gain=0.75, tone=Tone(brightness=0.6, decay_seconds=0.18, fm_index=7.0, fm_ratio=1.73),
+          notes=tuple(red_lead), effects=(Filter(mode="highpass", cutoff_hz=300), Filter(mode="lowpass", cutoff_hz=2800), Distortion(drive=4.0, mix=0.55),
+                                          Delay(time_seconds=0.75 * SPB, feedback=0.25, repeats=2, mix=0.12))),
+    Track(name="Hook (red, octave down)", instrument="sync_lead", gain=0.4, tone=Tone(brightness=0.5, cutoff_hz=2400), notes=tuple(red_low),
+          effects=(Distortion(drive=3.0, mix=0.4), side)),
+    # the photons the air scatters
+    Track(name="Photons scattered", instrument="glockenspiel", gain=0.26, pan=0.15, tone=Tone(brightness=0.8, decay_seconds=0.9), notes=tuple(bell_notes), effects=(echo, big_space)),
 ]
 
 song = Song(title="Why Is the Sky Blue", bpm=float(BPM), beats=float(BEATS), seed=450, master_gain=0.8, tracks=tuple(tracks))

@@ -27,3 +27,20 @@ What makes it work, and what we copy:
 - **Dense and level.** Loudness range around 2-3 LU: no long sparse intros; the intro is the groove, filtered.
 - **Mid-heavy.** Distorted riffs and leads carry the track; keep sub and bass from dominating (still our gap).
 - **Physics plays the riff, not a second drum kit.** Map events to notes of one chord, quantised to the grid by choosing the time scale (e.g. one Europa-Ganymede cycle = 6 beats).
+
+## Second reference: the owner's rhythmic sample (Nov 2026)
+
+A 67 s sample the owner shared to show what "rhythmic" means (the WAV is theirs and is not kept in the repo; measured with `/tmp`-style onset folding, numbers below).
+
+| Measure | Sample |
+|---|---|
+| Tempo | 143.3 BPM, steady through every section |
+| Bass | rolling: an onset on nearly every 16th below 150 Hz, root E1 with a half step (F) above it (E Phrygian, dark) |
+| Lead | a 16th-note FM ostinato: every 16th is a note, e.g. `B5 C6 B5 G4 C6 F5 A5 B5`, repeating each half bar. A small range around one high note, its half-step neighbour, and a leap down to a low note; the leaps make the rhythm |
+| Accents (1-5 kHz, folded on the bar) | syncopated: 3+3+2 / 3+3+4 groupings (steps 0, 3, 6, 8, 10/11, 14), not straight 8ths |
+| Highs | almost nothing above 5 kHz (~1% of the energy): no hat sizzle; the rhythm comes from the bass and the lead |
+| Energy | 40-70% below 150 Hz, 25-50% at 150 Hz-1 kHz |
+| Sections | contrast: bursts, a dense ostinato, a sparse breakdown of stabs, isolated sub hits with gaps, a gated finale (4 s loudness swings of up to 8 dB) |
+| Sound | FM leads with non-integer ratios (~1.41, 1.73), bandpassed ~380-3600 Hz, crushed; clipped sine subs with a fast pitch drop |
+
+What we copy: **the melody is rhythmic.** The hook is a 16th-note ostinato on `fm_bell` (`fm_ratio` 1.414, `fm_index` ~5.5, decay ~0.16 s, highpass 380 Hz, lowpass 3.6 kHz), accents on 3+3+2, a high root, its step above in key (a half step where the key gives one) and a leap to the low root. The rolling 16th reese stays under it. First used in video 9 (sky-blue).

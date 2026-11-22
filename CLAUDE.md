@@ -91,3 +91,14 @@ Lint every caption with the Instagram skills from `Jakeschincariol/instagram-age
 ## Shipping
 
 Each finished video gets `prod-ready/<slug>/`: the MP4, `cover-9x16.png` (the composition's `<Still>`, key text inside the centre 3:4 crop, y 80-560 at base size), `cover-grid-3x4.png` (that crop), and `post.md` with the Instagram caption, TikTok caption, YouTube Shorts title (under 40 characters) and description, sound name, and a pre-post checklist.
+
+## Posting (Buffer)
+
+The owner produces videos daily. When the owner approves a finished video, post it to Buffer straight away; the approval is the go-ahead, so do not ask again.
+1. Commit and push `prod-ready/<slug>/` to `main` first. Buffer fetches the video from `https://raw.githubusercontent.com/aviharez/8bit-content-bank/main/prod-ready/<slug>/<slug>.mp4`, so the file must be on GitHub before the post is created.
+2. Check which Buffer account the MCP is connected to (`get_account`, then `list_channels`). The owner is on free plans, so the channels are split across two accounts: one holds Instagram, TikTok and the Facebook Page, and the other holds YouTube. Post only to the channels the connected account has.
+   - **Instagram / TikTok / Facebook**: one post per channel. Use that platform's caption from `post.md`; Facebook uses the Instagram caption.
+   - **YouTube**: a Short with the `post.md` title (under 40 characters) and description, `categoryId` "28" (Science & Technology), `madeForKids: false`.
+3. Add each post to the channel's queue, but never for a slot earlier than tomorrow. If the next queue slot is today, set `customScheduled` on the same slot time tomorrow or later. Keep one video per day per channel, in the order the videos were approved, and the same day on every platform where possible. If the free plan's 10 scheduled posts are full, save the post as a draft and say so.
+4. Report the scheduled times. Then ask the owner to switch accounts with `/mcp` so the other platforms get posted too. When they say they switched, post to those channels the same way.
+5. Free Buffer has no first comment. Remind the owner to post and pin the answer comment from `post.md` after each video goes live.

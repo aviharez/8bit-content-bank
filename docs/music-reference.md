@@ -44,3 +44,29 @@ A 67 s sample the owner shared to show what "rhythmic" means (the WAV is theirs 
 | Sound | FM leads with non-integer ratios (~1.41, 1.73), bandpassed ~380-3600 Hz, crushed; clipped sine subs with a fast pitch drop |
 
 What we copy: **the melody is rhythmic.** The hook is a 16th-note ostinato on `fm_bell` (`fm_ratio` 1.414, `fm_index` ~5.5, decay ~0.16 s, highpass 380 Hz, lowpass 3.6 kHz), accents on 3+3+2, a high root, its step above in key (a half step where the key gives one) and a leap to the low root. The rolling 16th reese stays under it. Tried on a sky-colour video that was later dropped.
+
+## Target sound v2: the owner's sample, decomposed (Nov 2026)
+
+The owner had the same 67 s sample separated into stems (Demucs) and transcribed in another session (score.json:
+drum hits per 16th, bass notes, other notes; calibration.json: per-stem spectrum, level and width). Those files are
+the owner's and are not kept here. What they say, checked against the WAV:
+
+| Part | What it is |
+|---|---|
+| Tempo / grid | 143.28 BPM, 40 bars on a strict 16th grid |
+| **Kick ("the swoop")** | the part the owner likes most. A pitched, driven sine: ~275 Hz falling to ~87 Hz (F2) with a 28 ms time constant, full level for ~90 ms, then gone in ~35 ms. Odd harmonics from the drive (h3 about -7 dB). Not a long sub boom: a short, round punch that sits above the bass and plays on a phone as it is. In 8th-note runs each hit rings on to the next |
+| Kick pattern | changes by section: syncopated 8th runs in the intro (`x.x.....x.x.x.x.`), four on the floor in the main part, 3+3+2 (`X..X..X.X.x.x...`) and near-empty bars in the breakdowns |
+| Bass | its own line under the kick, not the kick's root: a sine plus a filtered saw an octave up, rolling around E1 with chromatic 16th pickups (`D#1 E1 F1 F#1` into a held `E1`), and octave jumps to E2/F2. E Phrygian: the E-F half step is the colour |
+| Snare / hats | busy 8th snares in the intro, then 2 and 4; hats on the offbeat 8ths; almost nothing above 5 kHz |
+| Mid / lead | octave dyads on the 8ths (E2/E3, B2/B3, C3/C4, D3 ...) carry the 150 Hz-1 kHz band; the 16th FM ostinato (above) sits on top |
+| Balance | the drums, bass and other stems measure -23.6, -21.9 and -22.1 dB RMS: three equal parts. Main section energy: 36-42% below 150 Hz, 40-48% at 150 Hz-1 kHz, 15-20% at 1-5 kHz |
+
+How this differs from the house sound in CLAUDE.md: the kick is short and pitched at ~87 Hz instead of a 46 Hz,
+300 ms "dem" tuned to the chord root; the bass is a separate rolling line instead of following the kick; there is
+no reese wall; the drum pattern changes by section instead of staying four on the floor.
+
+Built from the library's instruments: `music/_shared/swoop.py` (sub_bass with a +20 semitone, 0.03 s glide and drive
+14; note the drive sits after the gain, so the gain still sets its level: ~0.09 keeps it level with the bass) and the
+sound check `music/_demo/target-v2/compose.py` (16 bars at our 150 BPM clock). Measured against the sample:
+kick f0 234/188/142/115/99 Hz at 5/20/40/60/90 ms (sample's fitted kick 216/178/131/108/93); main-section energy
+41-46% / 36-41% / 16-20% (sample 36-42% / 40-48% / 15-20%). `scripts/analyze_swoop.py` measures a kick the same way.

@@ -6,7 +6,8 @@ What it copies from the reference (docs/music-reference.md, "Target sound v2"):
 - a rolling, chromatic bass on E1: 16th pickups crawling D#-E-F-F# into a held E, octave jumps to E2/F2;
   a sine with a filtered saw an octave up, no reese
 - snare on 2 and 4, hats on the offbeat 8ths, little else above 5 kHz
-- a 16th-note FM ostinato in E Phrygian (the half step E-F is the colour), accents 3+3+2
+- an octave-doubled saw stab lead on 3+3+2 in E Phrygian (the half step E-F is the colour); the FM ostinato that
+  came in at 3 s sounded bad to the owner and is gone
 - drums, bass and ostinato at about the same level (the reference's three stems measure -23.6, -21.9, -22.1 dB RMS)
 
 Run from the repo root:  uv run --locked python music/_demo/target-v2/compose.py   (writes out/target-v2.wav)
@@ -65,15 +66,19 @@ for b in range(BARS):
     hats += [n(42, b * 4 + q + 0.5, 0.06, 0.8) for q in range(4)]
     hat16 += [n(42, b * 4 + s / 4, 0.03, 0.25) for s in range(16) if s % 4 in (1, 3)]
 
-# ---------------------------------------------------------------- FM ostinato, E Phrygian
-RIFF = [76, 77, 76, 59, 77, 72, 74, 76, 76, 77, 76, 59, 77, 76, 74, 72]  # E5 F5 E5 B3 F5 C5 D5 E5 | E5 F5 E5 B3 F5 E5 D5 C5
-ACCENT = {0, 3, 6, 8, 11, 14}
-riff = []
-for b in range(BARS):
-    if b < 2:
-        continue  # the riff enters on bar 3, over the intro kick
-    for s, p in enumerate(RIFF):
-        riff.append(n(p, b * 4 + s / 4, 0.2, 1.0 if s in ACCENT else 0.6))
+# ---------------------------------------------------------------- stab lead, E Phrygian
+# The sample's lead is not FM: its stem fits 3 detuned saws, low-passed at ~6x the note, a 12 ms attack and a pluck
+# decay to ~30% (harmonics 0, -8, -6, -17, -14 dB). It plays octave-doubled stabs on 3+3+2 (steps 0, 3, 6 of each
+# half bar), each held 2-3 sixteenths, stepping down through the chord.
+HALVES = [[76, 71, 67], [76, 72, 69], [74, 69, 65], [72, 67, 64]]  # E5 B4 G4 | E5 C5 A4 | D5 A4 F4 | C5 G4 E4
+lead = []
+for b in range(2, BARS):
+    for h in range(2):
+        notes = HALVES[(b * 2 + h) % 4]
+        for (st, ln), p in zip(((0, 3), (3, 3), (6, 2)), notes):
+            beat = b * 4 + h * 2 + st / 4
+            v = 0.95 if st == 0 else 0.8
+            lead += [n(p, beat, ln / 4 * 0.9, v), n(p - 12, beat, ln / 4 * 0.9, v * 0.8)]
 
 # ---------------------------------------------------------------- mid riff: octave dyads on the 8ths (the reference's mid band)
 DYADS = [40, 47, 48, 47, 40, 50, 48, 41]  # E2 B2 C3 B2 E2 D3 C3 F2, each with its octave
@@ -91,11 +96,11 @@ tracks = [
     Track(name="Snare", instrument="electronic_snare", gain=0.9, tone=Tone(brightness=0.7), notes=tuple(snare), effects=(Reverb(decay_seconds=0.8, mix=0.15),)),
     Track(name="Hat", instrument="metal_hat", gain=0.3, tone=Tone(brightness=0.6, decay_seconds=0.1), notes=tuple(hats)),
     Track(name="Hat 16", instrument="metal_hat", gain=0.18, tone=Tone(brightness=0.6, decay_seconds=0.1), notes=tuple(hat16)),
-    Track(name="Mid riff", instrument="supersaw", gain=0.7, tone=Tone(brightness=0.55, cutoff_hz=1800, detune_cents=12), notes=tuple(mid),
+    Track(name="Mid riff", instrument="supersaw", gain=0.45, tone=Tone(brightness=0.55, cutoff_hz=1800, detune_cents=12), notes=tuple(mid),
           release_seconds=0.05, effects=(Distortion(drive=3.0, mix=0.4),)),
-    Track(name="FM ostinato", instrument="fm_bell", gain=0.55, tone=Tone(brightness=0.8, decay_seconds=0.15, fm_index=5.5, fm_ratio=1.414),
-          notes=tuple(riff), effects=(Filter(mode="highpass", cutoff_hz=380), Filter(mode="lowpass", cutoff_hz=3600), Distortion(drive=5.0, mix=0.6),
-                                      Delay(time_seconds=0.75 * SPB, feedback=0.2, repeats=2, mix=0.1))),
+    Track(name="Stab lead", instrument="supersaw", gain=1.0, tone=Tone(brightness=1.0, cutoff_hz=4800, resonance=0.15, detune_cents=9,
+          filter_env_octaves=1.0, filter_decay_seconds=0.15), notes=tuple(lead), release_seconds=0.05,
+          effects=(Distortion(drive=2.5, mix=0.35), Delay(time_seconds=0.75 * SPB, feedback=0.2, repeats=2, mix=0.1), Reverb(decay_seconds=0.6, mix=0.12))),
 ]
 song = Song(title="Target v2 sound check", bpm=float(BPM), beats=float(BEATS), seed=143, master_gain=0.8, tracks=tuple(tracks))
 

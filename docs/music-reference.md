@@ -58,7 +58,7 @@ the owner's and are not kept here. What they say, checked against the WAV:
 | Kick pattern | changes by section: syncopated 8th runs in the intro (`x.x.....x.x.x.x.`), four on the floor in the main part, 3+3+2 (`X..X..X.X.x.x...`) and near-empty bars in the breakdowns |
 | Bass | its own line under the kick, not the kick's root: a sine plus a filtered saw an octave up, rolling around E1 with chromatic 16th pickups (`D#1 E1 F1 F#1` into a held `E1`), and octave jumps to E2/F2. E Phrygian: the E-F half step is the colour |
 | Snare / hats | busy 8th snares in the intro, then 2 and 4; hats on the offbeat 8ths; almost nothing above 5 kHz |
-| Mid / lead | octave dyads on the 8ths (E2/E3, B2/B3, C3/C4, D3 ...) carry the 150 Hz-1 kHz band; the 16th FM ostinato (above) sits on top |
+| Mid / lead | octave dyads on the 8ths (E2/E3, B2/B3, C3/C4, D3 ...) carry the 150 Hz-1 kHz band. The lead is not FM: its stem fits 3 detuned saws low-passed at ~6x the note, a 12 ms attack and a pluck decay (harmonics 0, -8, -6, -17, -14 dB), playing octave-doubled stabs on 3+3+2 (steps 0, 3, 6 of each half bar), held 2-3 sixteenths, stepping down through the chord. The FM ostinato guessed from the first analysis sounded bad to the owner; don't use it |
 | Balance | the drums, bass and other stems measure -23.6, -21.9 and -22.1 dB RMS: three equal parts. Main section energy: 36-42% below 150 Hz, 40-48% at 150 Hz-1 kHz, 15-20% at 1-5 kHz |
 
 How this differs from the house sound in CLAUDE.md: the kick is short and pitched at ~87 Hz instead of a 46 Hz,

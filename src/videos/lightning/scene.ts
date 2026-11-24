@@ -133,7 +133,8 @@ export function buildScene(width: number, height: number): StormScene {
   scene.add(cloud);
 
   // ---------------------------------------------------------------- the power line: a short pole on the crest, then 8 towers
-  const steel = new THREE.MeshStandardMaterial({ color: C["3a4466"], roughness: 0.7 });
+  // light steel, so a tower kilometres away still reads as a tower against the dark valley, not only its lamp
+  const steel = new THREE.MeshStandardMaterial({ color: C["8b9bb4"], roughness: 0.7 });
   const towerTops: THREE.Vector3[] = [];
   for (let k = 0; k <= Wd.towers; k++) {
     const z = k === 0 ? Wd.pole0Z : k * Wd.towerGap, base = groundY(z), h = k === 0 ? Wd.pole0H : Wd.towerH, x = k === 0 ? Wd.pole0X : Wd.lineX;
@@ -180,16 +181,26 @@ export function buildScene(width: number, height: number): StormScene {
   scene.add(deck);
   const dark = new THREE.MeshStandardMaterial({ color: C["181425"], roughness: 1 });
   const coat = new THREE.MeshStandardMaterial({ color: C["124e89"], roughness: 1 });
+  // a person in a rain coat, from behind: two legs, a coat with shoulders and arms, a hooded head
   const person = new THREE.Group();
-  const legs = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.85, 0.24), dark);
-  legs.position.y = 0.42;
-  const torso = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.65, 0.28), coat);
-  torso.position.y = 1.18;
-  const head = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.28, 0.26), dark);
-  head.position.y = 1.67;
-  const hood = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.18, 0.32), coat);
-  hood.position.y = 1.78;
-  person.add(legs, torso, head, hood);
+  for (const sx of [-0.11, 0.11]) {
+    const leg = new THREE.Mesh(new THREE.CapsuleGeometry(0.09, 0.62, 3, 8), dark);
+    leg.position.set(sx, 0.42, 0);
+    person.add(leg);
+  }
+  const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.21, 0.42, 4, 10), coat);
+  torso.position.y = 1.12; torso.scale.set(1.05, 1, 0.7);
+  person.add(torso);
+  for (const sx of [-0.27, 0.27]) {
+    const arm = new THREE.Mesh(new THREE.CapsuleGeometry(0.07, 0.5, 3, 8), coat);
+    arm.position.set(sx, 1.1, 0); arm.rotation.z = sx > 0 ? 0.12 : -0.12;
+    person.add(arm);
+  }
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.15, 12, 10), dark);
+  head.position.y = 1.62;
+  const hood = new THREE.Mesh(new THREE.SphereGeometry(0.17, 12, 10, 0, Math.PI * 2, 0, Math.PI * 0.6), coat);
+  hood.position.y = 1.64;
+  person.add(head, hood);
   person.position.set(0.9, Wd.hill + Wd.deck, 2.5);
   scene.add(person);
 

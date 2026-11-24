@@ -164,3 +164,5 @@ BOOM). One small corner tag for the time warp: "TIME SQUEEZED". Watermark `@squa
   listener are all in frame. A strike 0 seconds away is drawn twice as wide as a far one.
 - The video opens 4 frames (one 16th) before the first strike (`openLeadFrames` in the timeline; the track is
   rotated by the same amount), so the loop point falls between two frames of the leader growing, not on a flash.
+- Polish before posting: the code card is at the house 16 px size; the listener is a hooded figure with two legs and
+  arms (capsules and spheres); the towers are light steel so the far ones read as towers, not only lamps.

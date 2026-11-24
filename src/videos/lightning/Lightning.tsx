@@ -186,10 +186,11 @@ function drawCaption(g: CanvasRenderingContext2D, f: number) {
   const { rect, text, measure, panel } = pixelKit(g);
   const cap = captionAt(f);
   if (cap === "code") {
-    panel(M, 444, W - 2 * M, 56, C["5a6988"]);
-    rect(M, 444, 3, 56, C["fee761"]);
-    text("km = seconds / 3", M + 12, 456, "p8", C["ffffff"]);
-    text("sound: 343 m/s", M + 12, 476, "p8", C["fee761"]);
+    // house type size: 16 px (CLAUDE.md rule 6)
+    panel(M, 432, W - 2 * M, 66, C["5a6988"]);
+    rect(M, 432, 3, 66, C["fee761"]);
+    text("km = seconds / 3", M + 14, 444, "p16", C["ffffff"]);
+    text("sound: 343 m/s", M + 14, 470, "p16", C["fee761"]);
   } else if (cap) {
     const w = Math.min(W - 2 * M, Math.max(measure(cap[0], "p16"), measure(cap[1], "s16")) + 28);
     panel(W / 2 - w / 2, 450, w, 52, C["c0cbdc"]);

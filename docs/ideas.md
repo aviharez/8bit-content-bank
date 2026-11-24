@@ -20,7 +20,6 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 14 | HOW A SPEAKER WORKS | Coil and magnet move a cone | The cone on screen moves with the video's own soundtrack | Every Wave | Done ([render](../renders/speaker.mp4)) |
 | 15 | SILENCE FROM NOISE | Noise cancelling by destructive interference | The drop is sudden silence | Every Wave | |
 | 16 | 2.45 GHZ IN YOUR KITCHEN | Water molecules flip in a microwave; standing-wave hot spots | Pitch rises with temperature | How Things Work | |
-| 17 | GPS: 38 MICROSECONDS A DAY | Trilateration and relativity correction | One ping per satellite; pings drift without the correction | How Time Works | |
 | 18 | WHY THE SKY IS BLUE | Rayleigh scattering scales as 1/wavelength^4 | Photon colour mapped to pitch | Light | Dropped (Nov 2026): nothing in the picture moves on the beat, so the visuals cannot sync to the music |
 | 19 | WHY HOT METAL GLOWS | Black-body radiation, red to white | Pitch rises with temperature | Light | |
 | 20 | 8 BITS COUNT TO 255 | Transistors, logic gates, a binary adder | One note per bit; binary numbers become arpeggios | How Computers Work | Done ([render](../renders/eight-bits.mp4)) |

@@ -16,7 +16,7 @@ type Strike = {
   bolt: Pt[]; branches: { from: number; pts: Pt[] }[]; leader: { beat: number; k: number; side: number }[]; strokes: { beat: number; n: number }[];
 };
 type TL = {
-  fps: number; framesPerBeat: number; totalFrames: number; strikes: Strike[];
+  fps: number; framesPerBeat: number; totalFrames: number; openLeadFrames: number; strikes: Strike[];
   passes: { beat: number; strike: number; tower: number }[]; booms: { beat: number; strike: number; gap: number; km: number }[];
   drips: number[]; frames: { front: { strike: number; r: number } | null; seconds: number | null }[];
 };

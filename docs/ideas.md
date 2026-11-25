@@ -29,7 +29,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 24 | DROP 1,000 NEEDLES, FIND PI | Buffon's needle | Every needle that crosses a line clicks | The Sound of Pi | |
 | 25 | 1,000 BALLS, ONE BELL CURVE | Galton board and the binomial distribution | Each ball entering bin k plays the k-th chord tone; hops are one 16th, so every landing is on the grid | Probability | Done ([render](../renders/galton-board.mp4)) |
 | 26 | 23 PEOPLE, 50% | The birthday paradox | Each person adds a note; a shared birthday is a chord | Probability | Done (Nov 2026): `birthday`, video 14 |
-| 27 | MONTY HALL x 1,000 | Monty Hall simulation | Win = major note, lose = minor note | Probability | |
+| 27 | SHOULD YOU SWITCH DOORS? | Monty Hall: stay wins 1/3, switch 2/3; 1,000 seeded random games | Every game step is a kick; the marquee light chase over the doors is the acid hook (the lit bulb is the note); a car is a supersaw stab, a goat door a low note. Hard techno 138.46 BPM, D Phrygian. Plan: [plans/monty-hall.md](plans/monty-hall.md) | Probability | Done (Nov 2026): `monty-hall`, video 15 |
 | 28 | PRIMES AS A RHYTHM | Sieve of Eratosthenes | Every prime is a kick | Unsolved Math | |
 | 29 | HOW A KEY OPENS A LOCK | Pin tumbler lock | Each pin that lifts plays a note | How Things Work | Done ([render](../renders/key-lock.mp4)) |
 | 30 | CAN A SINGLE NOTE BREAK GLASS? | Resonance of a wine glass (driven damped oscillator, f0 = 880 Hz, Q = 1,000) | The lead is the speaker; the glass's A5 swells with the simulated rim amplitude; it breaks on the drop; every shard landing is a note. Hard techno 150 BPM | Every Wave | Done ([render](../renders/glass-resonance.mp4)) |

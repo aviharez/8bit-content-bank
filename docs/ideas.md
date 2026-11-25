@@ -28,7 +28,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 23 | ESCAPE: 11.2 KM/S | Earth's escape velocity | Tempo follows speed | Orbits | |
 | 24 | DROP 1,000 NEEDLES, FIND PI | Buffon's needle | Every needle that crosses a line clicks | The Sound of Pi | |
 | 25 | 1,000 BALLS, ONE BELL CURVE | Galton board and the binomial distribution | Each ball entering bin k plays the k-th chord tone; hops are one 16th, so every landing is on the grid | Probability | Done ([render](../renders/galton-board.mp4)) |
-| 26 | 23 PEOPLE, 50% | The birthday paradox | Each person adds a note; a shared birthday is a chord | Probability | |
+| 26 | 23 PEOPLE, 50% | The birthday paradox | Each person adds a note; a shared birthday is a chord | Probability | Done (Nov 2026): `birthday`, video 14 |
 | 27 | MONTY HALL x 1,000 | Monty Hall simulation | Win = major note, lose = minor note | Probability | |
 | 28 | PRIMES AS A RHYTHM | Sieve of Eratosthenes | Every prime is a kick | Unsolved Math | |
 | 29 | HOW A KEY OPENS A LOCK | Pin tumbler lock | Each pin that lifts plays a note | How Things Work | Done ([render](../renders/key-lock.mp4)) |

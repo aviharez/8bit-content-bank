@@ -12,6 +12,7 @@ import { KeyLock, KeyLockCover } from "./videos/key-lock/KeyLock";
 import { Speaker, SpeakerCover } from "./videos/speaker/Speaker";
 import { GuitarString, GuitarStringCover } from "./videos/guitar-string/GuitarString";
 import { Lightning, LightningCover } from "./videos/lightning/Lightning";
+import { Birthday, BirthdayCover } from "./videos/birthday/Birthday";
 
 // One folder per series; one registration per video.
 export const RemotionRoot: React.FC = () => {
@@ -44,6 +45,8 @@ export const RemotionRoot: React.FC = () => {
       <Folder name="probability">
         <GaltonBoard />
         <GaltonBoardCover />
+        <Birthday />
+        <BirthdayCover />
       </Folder>
       <Folder name="how-life-works">
         <HeartRate />

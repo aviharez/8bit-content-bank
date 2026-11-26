@@ -1,8 +1,14 @@
 # Working in the 8-bit content bank
 
-This repo makes pixel-art science explainers with 8-bit music, entirely in code, for the channel **Square Wave Lab** (handle `@squarewavelab`; put it as the small watermark near the bottom of every video). Read README.md first.
+This repo makes original music-led audiovisual entertainment in 3D pixel art, entirely in code, for the channel **Square Wave Lab** (handle `@squarewavelab`; put it as the small watermark near the bottom of every video). Tiny worlds act like playable instruments. It also keeps the channel's original science explainers, which stay buildable under the legacy rules below. Read README.md first; before any new entertainment episode, read START-HERE.md and the docs it links (creative direction, content pillars, production workflow, quality gates, idea bank, pilot briefs).
 
-## First rule: a stranger must get it
+**Which rules apply.** Entertainment episodes follow the audience contract and quality gates in `docs/creative-direction.md` and `docs/quality-gates.md`, plus every rule in this file not marked *legacy science*. When editing or producing a science explainer, the legacy science rules apply in full. Where the pivot docs and this file disagree, this file's audio, sync, rendering, mastering and shipping rules win; the pivot docs win on scope (entertainment, not education). Work on `main` (owner's standing preference) rather than the feature branch the migration guide suggests.
+
+## First rule for entertainment: the audience contract
+
+Within two seconds a stranger scrolling with the sound on must understand what is happening and have a reason to stay: at least one legible musical action in the opening frames, visible stakes (a meter filling, a race lead, targets left), and a payoff that changes the world, not just more shake or particles. Keep: the first-two-second hook, recognisable objects, at most two simple HUD readouts in plain words, action on the beat, 3D scenes that fill the frame, and the musical climax landing on the visual payoff. No narration, lesson recap or code card by default. Before shipping, answer the reviewer questions of `docs/quality-gates.md` in `post.md` (what is happening after 3 s, why stay, what happens at the payoff, which machine is the kick/bass/melody/percussion, would you replay it), and record each gate as PASS / FAIL / NOT VERIFIED.
+
+## First rule (legacy science): a stranger must get it
 
 The channel owner's standard, above every other rule here. A viewer who knows no physics, scrolling with the sound on, must:
 1. **Know what the video is about within 2 seconds.** The hook is a question people already wonder about, in everyday words ("Why do jets go BOOM?", not "What does Mach 1 sound like?"). It must make them curious enough to stay.
@@ -56,6 +62,8 @@ The channel owner's rules: the music is ALWAYS in sync with the video, the pictu
 - When the sim changes, re-run the sim, the composer and the render together; a track left over from an older timeline is out of sync by definition.
 - Check before shipping: step through the render frame by frame over 4 bars of every section with the sound on. A sound with no visible cause, or a visible hit with no sound, gets fixed (given a cause, a sound, or cut), never left in.
 
+Incidental motion (a camera drift, a part settling) need not have its own sound; every salient rhythmic action does. For new episodes, write events in the common shape of `docs/production-workflow.md` (beat as the time authority, frame derived) where practical; legacy timelines are not migrated. Matching the BPM is never proof of sync.
+
 **2. The picture must be playable.** Before any code, write the topic's visible events for 16 bars on the 16th grid: what happens on every beat (the kick), what happens on the hook's rhythm (8ths/16ths), and what changes between sections (so the music has something to follow when it changes). Each event is a distinct thing you can see: a hit, a swing, a clack, a pulse, a flash, a collision. If the list cannot be written, or it repeats one event for the whole video, drop the topic, however good the question is (see First rule, point 5).
 
 **3. The music is a song, not a loop of one phrase.**
@@ -76,17 +84,18 @@ Every video must loop cleanly, picture and sound:
 ## Rules every video follows
 
 1. **One clock.** Choose BPM and fps first so frames per beat is a whole number (120 BPM at 30 fps = 15). Everything reads `public/<slug>/timeline.json`.
-2. **Real physics.** Simulations compute the real equations. Prefer a uniform time scale chosen so events land on the beat grid. Time may be warped to land events on the beat, but positions stay exact, and the video says so on screen and in the caption.
+2. **Real physics (legacy science).** Simulations compute the real equations. Prefer a uniform time scale chosen so events land on the beat grid. Time may be warped to land events on the beat, but positions stay exact, and the video says so on screen and in the caption.
 3. **Frame-pure rendering.** Everything drawn is a pure function of `useCurrentFrame()`. No clocks, no randomness, no state carried between frames.
 4. **3D exception, on purpose.** Remotion's 3D rule is `<ThreeCanvas>` + React Three Fiber. We render three.js imperatively to an offscreen 360×640 canvas instead, because every frame must be palette-quantised and dithered after the 3D render. The rule's intent still holds: the scene is set from the frame number only, and there is no `useFrame`.
 5. **Pixel pipeline.** 3D layer: `quantize(img, 34, false)` (Endesga 32 + Bayer dither). UI layer: `quantize(img, 0, true)` (crisp, alpha-thresholded). Integer scale only (3×).
 6. **Type sizes at 360 px base (×3 on output).** Headline 32 px Press Start 2P, supporting text 16 px, labels 16 px Silkscreen. Silkscreen is caps-only, so use Press Start 2P for anything case-sensitive (code, units like m/M).
 7. **Safe area.** Keep text 28 px from the sides; captions above y = 500 (Reels/TikTok UI covers the bottom).
-8. **House style.** Thin-bordered panels, one big number, a two-line caption box, a code card at the end, a seamless loop (last frame returns to the first shot; the music tail is folded back onto the start).
+8. **House style.** Thin-bordered panels, one big number, a two-line caption box, a seamless loop (last frame returns to the first shot; the music tail is folded back onto the start). The code card at the end and science captions are legacy science only.
+9. **Mechanics (entertainment).** Authored trajectories, seeded game rules and quantised contacts replace real physics: every contact comes from the scheduler, each machine has a wind-up, an exact contact frame and a release. Never present a staged mechanic as a real-world result.
 
 ## Adding a video
 
-1. Pick an idea from `docs/ideas.md`; note its sound mapping, and write its 16-bar visible event list and section plan (see "Sync, picture and arrangement"). No event list, no video.
+1. Entertainment: pick an idea from `docs/entertainment-ideas.md` (or a pilot brief), write the brief, the full bar-by-bar event sheet, the arrangement and the last-3-tracks contrast in `docs/plans/<slug>.md`, and pass `docs/quality-gates.md`. Legacy science: pick an idea from `docs/ideas.md`; note its sound mapping, and write its 16-bar visible event list and section plan (see "Sync, picture and arrangement"). No event list, no video.
 2. `sims/<slug>.ts` writes `public/<slug>/timeline.json` (per-frame state + audio events in seconds).
 3. `music/<slug>/compose.py` reads the events and writes `public/<slug>/track.wav`.
 4. `src/videos/<slug>/` holds the scene and the composition; register it in `src/Root.tsx`.
@@ -94,13 +103,15 @@ Every video must loop cleanly, picture and sound:
 
 ## Captions
 
-Lint every caption with the Instagram skills from `Jakeschincariol/instagram-agent-skill` (`ig-caption/caption.py` and `ig-human/detect.py`) before it ships. House rules: the reel carries the hook, so line 1 is the one ask (comment a guess) plus the topic in searchable words; 300-500 characters; at most 3 hashtags at the bottom; sources in one line. Never put the answer the ask invites people to guess in the caption.
+Lint every caption with the Instagram skills from `Jakeschincariol/instagram-agent-skill` (`ig-caption/caption.py` and `ig-human/detect.py`) before it ships. House rules: the reel carries the hook, so line 1 is the one ask plus the topic in searchable words; 300-500 characters; at most 3 hashtags at the bottom; English. Science videos: the ask is a guess, sources in one line, never the answer in the caption. Entertainment: ask for a prediction only when the video resolves it, never spoil the result, no invented scientific sources, and say on the post when a mechanic is staged.
 
 ## Shipping
 
 Each finished video gets `prod-ready/<slug>/`: the MP4, `cover-9x16.png` (the composition's `<Still>`, key text inside the centre 3:4 crop, y 80-560 at base size), `cover-grid-3x4.png` (that crop), and `post.md` with the Instagram caption, TikTok caption, YouTube Shorts title (under 40 characters) and description, sound name, and a pre-post checklist.
 
 ## Posting (Buffer)
+
+During the entertainment pilots, rendering a pilot or agreeing to the pivot is not posting authorisation: each pilot needs the owner's review and an explicit go-ahead to publish. Entertainment Shorts use YouTube `categoryId` "24" (Entertainment) if the integration accepts it (confirm it and the made-for-kids setting before posting); legacy science videos keep "28" and their existing settings.
 
 The owner produces videos daily. When the owner approves a finished video, post it to Buffer straight away; the approval is the go-ahead, so do not ask again.
 1. Commit and push `prod-ready/<slug>/` to `main` first. Buffer fetches the video from `https://raw.githubusercontent.com/aviharez/8bit-content-bank/main/prod-ready/<slug>/<slug>.mp4`, so the file must be on GitHub before the post is created.

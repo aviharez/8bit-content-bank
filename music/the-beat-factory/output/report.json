@@ -1,0 +1,216 @@
+{
+  "bpm": 150,
+  "bars": 24,
+  "seconds": 38.400000000000006,
+  "loop": {
+    "seconds": 38.4,
+    "tail_folded_seconds": 0.233,
+    "lufs": -13.3,
+    "phone_lufs": -15.5,
+    "peak_dbfs": -3.29,
+    "gain_reduction": {
+      "over_1db_pct": 33.1,
+      "over_3db_pct": 0.1,
+      "over_6db_pct": 0.0,
+      "max_db": 3.5
+    }
+  },
+  "plan": [
+    {
+      "section": "start",
+      "bars": "1-4",
+      "what": "factory online: press, belt, left arm (hook A); the reactor starts filling",
+      "chords": [
+        "Fm",
+        "Db",
+        "Eb",
+        "Cm"
+      ],
+      "hook": [
+        "A",
+        "A'",
+        "A",
+        "A''"
+      ],
+      "bass_cutoff_hz": 520.0,
+      "balance_20_60_150_1k_5k": [
+        7,
+        67,
+        22,
+        3
+      ]
+    },
+    {
+      "section": "sorter",
+      "bars": "5-8",
+      "what": "the sorter opens the second intake (stab + clap on 2 and 4); the right arm answers (B)",
+      "chords": [
+        "Fm",
+        "Db",
+        "Ab",
+        "Eb"
+      ],
+      "hook": [
+        "A",
+        "B",
+        "A'",
+        "B'"
+      ],
+      "bass_cutoff_hz": 700.0,
+      "balance_20_60_150_1k_5k": [
+        8,
+        51,
+        32,
+        9
+      ]
+    },
+    {
+      "section": "cutter",
+      "bars": "9-12",
+      "what": "the laser cutter switches on (hats); arms call and answer inside each bar, a lamp higher",
+      "chords": [
+        "Bbm",
+        "Db",
+        "Eb",
+        "Cm"
+      ],
+      "hook": [
+        "X",
+        "X'",
+        "X",
+        "X'"
+      ],
+      "bass_cutoff_hz": 950.0,
+      "balance_20_60_150_1k_5k": [
+        3,
+        56,
+        33,
+        9
+      ]
+    },
+    {
+      "section": "build",
+      "bars": "13-16",
+      "what": "the reactor fills to 100 %; charge ring (snare roll); bar 16 every machine holds",
+      "chords": [
+        "Db",
+        "Bbm",
+        "Cm",
+        "Eb"
+      ],
+      "hook": [
+        "rise",
+        "rise'",
+        "ping-pong",
+        "hold"
+      ],
+      "bass_cutoff_hz": 1300.0,
+      "balance_20_60_150_1k_5k": [
+        1,
+        32,
+        33,
+        33
+      ]
+    },
+    {
+      "section": "drop",
+      "bars": "17-20",
+      "what": "IGNITION: lights on, MAX POWER, both arms on alternate 16ths, cutter every 16th",
+      "chords": [
+        "Fm",
+        "Db",
+        "Eb",
+        "Cm"
+      ],
+      "hook": [
+        "C",
+        "C",
+        "C'",
+        "C''"
+      ],
+      "bass_cutoff_hz": 2400.0,
+      "balance_20_60_150_1k_5k": [
+        2,
+        43,
+        42,
+        13
+      ]
+    },
+    {
+      "section": "cooldown",
+      "bars": "21-24",
+      "what": "the reactor cools 75/50/25/0 %, crates dispatched off the side, back to the opening texture",
+      "chords": [
+        "Db",
+        "Ab",
+        "Eb",
+        "Cm"
+      ],
+      "hook": [
+        "A",
+        "B",
+        "A'",
+        "A''"
+      ],
+      "bass_cutoff_hz": 620.0,
+      "balance_20_60_150_1k_5k": [
+        6,
+        63,
+        25,
+        5
+      ]
+    }
+  ],
+  "stem_rms_db_vs_kick": {
+    "kick": 0.0,
+    "bass": -2.0,
+    "lead": -3.5,
+    "stab": -6.0,
+    "clap": -3.5,
+    "whine": -8.0,
+    "hats": -5.0,
+    "roll": -4.5
+  },
+  "identical_neighbour_blocks": [],
+  "sync": {
+    "events": 820,
+    "events_by_instrument": {
+      "bass": 276,
+      "hats": 152,
+      "kick": 92,
+      "lead": 218,
+      "roll": 24,
+      "stab": 34,
+      "whine": 24
+    },
+    "max_note_vs_frame_diff_frames": 2.2737367544323206e-13
+  },
+  "notes_per_bus": {
+    "kick C2": 20,
+    "kick C#2": 24,
+    "kick Eb2": 20,
+    "kick F2": 12,
+    "kick Ab2": 8,
+    "kick Bb2": 8,
+    "bass start": 48,
+    "bass sorter": 48,
+    "bass cutter": 48,
+    "bass build": 36,
+    "bass drop": 48,
+    "bass cooldown": 48,
+    "lead L": 133,
+    "lead R": 85,
+    "stab 0": 34,
+    "stab 1": 34,
+    "stab 2": 34,
+    "clap": 34,
+    "whine start": 4,
+    "whine sorter": 4,
+    "whine cutter": 4,
+    "whine build": 4,
+    "whine drop": 4,
+    "whine cooldown": 4,
+    "hats": 152,
+    "roll": 24
+  }
+}

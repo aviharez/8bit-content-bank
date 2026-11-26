@@ -1,12 +1,24 @@
 # 8-bit content bank: Square Wave Lab
 
-The content bank for **Square Wave Lab** (`@squarewavelab` on Instagram, TikTok and YouTube).
-Short science explainers in pixel art with 8-bit music, made entirely with code.
-Each video takes a real object or phenomenon, runs the actual equation behind it, and turns the simulation's events into the soundtrack.
+The content bank for **Square Wave Lab** (`@squarewavelab` on Instagram, TikTok and YouTube), *Where Everything Becomes Music*.
 
-**Formula:** a real thing + one equation + a sound computed from that equation.
+Square Wave Lab creates original music-led audiovisual entertainment in 3D pixel art, entirely with code. Tiny worlds act like playable instruments: every meaningful musical event has a visible cause. The channel also archives its original science explainers.
 
-## Videos
+**Formula:** a playable world + a musical rule + an unexpected payoff.
+
+Start with [START-HERE.md](START-HERE.md), then [creative direction](docs/creative-direction.md), [content pillars](docs/content-pillars.md), [production workflow](docs/production-workflow.md), [quality gates](docs/quality-gates.md), the [entertainment idea bank](docs/entertainment-ideas.md) and the [pilot briefs](docs/plans/entertainment-pilots.md). The [migration guide](docs/pivot-migration.md) records how the pivot was applied.
+
+## Entertainment videos
+
+| # | Video | Series | Length | Status | Render |
+|---|---|---|---|---|---|
+| E1 | The Beat Factory (a night-shift factory plays hard techno: the press is the kick, the belt the bass, two robot arms the hook; 60 crates fill the reactor and it ignites on the drop) | Beat Factory | 38.4 s, 9:16 | Approved | [prod-ready/the-beat-factory/](prod-ready/the-beat-factory/) |
+
+## Legacy science explainers
+
+Short science explainers in pixel art with 8-bit music. Each video takes a real object or phenomenon, runs the actual equation behind it, and turns the simulation's events into the soundtrack.
+
+**Legacy formula:** a real thing + one equation + a sound computed from that equation.
 
 | # | Video | Series | Length | Status | Render |
 |---|---|---|---|---|---|
@@ -32,12 +44,12 @@ The full bank of ideas is in [docs/ideas.md](docs/ideas.md).
 
 ```
 sims/<slug>.ts ──► public/<slug>/timeline.json ──┬──► music/<slug>/compose.py ──► public/<slug>/track.wav
-   (exact physics, fixed clock)                  │        (Audio as Code)
+   (deterministic sim, fixed clock)              │        (Audio as Code)
                                                  └──► src/videos/<slug>/ (Remotion) ──► renders/<slug>.mp4
 ```
 
 - **One clock.** Every video picks a BPM and fps first (120 BPM / 30 fps = 15 frames per beat). The simulation, the music, and the picture all read the same `timeline.json`, so sound and image cannot drift.
-- **Simulation** (`sims/`): TypeScript, event-driven or fixed-timestep, written to JSON per frame. Remotion renders frames in parallel and out of order, so no state lives between frames.
+- **Simulation** (`sims/`): TypeScript, event-driven or fixed-timestep, written to JSON per frame. Entertainment episodes schedule authored, deterministic mechanics on the musical grid (every contact comes from the scheduler); legacy science videos run the exact physics. Remotion renders frames in parallel and out of order, so no state lives between frames.
 - **Music** (`music/`): composed in Python with [Audio as Code](https://audioascode.com) (instruments synthesised from code, no samples). Sonification tracks are generated from the simulation events.
 - **Picture** (`src/`): Remotion. 3D scenes are drawn with three.js at low resolution (360×640), snapped to a 32-colour palette with ordered dithering, then shown at exactly 3×. The HUD is drawn crisp on top.
 

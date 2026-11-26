@@ -14,11 +14,16 @@ import { GuitarString, GuitarStringCover } from "./videos/guitar-string/GuitarSt
 import { Lightning, LightningCover } from "./videos/lightning/Lightning";
 import { Birthday, BirthdayCover } from "./videos/birthday/Birthday";
 import { MontyHall, MontyHallCover } from "./videos/monty-hall/MontyHall";
+import { TheBeatFactory, TheBeatFactoryCover } from "./videos/the-beat-factory/TheBeatFactory";
 
-// One folder per series; one registration per video.
+// One folder per series; one registration per video. Entertainment series first, legacy science explainers after.
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Folder name="beat-factory">
+        <TheBeatFactory />
+        <TheBeatFactoryCover />
+      </Folder>
       <Folder name="the-sound-of-pi">
         <CountTheClacks />
         <CountTheClacksCover />

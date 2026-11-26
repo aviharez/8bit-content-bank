@@ -15,11 +15,16 @@ import { Lightning, LightningCover } from "./videos/lightning/Lightning";
 import { Birthday, BirthdayCover } from "./videos/birthday/Birthday";
 import { MontyHall, MontyHallCover } from "./videos/monty-hall/MontyHall";
 import { TheBeatFactory, TheBeatFactoryCover } from "./videos/the-beat-factory/TheBeatFactory";
+import { BeatRace, BeatRaceCover } from "./videos/beat-race/BeatRace";
 
 // One folder per series; one registration per video. Entertainment series first, legacy science explainers after.
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Folder name="beat-race">
+        <BeatRace />
+        <BeatRaceCover />
+      </Folder>
       <Folder name="beat-factory">
         <TheBeatFactory />
         <TheBeatFactoryCover />

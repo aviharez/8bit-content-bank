@@ -12,7 +12,7 @@ Each idea pairs a real thing with one equation and a sound that is computed from
 | 6 | DOPPLER: HEAR IT PASS | Doppler shift of a passing siren | The computed siren pitch, quantised to the key | Every Wave | Dropped (Nov 2026): built once as race cars passing a listener; the cars' sound must be a real engine, and the library's synths (acid blips, then a sync_lead/reese engine) sounded retro and strange to the owner |
 | 7 | WHY A STRING SINGS | Standing waves and the harmonic series | The melody is the harmonic series itself | Every Wave || Done ([render](../renders/guitar-string.mp4)) |
 | 8 | DRAW WITH CIRCLES | Fourier series (epicycles) drawing a shape | One voice per circle; their sum is the timbre | The Sound of Pi | |
-| 9 | 27 TAKES 111 STEPS | Collatz sequence from 27 (peak 9,232) | Odd steps rise, even steps fall | Unsolved Math | |
+| 9 | 27 TAKES 111 STEPS | Collatz sequence from 27 (peak 9,232) | Odd steps rise, even steps fall | Unsolved Math | Dropped (Nov 2026): built twice (a hailstone in a storm cloud, then its trail drawn as a graph over a town); the owner could not follow the concept: a number sequence has no physical thing you watch happen |
 | 10 | TWO PENDULUMS, ONE DIFFERENCE | Chaos in a double pendulum | Two identical melodies that slowly drift into dissonance | Chaos | |
 | 11 | THE BALL THAT DRUMROLLS | A bouncing ball with a coefficient of restitution | Gaps shrink geometrically into a drum roll | Gravity | Dropped: built once (flat 2D side view), the result was not good enough |
 | 12 | GAME OF LIFE SEQUENCER | Conway's cellular automaton | The grid is a step sequencer; a birth is a note | Chaos | Dropped: built once, too abstract to follow without explanation (needs the rules shown visually first) |

@@ -1,0 +1,211 @@
+{
+  "bpm": 128.57142857142858,
+  "bars": 24,
+  "seconds": 44.8,
+  "winner": "B",
+  "finishAt": {
+    "R": 66,
+    "B": 64
+  },
+  "loop": {
+    "seconds": 44.8,
+    "tail_folded_seconds": 0.038,
+    "lufs": -13.5,
+    "phone_lufs": -15.5,
+    "peak_dbfs": -3.19,
+    "gain_reduction": {
+      "over_1db_pct": 19.0,
+      "over_3db_pct": 0.3,
+      "over_6db_pct": 0.0,
+      "max_db": 3.6
+    }
+  },
+  "plan": [
+    {
+      "section": "start",
+      "bars": "1-4",
+      "what": "the gate drops; Red calls, Blue answers; Red rolls out ahead",
+      "chords": [
+        "Am",
+        "Am",
+        "Bb",
+        "Bb"
+      ],
+      "hook": [
+        "A",
+        "A'",
+        "B",
+        "A''"
+      ],
+      "balance_20_60_150_1k_5k": [
+        11,
+        42,
+        37,
+        9
+      ]
+    },
+    {
+      "section": "checkpoints",
+      "bars": "5-8",
+      "what": "checkpoints 1-2 (stab + clap); Blue overtakes in bar 7 and starts calling",
+      "chords": [
+        "Am",
+        "Am",
+        "Gm",
+        "Gm"
+      ],
+      "hook": [
+        "C",
+        "C'",
+        "D (Blue calls)",
+        "D'"
+      ],
+      "balance_20_60_150_1k_5k": [
+        7,
+        45,
+        37,
+        11
+      ]
+    },
+    {
+      "section": "swap",
+      "bars": "9-12",
+      "what": "Blue ahead (CP3); Red's comeback in bar 11, 16th runs, Red first at CP4",
+      "chords": [
+        "Dm",
+        "Dm",
+        "Bb",
+        "Bb"
+      ],
+      "hook": [
+        "E",
+        "E'",
+        "F (Red's run)",
+        "F'"
+      ],
+      "balance_20_60_150_1k_5k": [
+        6,
+        44,
+        37,
+        13
+      ]
+    },
+    {
+      "section": "neck",
+      "bars": "13-16",
+      "what": "rolling bass; Blue first at CP5; neck and neck, snare roll fills the finish banner; bar 16 holds",
+      "chords": [
+        "Gm",
+        "Gm",
+        "Bb",
+        "Bb"
+      ],
+      "hook": [
+        "G",
+        "G'",
+        "ping-pong",
+        "hold"
+      ],
+      "balance_20_60_150_1k_5k": [
+        2,
+        30,
+        57,
+        10
+      ]
+    },
+    {
+      "section": "finish",
+      "bars": "17-20",
+      "what": "BLUE WINS on the drop: confetti, Blue's hook bouncing in its bucket, Red answers on beat 3",
+      "chords": [
+        "Am",
+        "Am",
+        "Bb",
+        "Bb"
+      ],
+      "hook": [
+        "W (Blue wins)",
+        "W'",
+        "W''",
+        "W'''"
+      ],
+      "balance_20_60_150_1k_5k": [
+        10,
+        38,
+        36,
+        16
+      ]
+    },
+    {
+      "section": "lift",
+      "bars": "21-24",
+      "what": "the buckets ride the lift up, call and answer as at the start, both tipped onto the start gate",
+      "chords": [
+        "Dm",
+        "Dm",
+        "Bb",
+        "Bb"
+      ],
+      "hook": [
+        "A",
+        "A'",
+        "B",
+        "A"
+      ],
+      "balance_20_60_150_1k_5k": [
+        7,
+        51,
+        33,
+        10
+      ]
+    }
+  ],
+  "stem_rms_db_vs_kick": {
+    "kick": 0.0,
+    "bass": -4.0,
+    "red": -3.5,
+    "blue": -5.0,
+    "mid": -7.0,
+    "glow": -9.0,
+    "stab": -6.0,
+    "clap": -5.0,
+    "hats": -10.0,
+    "roll": -6.0,
+    "gate": -4.0
+  },
+  "identical_neighbour_blocks": [],
+  "sync": {
+    "events": 828,
+    "events_by_instrument": {
+      "bass": 196,
+      "blue": 104,
+      "clap": 10,
+      "gate": 3,
+      "glow": 4,
+      "hats": 204,
+      "kick": 92,
+      "mid": 92,
+      "red": 89,
+      "roll": 24,
+      "stab": 10
+    },
+    "max_note_off_frame_grid_frames": 0.5
+  },
+  "notes_per_bus": {
+    "kick": 92,
+    "bass": 196,
+    "red": 89,
+    "blue": 104,
+    "mid lo": 92,
+    "mid hi": 92,
+    "glow lo": 4,
+    "glow hi": 4,
+    "stab lo": 10,
+    "stab hi": 10,
+    "clap": 10,
+    "hats": 204,
+    "roll": 24,
+    "gate am": 2,
+    "gate gm": 1
+  }
+}

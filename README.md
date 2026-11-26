@@ -12,6 +12,7 @@ Start with [START-HERE.md](START-HERE.md), then [creative direction](docs/creati
 
 | # | Video | Series | Length | Status | Render |
 |---|---|---|---|---|---|
+| E2 | Red vs Blue: Beat Race (two marbles race down mirrored arcade lanes, every pin and peg they hit a note of their melody, past gates, peg fields and bounce pads; the leader calls, the other answers; Blue wins on the drop) | Beat Wars | 44.8 s, 9:16 | Approved | [prod-ready/beat-race/](prod-ready/beat-race/) |
 | E1 | The Beat Factory (a night-shift factory plays hard techno: the press is the kick, the belt the bass, two robot arms the hook; 60 crates fill the reactor and it ignites on the drop) | Beat Factory | 38.4 s, 9:16 | Approved | [prod-ready/the-beat-factory/](prod-ready/the-beat-factory/) |
 
 ## Legacy science explainers
